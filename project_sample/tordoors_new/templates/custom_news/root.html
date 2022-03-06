@@ -1,0 +1,11 @@
+{% extends "easy_news/base.html" %}
+{% load base_tags custom_news_tags %}
+
+{% block content %}
+    <section class="section-default section-default--top">
+        <div class="container">
+            {% show_block_news %}
+        </div>
+    </section>
+{% endblock %}
+

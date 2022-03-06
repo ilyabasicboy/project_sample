@@ -1,0 +1,25 @@
+{% load custom_attachment_tags attachment_tags pages_tags %}
+
+<a class="article" href="{{ obj.get_absolute_url }}">
+    {% get_images for obj as images %}
+    {% with images=images|role:None %}
+        {% if images %}
+        <div class="article__preview">
+            <img src="{{ images.0.thumb300.url }}" alt="{{ obj.title }}" title="{{ obj.title }}">
+        </div>
+        {% endif %}
+    {% endwith %}
+    <div class="article__content">
+        {% if obj.title %}
+            <h4 class="article__title">
+                {{ obj.title }}
+            </h4>
+        {% endif %}
+        {% get_content obj 'preview' as preview %}
+        {% if preview %}
+            <div class="article__description">
+                {{ preview|safe }}
+            </div>
+        {% endif %}
+    </div>
+</a>

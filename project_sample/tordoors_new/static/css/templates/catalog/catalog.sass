@@ -1,0 +1,150 @@
+.catalog
+	display: flex
+	flex-direction: column
+	width: 100%
+	&__top + .catalog__panel
+		margin-top: 40px
+		@media screen and (max-width: $md-min)
+		    margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 14px
+
+	&__top + .catalog__grid
+		margin-top: 40px
+		@media screen and (max-width: $md-min)
+		    margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 24px
+
+	&__top + .catalog__footer
+		margin-top: 40px
+		@media screen and (max-width: $md-min)
+		    margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 24px
+
+	&__panel + .catalog__grid
+		margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 14px
+
+	&__panel + .catalog__footer
+		margin-top: 40px
+		@media screen and (max-width: $md-min)
+		    margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 14px
+
+	&__grid + .catalog__footer
+		margin-top: 40px
+		@media screen and (max-width: $md-min)
+		    margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 24px
+
+	&__grid
+		display: grid
+		grid-template-columns: repeat(12, 1fr)
+		grid-gap: 32px
+		@media screen and (max-width: $md-min)
+		    grid-gap: 20px
+		@media screen and (max-width: $xs-max)
+		    grid-gap: 14px
+		&-3
+			grid-column: 3 span
+
+		&-4
+			grid-column: 4 span
+
+		&-12
+			grid-column: 12 span
+
+		&-main-col-3
+		    .catalog__grid-3, .catalog__grid-4
+		        grid-column: 3 span
+
+		@media screen and (max-width: $md-min)
+		    &-main-col-4--md
+		        .catalog__grid-3, .catalog__grid-4
+                    grid-column: 4 span
+
+		@media screen and (max-width: $xs-max)
+		    &-6--xs
+		        grid-column: 6 span
+		    &-main-col-6--xs
+		        .catalog__grid-3, .catalog__grid-4
+                    grid-column: 6 span
+
+		&--hidden-loader
+		    .catalog__show-more
+		        display: none!important
+
+		&-footer
+		    display: flex
+		    align-items: center
+		    justify-content: center
+		    margin-top: 40px
+		    @media screen and (max-width: $md-min)
+		        margin-top: 32px
+		    @media screen and (max-width: $xs-max)
+		        margin-top: 24px
+
+	&__show-more
+	    display: flex
+	    align-items: center
+	    justify-content: center
+	    position: relative
+	    height: 100px
+
+	&__loader
+	    position: absolute
+	    top: 0
+	    left: 0
+	    z-index: 3
+	    width: 100%
+	    height: 100%
+	    display: flex
+	    align-items: center
+	    justify-content: center
+	    background-color: #fff
+	    transition: opacity 0.5s ease-in-out
+	    opacity: 0
+	    pointer-events: none
+	    &.active
+	        opacity: 1
+	        pointer-events: auto
+
+	&__notfound
+	    margin-top: 88px
+	    margin-bottom: 25px
+	    display: flex
+	    flex-direction: column
+	    align-items: center
+	    justify-content: center
+	    text-align: center
+	    @media screen and (max-width: $xs-max)
+	        padding-top: 40px
+	    &-icon
+	        width: 40px
+	        height: 40px
+	        min-width: 40px
+	        min-height: 40px
+	        margin-bottom: 22px
+	        @media screen and (max-width: $xs-max)
+	            margin-bottom: 16px
+	        svg, img
+	            width: 100%
+	            height: 100%
+	            object-fit: contain
+	    &-title
+	        font-size: 16px
+	        line-height: 22px
+	        font-weight: 300
+	        color: #000
+	        @media screen and (max-width: $md-min)
+	            font-size: 13px
+	            line-height: 20px
+	        @media screen and (max-width: $xs-max)
+	            font-size: 12px
+	            line-height: 18px
+

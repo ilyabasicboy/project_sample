@@ -1,0 +1,8 @@
+{% for obj in breadcrumbs %}
+    <a class="breadcrumbs__item" href="{{ obj.get_absolute_url }}">
+        <span>{{ obj.title }}</span>
+    </a>
+    <span class="breadcrumbs__item">
+        /
+    </span>
+{% endfor %}

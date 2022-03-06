@@ -1,0 +1,21 @@
+{% load static %}
+{% with item.children as children %}
+    <div class="footer__list">
+        <div class="footer__list-title">
+            {{ item.caption }}
+        </div>
+        {% if children %}
+            <ul class="footer__menu">
+            {% for child in children %}
+                {% if child.show %}
+                    <li class="footer__menu-item">
+                        <a class="footer__menu-link" href="{{ child.url }}">
+                            {{ child.caption }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endwith %}

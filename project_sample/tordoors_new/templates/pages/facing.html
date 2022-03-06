@@ -1,0 +1,78 @@
+{% extends 'pages/base.html' %}
+{% load treemenus_tags custom_catalog_tags custom_pages_tags custom_news_tags feedback_tags reviews_tags pages_tags attachment_tags base_tags %}
+
+{% block content %}
+
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="default-page page-sidebar">
+                {% placeholder show_left_menu label 'Отображать боковое меню' with Checkbox as show_left_menu %}
+                {% if show_left_menu == 'True' %}
+                    <div class="list-pages__sidebar">
+                        {% get_root as object %}
+                        {% if object %}
+                            <div class="default-page__sidebar">
+                                {% include 'catalog/parts/catalog_left_menu.html' %}
+                                <div class="modal-selection mfp-hide mfp-anim" id="fast-filter-modal">
+                                    <div class="container modal-selection__container">
+                                        <div class="modal__header modal__header--center-md modal__header--left-xs">
+                                            <h3 class="modal__title modal__title--white">
+                                                Быстрый подбор двери
+                                            </h3>
+                                            <span class="modal__subtitle">
+                                                по параметрам
+                                            </span>
+                                        </div>
+                                        {% show_filter_form %}
+                                    </div>
+                                    <button class="modal-selection__close close-modal-noscroll">
+                                        <svg width="33" height="15" viewBox="0 0 33 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14.998 14.5001L0.998043 7.50012L14.998 0.50012V6.50012L33.998 6.50012V8.50012L14.998 8.50012L14.998 14.5001Z" fill="#93C718"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <div class="facing">
+                    {% placeholder top_content with TinyMCE label 'Контент страницы' as top_content %}
+                    {% if top_content %}
+                        <div class="facing__top placeholder">
+                            {% show_block_content top_content %}
+                        </div>
+                    {% endif %}
+
+                    {% placeholder facing with FacingSelect label 'Выбрать отделку' as facing %}
+                    {% get_facing_by_id facing as facing %}
+                    {% for color in facing.facing_colors.all %}
+                        {% get_images for color as images %}
+                        {% if images %}
+                            <ul class="facing__list mfp-gallery">
+                                <li class="facing__item">
+                                    <a class="facing__link" href="{{ images.0.watermarkpicture.url }}">
+                                        <div class="facing__link-img">
+                                            <img src="{{ images.0.img120x120.url }}" alt="{{ images.0.title }}" title="{{ images.0.title }}">
+                                        </div>
+                                        <span class="facing__link-title">
+                                            {{ color.name }}
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}
+                    {% if bottom_content %}
+                        <div class="facing__bottom placeholder">
+                            {% show_block_content bottom_content %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

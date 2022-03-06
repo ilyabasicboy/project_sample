@@ -1,0 +1,123 @@
+{% load feedback_tags %}
+<form action="{% url 'ajax_feedback' key=form.get_settings_key %}" method="post" id="id_feedback_form_{{ form.get_settings_key }}" class="form feedback-form {{ form.get_settings_key }}" novalidate>
+
+    {% csrf_token %}
+    {{ form.message_ }}
+
+    <div class="form__item-full form__column form__grid">
+        <div class="form__grid form__grid--bgap form__grid-6 form__grid-xs-12">
+            <div class="form__item form__grid-12">
+                <label class="input__label">
+                    <span class="input__info">
+                        {{ form.name.label }}
+                    </span>
+                    <div class="input__content input">
+                        {{ form.name }}
+                    </div>
+                </label>
+            </div>
+            <div class="form__item form__grid-12">
+                <label class="input__label {% if form.phone.errors %}error{% endif %}">
+                    <span class="input__info">
+                        {{ form.phone.label }}
+                    </span>
+                    <div class="input__content input">
+                        {{ form.phone }}
+                    </div>
+                </label>
+            </div>
+            <div class="form__item form__grid-12">
+                <label class="input__label {% if form.email.errors %}error{% endif %}">
+                    <span class="input__info">
+                        {{ form.email.label }}
+                    </span>
+                    <div class="input__content input">
+                        {{ form.email }}
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="form__grid form__grid--bgap form__grid-6 form__grid-xs-12">
+            <div class="form__item form__grid-12">
+                <label class="input__label">
+                    <span class="input__info">
+                        {{ form.comment.label }}
+                    </span>
+                    <div class="input__content textarea textarea--dheight">
+                        {{ form.comment }}
+                    </div>
+                </label>
+            </div>
+            <div class="form__item form__grid-12">
+                <div class="upload">
+                    <label class="upload__load">
+                        <input class="input-file" type="file" name="calculate-file" id="id_calculate-file" data-accept-imgfile>
+                        <div class="upload__btn">
+                            <span>
+                                Прикрепить файл
+                            </span>
+                        </div>
+                    </label>
+                    <span class="upload__info">
+                        <b>Допустимый формат: JPG, PNG, PDF, до 5 Мб</b>
+                        <a class="upload__delete">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <title>Удалить файл</title>
+                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="-ОТЗЫВЫ-ФОС-Ошибка" transform="translate(-841.000000, -748.000000)" fill="#303030" fill-rule="nonzero">
+                                        <g id="Icons/Form-close" transform="translate(841.000000, 748.000000)">
+                                            <g id="Group" transform="translate(6.281942, 5.939085)">
+                                                <path d="M13.415201,5.03234384 L-1.29337045,5.03234384 C-1.4065133,5.03234384 -1.48194188,5.09111935 -1.48194188,5.17928261 L-1.48194188,6.94254792 C-1.48194188,7.03071119 -1.4065133,7.0894867 -1.29337045,7.0894867 L13.415201,7.0894867 C13.5283438,7.0894867 13.6037724,7.03071119 13.6037724,6.94254792 L13.6037724,5.17928261 C13.6037724,5.09111935 13.5283438,5.03234384 13.415201,5.03234384 Z" id="Path" transform="translate(6.060915, 6.060915) rotate(-315.000000) translate(-6.060915, -6.060915) "/>
+                                                <path d="M13.415201,5.03234384 L-1.29337045,5.03234384 C-1.4065133,5.03234384 -1.48194188,5.09111935 -1.48194188,5.17928261 L-1.48194188,6.94254792 C-1.48194188,7.03071119 -1.4065133,7.0894867 -1.29337045,7.0894867 L13.415201,7.0894867 C13.5283438,7.0894867 13.6037724,7.03071119 13.6037724,6.94254792 L13.6037724,5.17928261 C13.6037724,5.09111935 13.5283438,5.03234384 13.415201,5.03234384 Z" id="Path" transform="translate(6.060915, 6.060915) scale(-1, 1) rotate(-315.000000) translate(-6.060915, -6.060915) "/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__item-full">
+        <div class="form__bottom">
+            <div class="form__privacy">
+                <div class="default-checkbox {% if form.confirm.errors %}error{% endif %}">
+                    <label class="default-checkbox__label">
+                        <input class="default-checkbox__input" type="checkbox" name="calculate-confirm" required="" id="id_calculate-confirm" {% if not form.confirm.errors %}checked{% endif %}>
+                        <div class="default-checkbox__content">
+                            <div class="default-checkbox__fake">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="11px" viewBox="0 0 14 11" version="1.1">
+                                    <title>Выбрать</title>
+                                    <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="КАРТОЧКА-товара-Однопольная---1" transform="translate(-819.000000, -945.000000)" stroke="#303030" stroke-width="2">
+                                            <g id="Вид-внтури" transform="translate(766.000000, 349.000000)">
+                                                <g id="Отделка-внутри" transform="translate(0.000000, 526.000000)">
+                                                    <g id="Рисунок-внутри" transform="translate(0.000000, 28.000000)">
+                                                        <g id="Float" transform="translate(50.000000, 36.000000)">
+                                                            <polyline id="Check" points="4.5 11.5 8 15 16 7"/>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="default-checkbox__text form__privacy-text">
+                                {{ chunks.privacy_policy.content }}
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn--accent">
+                <span>
+                    Отправить заявку
+                </span>
+            </button>
+        </div>
+    </div>
+</form>

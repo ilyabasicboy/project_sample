@@ -1,0 +1,43 @@
+{% load cache treemenus_tags custom_catalog_tags %}
+<ul class="header__menu menu-visible">
+    <li class="header__menu-item menu-level-1">
+        <a class="header__menu-link" href="/catalog">
+            <span class="header__menu-text">
+                Каталог
+            </span>
+            <span class="header__menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="5px" viewBox="0 0 8 5" version="1.1">
+                    <title>Открыть</title>
+                    <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.8">
+                        <g id="ГЛАВНАЯ-4-Copy" transform="translate(-279.000000, -38.000000)" stroke="#FFFFFF" stroke-width="1.5">
+                            <g id="Group-2" transform="translate(218.000000, 31.000000)">
+                                <polyline id="Path-5" points="62 8 65 11 67.9997908 8.00020922"/>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </span>
+        </a>
+        <span class="header__menu-mobleicon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="5px" viewBox="0 0 8 5" version="1.1">
+                <title>Открыть</title>
+                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.8">
+                    <g id="ГЛАВНАЯ-4-Copy" transform="translate(-279.000000, -38.000000)" stroke="#FFFFFF" stroke-width="1.5">
+                        <g id="Group-2" transform="translate(218.000000, 31.000000)">
+                            <polyline id="Path-5" points="62 8 65 11 67.9997908 8.00020922"/>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+        <div class="header__submenu-overlay"></div>
+        {% cache 600 catalog_main_menu %}
+            {% catalog_main_menu %}
+        {% endcache %}
+    </li>
+    {% for item in menu.root_item.children %}
+        {% if item.show %}
+            {% show_menu_item item %}
+        {% endif %}
+    {% endfor %}
+</ul>

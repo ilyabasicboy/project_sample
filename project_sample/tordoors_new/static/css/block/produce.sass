@@ -1,0 +1,154 @@
+.produce
+	&--slider .slick-list
+		overflow: visible
+		max-width: 100%
+
+	&-menu--slider .slick-list
+		overflow: visible
+		max-width: 100%
+
+	&--slider
+		margin-right: -32px
+		@media screen and (max-width: $md-min)
+		    margin-right: -20px
+		&:not(.slick-initialized)
+		    min-height: 458px
+		    @media screen and (max-width: $md-min)
+		        min-height: 280px
+		    @media screen and (max-width: $xs-max)
+		        min-height: 226px
+		    .produce__slider-item
+		        display: none
+
+	&__slider-item
+		background-color: #FDFDFD
+		border: 1px solid #e8e8e8
+		padding: 20px
+		padding-top: 30px
+		padding-bottom: 0
+		width: 100%
+		margin-right: 32px
+		opacity: 0.6
+		transition: opacity 0.4s ease-in-out
+		&.slick-active
+			opacity: 1
+		@media screen and (max-width: $md-min)
+		    padding: 14px
+		    padding-top: 20px
+		    padding-bottom: 0
+		    margin-right: 20px
+		@media screen and (max-width: $xs-max)
+		    padding: 10px
+		    madding-top: 18px
+		    padding-bottom: 0
+
+
+	&__item-content
+		display: flex
+
+	&__item-img
+		display: flex
+		align-items: flex-end
+		width: 50%
+
+	&__item-info
+		width: 50%
+		padding-left: 40px
+		padding-top: 20px
+		padding-bottom: 45px
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		@media screen and (max-width: $md-max)
+		    padding-left: 24px
+		@media screen and (max-width: $md-min)
+		    padding-top: 16px
+		    padding-bottom: 24px
+		@media screen and (max-width: $xs-max)
+		    padding-top: 10px
+		    padding-bottom: 18px
+		&__bottom
+			display: flex
+			flex-direction: column
+			align-items: flex-start
+
+
+	&__item-title
+		text-transform: uppercase
+		color: #303030
+		font-size: 26px
+		line-height: 35px
+		font-weight: 700
+		word-wrap: break-word
+		hyphens: auto
+		@media screen and (max-width: $md-max)
+		    font-size: 22px
+		    line-height: 30px
+		@media screen and (max-width: $md-min)
+		    font-size: 16px
+		    line-height: 22px
+		@media screen and (max-width: $xs-max)
+		    font-size: 12px
+		    line-height: 16px
+		span
+			font-size: 20px
+			line-height: 27px
+			color: #979797
+			font-weight: 400
+			@media screen and (max-width: $md-min)
+			    font-size: 12px
+			    line-height: 16px
+			@media screen and (max-width: $xs-max)
+			    font-size: 10px
+			    line-height: 16px
+
+
+	&__item-option
+		margin-top: 10px
+		margin-right: -6px
+		display: flex
+		flex-wrap: wrap
+		@media screen and (max-width: $md-min)
+		    margin-top: 8px
+		&__item
+			margin-right: 6px
+			margin-bottom: 6px
+			font-size: 18px
+			line-height: 24px
+			color: #e8e8e8
+			font-weight: 800
+			@media screen and (max-width: $md-min)
+			    font-size: 12px
+			    line-height: 16px
+			@media screen and (max-width: $xs-max)
+			    font-size: 10px
+			    line-height: 12px
+
+
+	&__item-price
+		font-size: 20px
+		line-height: 27px
+		color: #303030
+		font-weight: 700
+		span
+			font-size: 30px
+		@media screen and (max-width: $md-min)
+		    font-size: 12px
+		    line-height: 17px
+		    span
+		        font-size: 18px
+		@media screen and (max-width: $xs-max)
+		    font-size: 10px
+		    line-height: 13px
+		    span
+		        font-size: 16px
+
+
+	&__item-link
+		margin-top: 60px
+		@media screen and (max-width: $md-min)
+		    margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 24px
+
+

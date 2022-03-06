@@ -1,0 +1,89 @@
+{% extends 'catalog/base.html' %}
+{% load base_tags catalog_tags pages_tags attachment_tags custom_catalog_tags %}
+
+{% block content %}
+
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="default-page page-sidebar">
+                <div class="default-page__sidebar">
+                    {% include 'catalog/parts/catalog_left_menu.html' %}
+                    <div class="modal-selection mfp-hide mfp-anim" id="fast-filter-modal">
+                        <div class="container modal-selection__container">
+                            <div class="modal__header modal__header--center-md modal__header--left-xs">
+                                <h3 class="modal__title modal__title--white">
+                                    Быстрый подбор двери
+                                </h3>
+                                <span class="modal__subtitle">
+                                    по параметрам
+                                </span>
+                            </div>
+                            {% show_filter_form %}
+                        </div>
+                        <button class="modal-selection__close close-modal-noscroll">
+                            <svg width="33" height="15" viewBox="0 0 33 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.998 14.5001L0.998043 7.50012L14.998 0.50012V6.50012L33.998 6.50012V8.50012L14.998 8.50012L14.998 14.5001Z" fill="#93C718"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="default-page__content">
+                    <div class="catalog__panel filter__panel">
+                        <div class="filter__panel-sticky">
+                            {% show_short_filter_form %}
+                        </div>
+                    </div>
+
+                    <div class="catalog__grid product_list_ajax">
+                        {% show_block_cards %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if object.bottom_content %}
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="placeholder">
+                {% show_block_content object.bottom_content %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% catalog_children for object type category as categories %}
+    {% if categories %}
+    <section class="section-default section-default--top">
+        <div class="container">
+            <h3 class="h3 title-default--mtop0">
+                Вас также может заинтересовать
+            </h3>
+            <ul class="menu-other scroll-custom-x-hidden--xs">
+                {% for category in categories %}
+                    <li class="menu-other__item">
+                        <a class="menu-other__link" href="{{ category.get_absolute_url }}">
+                            <span>
+                                {{ category.title }}
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if object.door_samples %}
+        {% get_page object.door_samples as gallery %}
+        {% get_images for gallery as images %}
+        {% if images %}
+            <section class="section-default section--grey gallery__slider--margin mfp-gallery">
+                {% include 'parts/door_samples.html' %}
+            </section>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+

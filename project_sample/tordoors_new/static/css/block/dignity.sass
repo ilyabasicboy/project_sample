@@ -1,0 +1,81 @@
+.dignity
+	display: grid
+	grid-template-columns: repeat(12, 1fr)
+	grid-gap: 32px
+	max-width: 1350px
+	padding: 45px 75px
+	margin: auto
+	position: relative
+	z-index: 3
+	background-color: #FBFBFB
+	min-height: 200px
+	@media screen and (max-width: $md-max)
+	    padding: 45px
+	@media screen and (max-width: $xs-max)
+	    display: flex
+	    grid-gap: 0
+	    padding: 30px 0
+	    min-height: 144px
+	    &:not(.slick-initialized)
+	        .dignity__item
+	            display: none
+	&--margin
+		margin-top: -103px
+		@media screen and (max-width: 1350px)
+		    margin-top: 0
+
+	&__item
+		grid-column: 3 span
+		padding-left: 32px
+		width: 100%
+		@media screen and (max-width: $md-min)
+		    padding-left: 0
+		@media screen and (max-width: $xs-max)
+		    width: 120px
+		    min-width: 120px
+		    margin: 0 20px
+		    opacity: 0.6
+		    transition: opacity 0.5s ease-in-out
+		    &.slick-center
+		        opacity: 1
+		&-content
+			display: flex
+			flex-direction: column
+			align-items: flex-start
+			width: 100%
+			@media screen and (max-width: $xs-max)
+			    align-items: center
+
+		&-icon
+			height: 50px
+			width: 50px
+			object-fit: contain
+			@media screen and (max-width: $xs-max)
+			    height: 40px
+			    width: 40px
+
+		&-title
+			margin-top: 16px
+			display: flex
+			flex-direction: column
+			font-weight: 400
+			font-size: 16px
+			line-height: 17px
+			color: #303030
+			@media screen and (max-width: $md-min)
+			    font-size: 14px
+			@media screen and (max-width: $xs-max)
+			    font-size: 12px
+			    margin-top: 10px
+			    text-align: center
+			span
+				font-size: 24px
+				line-height: 33px
+				font-weight: 700
+				color: #303030
+				@media screen and (max-width: $md-min)
+				    font-size: 20px
+				    line-height: 26px
+				@media screen and (max-width: $xs-max)
+				    font-size: 16px
+				    line-height: 17px

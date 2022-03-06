@@ -1,0 +1,22 @@
+{% if object_dict %}
+    {% for group, images in object_dict.items %}
+    <div class="gallery-page__item">
+        {% if group %}
+            <h2 class="h2 gallery-page__item-title">
+                {{ group }}
+            </h2>
+        {% endif %}
+        <div class="swiper gallery--default-slider">
+            <div class="swiper-wrapper gallery mfp-gallery">
+                {% for image in images %}
+                <div class="gallery__item swiper-slide">
+                    <a href="{{ image.watermarkpicture.url }}" class="gallery__item-link">
+                        <img src="{{ image.gallery.url }}" alt="{{ image.title }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}

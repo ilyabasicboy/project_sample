@@ -1,0 +1,54 @@
+.menu-other
+    display: flex
+    flex-wrap: wrap
+    margin-left: -8px
+    margin-bottom: -8px
+    position: relative
+    @media screen and (max-width: $xs-max)
+        margin-left: 0
+        margin-bottom: 0
+        flex-wrap: nowrap
+        width: calc(100% + 10px)
+    &__item
+        margin-left: 8px
+        margin-bottom: 8px
+        @media screen and (max-width: $xs-max)
+            margin-bottom: 0
+            margin-left: 0
+            margin-right: 8px
+            &:last-child
+                padding-right: 54px
+    &__link
+        position: relative
+        color: #303030
+        font-size: 12px
+        line-height: 17px
+        font-weight: 400
+        display: flex
+        align-items: center
+        justify-content: center
+        text-align: center
+        padding: 8px 16px
+        background-color: #fafafa
+        border: 1px solid #f4f4f4
+        overflow: hidden
+        border-radius: 10px
+        transition: color ease-in-out 0.5s
+        @media screen and (max-width: $xs-max)
+            white-space: nowrap
+        span
+            position: relative
+            z-index: 1
+        &:before
+            content: ''
+            position: absolute
+            background-color: #93C718
+            transform: translateX(calc(-100% - 2px))
+            height: 100%
+            width: 100%
+            transition: transform ease-in-out 0.5s
+        &:hover
+            color: #fff
+            &:before
+                transform: translateX(0px)
+

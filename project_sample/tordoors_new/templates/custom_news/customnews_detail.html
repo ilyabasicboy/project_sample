@@ -1,0 +1,83 @@
+{% extends "easy_news/base.html" %}
+{% load base_tags static attachment_tags custom_news_tags %}
+
+{% block breadcrumbs %}
+    {% get_news_root as root %}
+    {{ block.super }}
+    <a class="breadcrumbs__item" href="{% url 'news_root' %}">
+        {{ root.title }}
+    </a>
+{% endblock %}
+
+{% block title_section %}
+<section class="section-title section-title--mbottom24">
+    <div class="container">
+        <div class="title-content">
+            <h1 class="title">
+                {% block content_title %}
+                    {{ object.title|default:"" }}
+                {% endblock %}
+            </h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+    <section class="section-default section-default--top news-post">
+        <div class="container">
+            <span class="news-post__date">
+                {{ object.date|date:"d.m.Y" }}
+            </span>
+
+            <div class="news-post__content">
+                <div class="placeholder {% if object.video %}placeholder--nth2{% endif %}">
+                    {% if object.video %}
+                        <div class="news-post__video">
+                            <a class="video-custom modal-video" href="https://www.youtube.com/watch?v={{ object.video }}" data-bg-video="{{ object.video }}">
+                                <div class="video-custom__play">
+                                    <img src="{% static 'img/svg/video-play.svg' %}" alt="Открыть видео" title="Открыть видео">
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    {% show_block_content object.main_content %}
+                </div>
+            </div>
+
+
+            {% if object.add_images %}
+                <div class="news-post__gallery">
+                    <div class="swiper gallery--default-slider">
+                        <div class="swiper-wrapper gallery mfp-gallery">
+                            {% for image in object.add_images %}
+                                <div class="gallery__item swiper-slide">
+                                    <a class="gallery__item-link" href="{{ image.watermarkpicture.url }}">
+                                        <img src="{{ image.gallery.url }}" alt="{{ image.title }}" title="{{ image.title }}">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% get_doc_types as doc_types %}
+            {% if doc_types %}
+                <div class="logos__dots logos__dots--mt100">
+                    {% include 'parts/logos.html' %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="section-default section-default--top">
+        <div class="container">
+            <h2 class="h2 title-default--mtop0">
+                Другие новости
+            </h2>
+            {% include 'custom_news/parts/news_slider.html' %}
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load cache pagination_tags %}
+
+<div style="display:none;" data-count="{{ products_count }}" class="hidden_items_count"></div>
+{% if object_list %}
+
+    {% autopaginate object_list 36 %}
+    {% for obj in object_list %}
+        {% if obj.tree.get.content_type.model == 'product' %}
+            <div class="product-card--min catalog__grid-4 catalog__grid-6--xs content-anim content-anim--opacity">
+                {% include 'catalog/parts/card.html' %}
+            </div>
+        {% else %}
+            <div class="catalog__grid-4 catalog__grid-6--xs catalog__article content-anim content-anim--opacity">
+                {% include 'pages/parts/article_card.html' %}
+            </div>
+        {% endif %}
+        {% if forloop.counter == 18 %}
+            <div class="banner__accent--full catalog__grid-12 content-anim content-anim--opacity">
+                <a class="banner__accent modal-open" href="#fast-filter-modal">
+                    <div class="banner__accent-visible">
+                        <div class="banner__accent-rotate">
+                            <div class="banner__accent-default">
+                                <h4 class="banner__accent-title">
+                                    Нужна помощь в выборе товара?
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="banner__accent-default">
+                            <h4 class="banner__accent-title">
+                                Нужна помощь в выборе товара?
+                            </h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="catalog__show-more show-more catalog__grid-12">
+        <div class="catalog__loader catalog-loader">
+            <div class="loader"></div>
+        </div>
+        {% paginate using 'pagination/catalog_pagination.html' %}
+    </div>
+
+{% else %}
+    {% include 'catalog/parts/empty_list.html' %}
+{% endif %}

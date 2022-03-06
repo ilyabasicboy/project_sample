@@ -1,0 +1,227 @@
+.btn
+	background-color: transparent
+	border: none
+	font-size: 24px
+	line-height: 33px
+	font-weight: 700
+	color: #fff
+	text-decoration: none
+	cursor: pointer
+	padding: 13px 47px
+	height: 60px
+	display: flex
+	align-items: center
+	justify-content: center
+	text-align: center
+	position: relative
+	overflow: hidden
+	transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out, border 0.5s ease-in-out
+	@media screen and (max-width: $xs-max)
+	    height: 54px
+	    padding: 14px 32px
+	    font-size: 18px
+	    line-height: 24px
+	span
+		position: relative
+		z-index: 1
+
+	&--accent
+		background-color: #93C718
+		&:before
+			content: ''
+			position: absolute
+			left: 0
+			top: 0
+			width: 100%
+			height: 100%
+			transform: translateX(-100%)
+			background-color: #93d200
+			transition: transform 0.5s ease-in-out
+			will-change: transform
+
+		@media screen and (min-width: 1025px)
+            &:hover:before
+                transform: translateX(0)
+
+
+	&--full
+		width: 100%
+
+	&--border
+		border: 4px solid #fff
+		&:before
+			content: ''
+			position: absolute
+			left: 0
+			top: 0
+			width: calc(100% + 1px)
+			height: 100%
+			transform: translateX(-100%)
+			background-color: #fff
+			transition: transform 0.5s ease-in-out
+			will-change: transform
+
+		@media screen and (min-width: 1025px)
+            &:hover
+                color: #303030
+                &:before
+                    transform: translateX(0)
+
+	&--min
+	    height: 30px
+	    padding: 5px 16px
+	    font-size: 12px
+	    line-height: 13px
+
+	&__line
+		display: flex
+		align-items: center
+		justify-content: flex-start
+		will-change: transform
+		transition: transform 0.5s ease-in-out
+		&--right
+			margin-left: auto
+			@media screen and (min-width: 1025px)
+                &:hover
+                    transform: translateX(40px)
+
+		&--left
+			margin-right: auto
+
+		&-text
+			margin-right: 20px
+			color: #e8e8e8
+			font-size: 16px
+			line-height: 22px
+			font-weight: 700
+			display: inline-block
+			will-change: transform
+			transition: transform 0.5s ease-in-out, color 0.5s ease-in-out
+			@media screen and (max-width: $xs-max)
+			    font-size: 12px
+			    line-height: 17px
+			    margin-right: 8px
+
+		&--white .btn__line-text
+			color: #fff
+
+		@media screen and (max-width: $md-min)
+		    &--grey-md .btn__line-text
+		        color: #e8e8e8
+
+		&-icon
+			display: flex
+			align-items: center
+			justify-content: flex-end
+			width: 60px
+			overflow: hidden
+			transform: translateX(0px)
+			will-change: transform
+			transition: width 0.5s ease-in-out, transform 0.5s ease-in-out
+			@media screen and (max-width: $md-min)
+			    width: 50px
+			@media screen and (max-width: $xs-max)
+			    width: 32px
+			svg, img
+				width: 100px
+				min-width: 100px
+				@media screen and (max-width: $xs-max)
+				    width: 70px
+				    min-width: 70px
+
+
+		@media screen and (min-width: 1025px)
+            &:hover .btn__line-text
+                transform: translateX(40px)
+                color: #303030
+
+            &:hover .btn__line-icon
+                width: 100px
+                transform: translateX(40px)
+
+	&-market
+	    display: flex
+	    align-items: center
+	    justify-content: center
+	    width: 100%
+	    background-color: #fff
+	    border: 4px solid #ffcc00
+	    padding: 11px
+	    height: 60px
+	    will-change: transform
+	    transform: translateY(0)
+	    transition: transform 0.5s linear
+	    @media screen and (max-width: $xs-max)
+	        flex-direction: column
+	        text-align: center
+	        height: 64px
+	        padding: 10px 16px
+	    &__logo
+	        display: inline-block
+	        margin-left: 8px
+	        width: 140px
+	        display: flex
+	        align-items: center
+	        justify-content: center
+	        @media screen and (max-width: $md-min)
+	            width: 103px
+	        @media screen and (max-width: $xs-max)
+	            margin-right: 0
+	            max-width: 100px
+	        svg, img
+	            width: 100%
+	            height: auto
+	    &__title
+	        font-size: 16px
+	        line-height: 24px
+	        color: #303030
+	        @media screen and (max-width: $md-min)
+	            font-size: 14px
+	        @media screen and (max-width: $xs-max)
+	            font-size: 12px
+	            line-height: 18px
+
+	    @media screen and (min-width: 1025px)
+            &:hover
+                transform: translateY(-5px)
+
+
+	&__up
+	    display: none
+	    position: fixed
+	    bottom: 60px
+	    left: 60px
+	    z-index: 50
+	    @media screen and (max-width: $md-min)
+	        left: 24px
+	        bottom: 24px
+	    &-content
+	        display: flex
+	        align-items: center
+	        justify-content: center
+	        width: 58px
+	        height: 58px
+	        min-height: 58px
+	        min-width: 58px
+	        background-color: #fff
+	        box-shadow: 0 10px 40px 0 rgba(199,199,199,0.5)
+	        border-radius: 50%
+	        cursor: pointer
+	        transition: background-color 0.5s ease-in-out
+	        &:hover
+	            background-color: #f1f1f1
+	        @media screen and (max-width: $xs-max)
+	            width: 50px
+	            height: 50px
+	            min-height: 50px
+	            min-width: 50px
+	        svg, img
+	            width: 28px
+	            object-fit: contain
+	            @media screen and (max-width: $xs-max)
+	                width: 22px
+
+
+
+
+

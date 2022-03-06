@@ -1,0 +1,18 @@
+{% load pagination_tags %}
+
+{% if object_list %}
+    {% with object_list|length as object_length %}
+        {% autopaginate object_list num_pagination %}
+        <div class="list-pages">
+            {% for obj in object_list %}
+                {% include 'pages/parts/card.html' %}
+            {% endfor %}
+        </div>
+
+        {% if object_length > num_pagination %}
+            <div class="pagination-container pagination--default pagination--right pagination--center-md">
+                {% paginate %}
+            </div>
+        {% endif %}
+    {% endwith %}
+{% endif %}

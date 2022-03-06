@@ -1,0 +1,146 @@
+{% extends 'pages/base.html' %}
+{% load treemenus_tags custom_pages_tags custom_catalog_tags custom_news_tags feedback_tags reviews_tags pages_tags attachment_tags base_tags static %}
+
+{% block content %}
+
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="default-page page-sidebar">
+                {% placeholder show_left_menu label 'Отображать боковое меню' with Checkbox as show_left_menu %}
+                {% if show_left_menu == 'True' %}
+                {% get_root as object %}
+                {% if object %}
+                    <div class="default-page__sidebar">
+                        {% include 'catalog/parts/catalog_left_menu.html' %}
+                        <div class="modal-selection mfp-hide mfp-anim" id="fast-filter-modal">
+                            <div class="container modal-selection__container">
+                                <div class="modal__header modal__header--center-md modal__header--left-xs">
+                                    <h3 class="modal__title modal__title--white">
+                                        Быстрый подбор двери
+                                    </h3>
+                                    <span class="modal__subtitle">
+                                        по параметрам
+                                    </span>
+                                </div>
+                                {% show_filter_form %}
+                            </div>
+                            <button class="modal-selection__close close-modal-noscroll">
+                                <svg width="33" height="15" viewBox="0 0 33 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14.998 14.5001L0.998043 7.50012L14.998 0.50012V6.50012L33.998 6.50012V8.50012L14.998 8.50012L14.998 14.5001Z" fill="#93C718"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+                {% endif %}
+
+                <div class="default-page__content">
+                    {% placeholder main_content with TinyMCE label 'Контент страницы' as main_content %}
+                    {% if main_content %}
+                        <div class="default-page__top">
+                            <div class="placeholder">
+                                {% show_block_content main_content %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% placeholder show_add_menu label 'Показывать доп. меню' with Checkbox as show_add_menu %}
+                    {% if show_add_menu == 'True' %}
+                        <div class="default-page__menu scroll-custom-x-shadow--xs">
+                            {% show_menu 'additional_menu' %}
+                        </div>
+                    {% endif %}
+
+                    {% placeholder middle_content with TinyMCE label 'Контент посередине страницы' as middle_content %}
+                    {% if middle_content %}
+                        <div class="default-page__middle">
+                            <div class="placeholder">
+                                {% show_block_content middle_content %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% get_doc_types as doc_types %}
+                    {% if doc_types %}
+                        <div class="default-page__logos logos__dots">
+                            {% include 'parts/logos.html' %}
+                        </div>
+                    {% endif %}
+
+                    {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}
+                    {% if bottom_content %}
+                        <div class="default-page__bottom">
+                            <div class="placeholder">
+                                {% show_block_content bottom_content %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% placeholder 'Выбрать примеры дверей' with GallerySelect as gallery_id %}
+    {% if gallery_id %}
+        {% get_page gallery_id as gallery %}
+        {% get_images for gallery as images %}
+        {% if images %}
+            <section class="section-default gallery__slider--margin mfp-gallery">
+                {% include 'parts/door_samples.html' %}
+            </section>
+        {% endif %}
+    {% endif %}
+
+    {% get_reviews_list as review_list %}
+    {% placeholder show_already_with_us label 'Показывать блок "Уже с нами"' with Checkbox as show_already_with_us %}
+    {% placeholder 'Выбрать логотипы' with GallerySelect as logos_id %}
+
+    {% with show_commercial=True %}
+        {% if show_already_with_us == 'True' and review_list %}
+            {% include 'parts/already_with_us.html' %}
+        {% endif %}
+
+        {% placeholder show_commercial label 'Показывать блок "Запросить комм. предложение"' with Checkbox as show_commercial %}
+        {% if show_commercial == 'True' %}
+            {% include 'parts/show_commercial.html' %}
+        {% endif %}
+    {% endwith %}
+
+    {% placeholder show_news label 'Показывать блок "Новости"' with Checkbox as show_news %}
+    {% if show_news == 'True' %}
+        <section class="section-default">
+            <div class="container">
+                <div class="title-content">
+                    <h3 class="title title--nomargintop">
+                        Новости
+                    </h3>
+                </div>
+                {% include 'custom_news/parts/news_slider.html' %}
+                <div class="news__other">
+                    <a class="btn__line btn__line--right btn__line--text" href="/news/">
+                        <span class="btn__line-text">
+                            Перейти в раздел
+                        </span>
+                        <div class="btn__line-icon produce__item-link__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="103px" height="19px" viewBox="0 0 103 19" version="1.1">
+                                <title>Перейти в раздел</title>
+                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ГЛАВНАЯ-4-Copy" transform="translate(-771.000000, -1432.000000)" fill="#75A600" fill-rule="nonzero">
+                                        <g id="МЫ-ПРОИЗВОДИМ" transform="translate(-271.000000, 700.000000)">
+                                            <g id="Блоки-Каталога" transform="translate(0.000000, 307.000000)">
+                                                <g id="Блок-Противопожарные-двери" transform="translate(624.000000, 0.000000)">
+                                                    <path id="Line-hover" d="M501.5,425 L520.5,434.5 L501.5,444 L501.5,436 L418.5,436 L418.5,433 L501.5,433 L501.5,425 Z"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+{% endblock %}

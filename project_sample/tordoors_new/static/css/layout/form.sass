@@ -1,0 +1,141 @@
+.form__grid
+	display: grid
+	grid-template-columns: repeat(12, 1fr)
+	grid-gap: 40px 32px
+	@media screen and (max-width: $xs-max)
+	    grid-gap: 32px 0
+	&-5
+	    grid-column: 5 span
+	&-6
+	    grid-column: 6 span
+	&-7
+	    grid-column: 7 span
+	&-12
+	    grid-column: 12 span
+	&--bgap
+	    grid-gap: 40px 0
+	    @media screen and (max-width: $xs-max)
+	        grid-gap: 32px 0
+	@media screen and (max-width: $md-min)
+	    &-md-6
+	        grid-column: 6 span
+	@media screen and (max-width: $xs-max)
+	    &-xs-12
+	        grid-column: 12 span
+
+.form
+    &__header
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        margin-bottom: 60px
+        @media screen and (max-width: $md-min)
+            margin-bottom: 40px
+        @media screen and (max-width: $xs-max)
+            margin-bottom: 48px
+
+    &__title
+        font-size: 60px
+        line-height: 82px
+        color: #000
+        font-weight: 800
+        margin: 0
+        @media screen and (max-width: $md-min)
+            font-size: 48px
+            line-height: 65px
+        @media screen and (max-width: $xs-max)
+            font-size: 32px
+            line-height: 38px
+
+    &__subtitle
+        display: inline-block
+        margin: 4px 0 0
+        font-size: 30px
+        line-height: 41px
+        color: #898989
+        font-weight: 400
+        @media screen and (max-width: $md-min)
+            margin-top: 8px
+            font-size: 24px
+            line-height: 33px
+        @media screen and (max-width: $xs-max)
+            font-size: 18px
+            line-height: 24px
+
+    &__item
+        width: 100%
+
+    &__full
+        width: 100%
+
+    &__bottom
+        display: flex
+        align-items: flex-start
+        justify-content: space-between
+        margin-top: 48px
+        @media screen and (max-width: $xs-max)
+            margin-top: 32px
+            flex-direction: column
+            justify-content: center
+            align-items: center
+        .btn
+            min-width: 320px
+            @media screen and (max-width: $xs-max)
+                min-width: inherit
+        &--column
+            flex-direction: column
+        &--right
+            align-items: flex-end
+        &--center-md
+            @media screen and (max-width: $md-min)
+                align-items: center
+    &__privacy
+        max-width: 560px
+        font-size: 14px
+        line-height: 24px
+        color: #303030
+        margin-right: 32px
+        @media screen and (max-width: $xs-max)
+            width: 100%
+            max-width: 430px
+            margin-right: 0
+            margin-bottom: 40px
+            line-height: 20px
+            font-size: 12px
+        a
+            text-decoration: underline
+            color: #303030
+            &:hover
+                text-decoration: none
+
+        .default-checkbox__fake
+            margin-top: 6px
+            @media screen and (max-width: $xs-max)
+                margin-top: 5px
+        &--mb40
+            margin-bottom: 40px
+
+    &__grey
+        padding: 60px 84px
+        background-color: #fbfbfb
+        @media screen and (max-width: $md-min)
+            padding: 48px 64px
+        @media screen and (max-width: $xs-max)
+            padding: 40px 16px
+            padding-top: 24px
+        &--min
+            padding: 32px 64px
+            @media screen and (max-width: $md-min)
+                padding: 48px 64px
+            @media screen and (max-width: $xs-max)
+                padding: 16px
+                padding-bottom: 32px
+        &-title
+            margin: 0
+            margin-bottom: 60px
+            font-weight: 400
+            color: #898989
+            @media screen and (max-width: $md-min)
+                margin-bottom: 32px
+            @media screen and (max-width: $xs-max)
+                margin-bottom: 24px

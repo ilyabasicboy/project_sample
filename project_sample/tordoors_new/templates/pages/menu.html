@@ -1,0 +1,20 @@
+{% load pages_tags cache %}
+{% if page.status %}
+<li class="sitemap__item">
+    <a class="sitemap__item-link" href="{% show_absolute_url page %}">
+        {% if children and page.get_level == 0 %}
+            <span class="sitemap__item-icon _slide _slide-parent"></span>
+        {% endif %}
+        <span>
+            {% show_content page "title" %}
+        </span>
+    </a>
+    {% if children and page.get_level == 0 %}
+        <ul class="sitemap__submenu _slide-target">
+            {% for child in children %}
+                {% pages_menu child %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>
+{% endif %}

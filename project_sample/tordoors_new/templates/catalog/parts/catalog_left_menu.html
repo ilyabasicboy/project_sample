@@ -1,0 +1,41 @@
+{% load cache custom_catalog_tags %}
+{% get_root as object %}
+{% if object %}
+    {% get_catalog_menu_items for object as children %}
+    {% if children %}
+        <aside class="catalog__sidebar scroll-custom-x-shadow--pc">
+            <div class="catalog__sidebar-content scroll-custom-x--pc">
+                <ul class="catalog__menu">
+                    {% include 'catalog/parts/catalog_left_menu_items.html' %}
+                </ul>
+                <div class="catalog__sidebar-footer">
+                    <a class="catalog__sidebar-btn modal-open" href="#fast-filter-modal">
+                        <div class="catalog__sidebar-btn__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 20 20" version="1.1">
+                                <title>Открыть фильтр</title>
+                                <g id="Tablet-768px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="КАТАЛОГ" transform="translate(-19.000000, -313.000000)">
+                                        <g id="ПОДОБРАТЬ-ДВЕРЬ---кнопка" transform="translate(10.000000, 307.000000)">
+                                            <g id="codicon:settings" transform="translate(9.000000, 6.000000)">
+                                                <rect id="ViewBox" x="0" y="0" width="20" height="20"/>
+                                                <g id="Group" transform="translate(1.250000, 2.500000)" fill="#FFFFFF" fill-rule="nonzero">
+                                                    <path d="M3.125,0 L1.875,0 L1.875,6.25 L3.125,6.25 L3.125,0 Z M10.75,6.25 L6.75,6.25 L6.25,5.5625 L6.25,4.3125 L6.75,3.75 L10.75,3.75 L11.25,4.375 L11.25,5.625 L10.75,6.25 L10.75,6.25 Z M4.5,10 L0.5,10 L0,9.375 L0,8.125 L0.5,7.5 L4.5,7.5 L5,8.125 L5,9.375 L4.5,10 Z M9.375,0 L8.125,0 L8.125,2.5 L9.375,2.5 L9.375,0 Z M8.125,7.5 L9.375,7.5 L9.375,15 L8.125,15 L8.125,7.5 Z M3.125,11.25 L1.875,11.25 L1.875,15 L3.125,15 L3.125,11.25 Z M13,11.25 L16.9875,11.25 L17.4875,10.625 L17.4875,9.4375 L16.9875,8.8125 L13,8.8125 L12.5,9.4375 L12.5,10.625 L13,11.25 Z M15.625,0 L14.375,0 L14.375,7.5 L15.625,7.5 L15.625,0 Z M14.375,12.5 L15.625,12.5 L15.625,15 L14.375,15 L14.375,12.5 Z" id="Shape"/>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <span>
+                            Подобрать дверь
+                            <b>
+                                по параметрам
+                            </b>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+    {% endif %}
+{% endif %}

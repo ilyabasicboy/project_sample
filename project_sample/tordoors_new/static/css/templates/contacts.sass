@@ -1,0 +1,43 @@
+.contacts
+    &__content
+        display: flex
+        @media screen and (max-width: $xs-max)
+            flex-direction: column
+    &__info
+        width: calc(50% - 16px)
+        margin-right: 16px
+        @media screen and (max-width: $md-min)
+            width: calc(50% - 10px)
+        @media screen and (max-width: $xs-max)
+            width: 100%
+        h6
+            margin-bottom: 6px
+            margin-top: 32px
+    &__map
+        width: calc(50% - 16px)
+        margin-left: 16px
+        height: 530px
+        @media screen and (max-width: $md-min)
+            width: calc(50% - 10px)
+        @media screen and (max-width: $xs-max)
+            width: calc(100% + 20px)
+            left: 10px
+            margin-top: 32px
+            height: 500px
+            margin-left: -10px
+        & > ymaps
+            width: 100% !important
+            height: 100% !important
+    &__bottom
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+    &__bottom-container
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        .placeholder
+            .contacts__btn
+                margin-top: 40px!important
+                color: #fff
+                text-decoration: none

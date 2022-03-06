@@ -1,0 +1,65 @@
+.logos
+    display: flex
+    flex-wrap: wrap
+    margin-right: -30px
+    margin-bottom: -30px
+    position: relative
+    @media screen and (max-width: $xs-max)
+        margin-right: -25px
+        margin-bottom: -25px
+    &__item
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-right: 30px
+        margin-bottom: 30px
+        @media screen and (max-width: $xs-max)
+            margin-right: 25px
+            margin-bottom: 25px
+        img
+            max-width: 80px
+            @media screen and (max-width: $xs-max)
+                max-width: 37px
+
+.logos__dots
+    display: flex
+    justify-content: flex-end
+    background-image: url('../img/decor-title-dots.svg')
+    background-position: top left
+    background-repeat: repeat
+    background-size: 12px 12px
+    @media screen and (max-width: $xs-max)
+        height: 20px
+        background-size: 4px 4px
+    &--mt100
+        margin-top: 100px
+        @media screen and (max-width: $md-min)
+            margin-top: 48px
+        @media screen and (max-width: $xs-max)
+            margin-top: 40px
+    .logos
+        height: 100%
+        background-color: #fff
+        padding-left: 20px
+        @media screen and (max-width: $xs-max)
+            margin-right: -12px
+            margin-bottom: -12px
+        &__item
+            @media screen and (max-width: $xs-max)
+                margin-right: 12px
+                margin-bottom: 12px
+                img
+                    max-width: 20px
+
+.logos__fulltitle
+    margin-left: auto
+    background-color: #fff
+    padding: 0 15px
+    margin-right: -15px
+    @media screen and (max-width: $md-min)
+        display: none
+    .logos
+        margin-bottom: 0
+        padding-top: 18px
+    .logos__item
+        margin-bottom: 0

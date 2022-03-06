@@ -1,0 +1,42 @@
+{% extends 'pages/base.html' %}
+{% load feedback_tags custom_pages_tags pages_tags  base_tags %}
+
+{% block content %}
+
+    <section class="section-default section-default--top letter">
+        <div class="container">
+            {% placeholder top_content with TinyMCE label 'Контент сверху' as top_content %}
+            {% if top_content %}
+                <div class="letter__top">
+                    <div class="placeholder">
+                        {% show_block_content top_content %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="letter__form">
+                <div class="form__grey form__full">
+                    <h2 class="h2 form__grey-title">
+                        Если вы хотите получить ответ, укажите контакты для связи.
+                    </h2>
+                    {% show_feedback 'director_mail' %}
+                </div>
+            </div>
+
+            {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}
+            {% if bottom_content %}
+                <div class="letter__bottom">
+                    <div class="placeholder">
+                        {% show_block_content bottom_content %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="modal mfp-hide mfp-anim" id="thanks-modal">
+                <!--noindex-->
+                    {% include 'feedback/director_mail/thankyou.html' %}
+                <!--/noindex-->
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'pages/base.html' %}
+{% load custom_pages_tags  pages_tags attachment_tags base_tags static %}
+
+{% block content %}
+
+    {% placeholder bottom_content label 'Контент снизу' with TinyMCE as bottom_content %}
+    {% if bottom_content %}
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="placeholder">
+                {% show_block_content bottom_content %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% placeholder gallery_id label 'Выбрать примеры дверей' with GallerySelect as gallery_id %}
+    {% if gallery_id %}
+        {% get_page gallery_id as gallery %}
+        {% get_images for gallery as images %}
+        {% if images %}
+            <section class="section-default section--grey gallery__slider--margin mfp-gallery">
+                {% include 'parts/door_samples.html' %}
+            </section>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load catalog_tags custom_catalog_tags %}
+
+{% block header-options %}header--static-xs{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if object %}
+        {% catalog_breadcrumbs object %}
+    {% endif %}
+{% endblock %}
+
+{% block content_title %}
+    {{ object.long_title|default:object.title }}
+{% endblock %}
+
+{% block metering %}{% endblock %}

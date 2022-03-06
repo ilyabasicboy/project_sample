@@ -1,0 +1,8 @@
+{% load base_tags %}
+<ul class="logos">
+    {% for type in doc_types %}
+        <li class="logos__item">
+            <img src="{{ type.image.url }}" alt="{{ type.name }}" title="{{ type.name }}">
+        </li>
+    {% endfor %}
+</ul>

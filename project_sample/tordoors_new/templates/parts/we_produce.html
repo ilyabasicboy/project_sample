@@ -1,0 +1,125 @@
+{% load custom_catalog_tags attachment_tags base_tags catalog_tags %}
+{% get_we_produce_sections as we_produce %}
+{% if we_produce %}
+<section class="section-default content-anim content-anim--opacity">
+    <div class="container">
+        <div class="title-content">
+            <h3 class="title">
+                Мы производим
+            </h3>
+        </div>
+    </div>
+
+    <div class="produce">
+        <div class="slider__header">
+            <div class="container">
+                <div class="slider__nav slider__count produce__slider-nav">
+                    <div class="slider__count-item">
+                        <button class="slider__nav-arrow slider__nav-prev">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44px" height="44px" viewBox="0 0 44 44" version="1.1">
+                                <title>Предыдущий слайд</title>
+                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ГЛАВНАЯ-4-Copy" transform="translate(-1184.000000, -905.000000)" fill="#C8C8C8" fill-rule="nonzero">
+                                        <g id="МЫ-ПРОИЗВОДИМ" transform="translate(-271.000000, 700.000000)">
+                                            <g id="nav-back-hover" transform="translate(272.000000, 202.000000)">
+                                                <path d="M1205,3 C1192.8491,3 1183,12.849098 1183,25 C1183,37.150902 1192.8491,47 1205,47 C1217.14946,47 1227,37.150902 1227,25 C1227,12.849098 1217.1509,3 1205,3 Z M1211.237,34.791366 C1211.77463,35.329 1211.77463,36.199366 1211.237,36.7355621 C1210.69937,37.2718301 1209.829,37.2718301 1209.29273,36.7355621 L1198.76437,26.207268 C1198.43437,25.877268 1198.33263,25.426268 1198.40827,24.998634 C1198.33263,24.572366 1198.43573,24.12 1198.76437,23.79 L1209.29273,13.261634 C1209.83044,12.724 1210.70073,12.724 1211.237,13.261634 C1211.77463,13.7978301 1211.77463,14.669634 1211.237,15.2058301 L1201.44427,25 L1211.237,34.791366 Z"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                        <span class="slider__count-text slider__count-current">
+                            1
+                        </span>
+                    </div>
+                    <div class="slider__count-item">
+                        <span class="slider__count-text slider__count-total">
+
+                        </span>
+                        <button class="slider__nav-arrow slider__nav-next">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44px" height="44px" viewBox="0 0 44 44" version="1.1">
+                                <title>Следующий слайд</title>
+                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ГЛАВНАЯ-4-Copy" transform="translate(-1184.000000, -905.000000)" fill="#C8C8C8" fill-rule="nonzero">
+                                        <g id="МЫ-ПРОИЗВОДИМ" transform="translate(-271.000000, 700.000000)">
+                                            <g id="nav-back-hover" transform="translate(272.000000, 202.000000)">
+                                                <path d="M1205,3 C1192.8491,3 1183,12.849098 1183,25 C1183,37.150902 1192.8491,47 1205,47 C1217.14946,47 1227,37.150902 1227,25 C1227,12.849098 1217.1509,3 1205,3 Z M1211.237,34.791366 C1211.77463,35.329 1211.77463,36.199366 1211.237,36.7355621 C1210.69937,37.2718301 1209.829,37.2718301 1209.29273,36.7355621 L1198.76437,26.207268 C1198.43437,25.877268 1198.33263,25.426268 1198.40827,24.998634 C1198.33263,24.572366 1198.43573,24.12 1198.76437,23.79 L1209.29273,13.261634 C1209.83044,12.724 1210.70073,12.724 1211.237,13.261634 C1211.77463,13.7978301 1211.77463,14.669634 1211.237,15.2058301 L1201.44427,25 L1211.237,34.791366 Z"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="produce__slider produce--slider">
+                {% for section in we_produce %}
+                <div class="produce__slider-item produce__item">
+                    <div class="produce__item-content">
+                        {% get_images for section as images %}
+                        {% get_image_groups for images as image_groups %}
+                        {% if image_groups|key:'main' %}
+                        {% with images=image_groups|key:'main' %}
+                            <div class="produce__item-img">
+                                <img src="{{ images.0.display.url }}" alt="Img" title="Img">
+                            </div>
+                        {% endwith %}
+                        {% endif %}
+                        <div class="produce__item-info">
+                            <div class="produce__item-info__top">
+                                <h4 class="produce__item-title">
+                                    {{ section.title }}
+                                    {% catalog_children for section type product descendants all as products %}
+                                    <span>{{ products.count }} шт</span>
+                                </h4>
+                                {% if section.fireproof_types %}
+                                    {% show_block_content section.fireproof_types %}
+                                {% endif %}
+                            </div>
+                            <div class="produce__item-info__bottom">
+                                <div class="produce__item-price">
+                                    от <span>{{ section.get_min_price }}</span> руб
+                                </div>
+                                <a class="btn__line produce__item-link" href="{{ section.get_absolute_url }}">
+                                    <div class="btn__line-icon produce__item-link__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="103px" height="19px" viewBox="0 0 103 19" version="1.1">
+                                            <title>Перейти к разделу</title>
+                                            <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g id="ГЛАВНАЯ-4-Copy" transform="translate(-771.000000, -1432.000000)" fill="#75A600" fill-rule="nonzero">
+                                                    <g id="МЫ-ПРОИЗВОДИМ" transform="translate(-271.000000, 700.000000)">
+                                                        <g id="Блоки-Каталога" transform="translate(0.000000, 307.000000)">
+                                                            <g id="Блок-Противопожарные-двери" transform="translate(624.000000, 0.000000)">
+                                                                <path id="Line-hover" d="M501.5,425 L520.5,434.5 L501.5,444 L501.5,436 L418.5,436 L418.5,433 L501.5,433 L501.5,425 Z"/>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="slider__menu produce-menu--slider">
+                {% for section in we_produce %}
+                <div class="slider__menu-item">
+                    <a class="slider__menu-link" href="{{ section.get_absolute_url }}">
+                        {{ section.title }}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

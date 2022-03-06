@@ -1,0 +1,85 @@
+.pagination
+	display: flex
+	align-items: center
+	@media screen and (max-width: $md-min)
+	    flex-wrap: wrap
+	    justify-content: center
+	&--default
+		margin-top: 60px
+		@media screen and (max-width: $md-min)
+		    margin-top: 48px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 32px
+
+	&-container
+		display: flex
+		align-items: center
+
+	&--left
+		justify-content: flex-start
+
+	&--right
+		justify-content: flex-end
+
+	&--center
+		justify-content: center
+
+	@media screen and (max-width: $md-min)
+	    &--center-md
+	        justify-content: center
+
+	&__option
+		font-size: 18px
+		line-height: 20px
+		color: #898989
+		text-decoration: underline
+		display: inline-block
+		@media screen and (max-width: $xs-max)
+		    font-size: 14px
+		    line-height: 19px
+		&:hover
+			text-decoration: none
+
+	&__prev
+		margin-right: 20px
+		@media screen and (max-width: $xs-max)
+		    margin-right: 16px
+
+	&__next
+		margin-left: 20px
+		@media screen and (max-width: $xs-max)
+		    margin-left: 16px
+
+	&__link
+		width: 38px
+		height: 38px
+		display: flex
+		align-items: center
+		justify-content: center
+		font-size: 18px
+		line-height: 20px
+		color: #898989
+		border-radius: 50%
+		text-decoration: none
+		margin: 0 5px
+		transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out
+		@media screen and (max-width: $md-min)
+		    margin: 5px
+		@media screen and (max-width: $xs-max)
+		    font-size: 14px
+		    line-height: 19px
+		    width: 32px
+		    height: 32px
+		&:hover
+			color: #000
+
+		&.active
+			color: #fff
+			background-color: #93C718
+			&:hover
+				color: #fff
+				background-color: #93C718
+
+
+
+

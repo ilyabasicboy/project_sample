@@ -1,0 +1,38 @@
+.section-breadcrumbs
+    margin-top: 40px;
+    position: relative
+    z-index: 2
+    @media screen and (max-width: $md-min)
+        margin-top: 32px
+    @media screen and (max-width: $xs-max)
+        margin-top: 16px
+        overflow: hidden
+
+.breadcrumbs
+    @media screen and (max-width: $xs-max)
+        display: flex
+        align-items: center
+        width: calc(100% + 10px)
+    &__item
+        font-weight: 300
+        line-height: 19px
+        font-size: 14px
+        color: #e8e8e8
+        transition: color 0.7s ease-in-out
+        text-decoration: none
+        @media screen and (max-width: $xs-max)
+            font-size: 11px
+            line-height: 15px
+            display: inline-block
+            margin-right: 5px
+            white-space: nowrap
+            &:last-child
+                padding-right: 54px
+    a:hover
+        color: #848383
+        text-decoration: underline
+    &--white
+        .breadcrumbs__item
+            color: #E8E8E8
+        a:hover
+            color: #fff

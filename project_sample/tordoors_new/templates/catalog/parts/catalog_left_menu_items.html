@@ -1,0 +1,34 @@
+{% load catalog_tags custom_catalog_tags cache %}
+{% for object in children %}
+    {# Отображение раздела/категории в боковом меню #}
+
+    {% with products=object.get_products_count %}
+
+    {% if products or object.tree.get.content_type.model == 'category' %}
+        {% get_catalog_menu_items for object as children %}
+        <li class="{% if object.tree.get.get_level == 1 %}catalog__menu-item{% else %}catalog__submenu-item{% endif %}">
+            <div class="catalog__menu-container {% if object.get_absolute_url in request.get_full_path %}active visited{% endif %}">
+                <a class="catalog__menu-link" href="{{ object.get_absolute_url }}">
+                    {{ object.title }}
+                    {% if object.tree.get.content_type.model == 'section' %}
+                        <span class="catalog__menu-count">
+                            ({{ products }})
+                        </span>
+                    {% endif %}
+                </a>
+                {% if children %}
+                    <span class="catalog__menu-icon _slide _slide-parent"></span>
+                {% endif %}
+            </div>
+
+            {# Дочерние разделы/категории #}
+            {% if children %}
+                <ul class="catalog__submenu _slide-target">
+                    {% include 'catalog/parts/catalog_left_menu_items.html' %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endif %}
+
+    {% endwith %}
+{% endfor %}

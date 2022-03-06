@@ -1,0 +1,54 @@
+.documents
+	&__slider
+		min-height: 350px
+		@media screen and (max-width: $xs-max)
+		    min-height: 370px
+		.slick-list
+			overflow: visible
+
+		&:not(.slick-initialized) .documents__slider-item
+			display: none
+
+
+	&__item
+		width: auto
+		min-width: 200px
+		margin-right: 40px
+		position: relative
+		padding-bottom: 130px
+		@media screen and (max-width: $xs-max)
+		    margin-right: 30px
+		    min-width: 170px
+		&-content
+			display: flex
+			flex-direction: column
+			align-items: flex-start
+
+		&-preview
+			height: 286px
+			@media screen and (max-width: $xs-max)
+			    height: 240px
+			img
+				height: 100%
+				width: auto
+				display: block
+
+
+		&-text
+			font-style: italic
+			font-size: 12px
+			line-height: 17px
+			color: #303030
+			position: absolute
+			top: 296px
+			left: 0
+			width: 100%
+			overflow: hidden
+			display: -webkit-box
+			-webkit-line-clamp: 6
+			-webkit-box-orient: vertical
+			@media screen and (max-width: $xs-max)
+			    top: 248px
+
+
+

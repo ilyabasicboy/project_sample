@@ -1,0 +1,59 @@
+.facing
+    &__top + &__list
+        margin-top: 60px
+        @media screen and (max-width: $md-min)
+            margin-top: 48px
+    &__top + &__bottom
+        margin-top: 60px
+        @media screen and (max-width: $md-min)
+            margin-top: 40px
+    &__list + &__bottom
+        margin-top: 60px
+        @media screen and (max-width: $md-min)
+            margin-top: 40px
+    &__list
+        display: grid
+        grid-template-columns: repeat(12, 1fr)
+        grid-gap: 40px 32px
+        @media screen and (max-width: $md-min)
+            grid-gap: 40px
+        @media screen and (max-width: $xs-max)
+            grid-gap: 32px 0
+    &__item
+        grid-column: 3 span
+        display: flex
+        width: 100%
+        @media screen and (max-width: $xs-max)
+            grid-column: 6 span
+    &__link
+        padding: 20px
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        text-align: center
+        width: 100%
+        border: 4px solid #fff
+        transition: border 0.7s ease-in-out
+        @media screen and (max-width: $xs-max)
+            padding: 0 10px
+        @media screen and (min-width: 1025px)
+            &:hover
+                border-color: #93C718
+        &-img
+            width: 120px
+            height: 120px
+            overflow: hidden
+            border-radius: 50%
+            img
+                width: 100%
+                height: 100%
+        &-title
+            display: inline-block
+            margin-top: 15px
+            font-size: 14px
+            line-height: 24px
+            color: #303030
+            @media screen and (max-width: $xs-max)
+                font-size: 13px
+                line-height: 18px

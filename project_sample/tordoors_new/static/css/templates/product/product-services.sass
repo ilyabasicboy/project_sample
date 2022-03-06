@@ -1,0 +1,102 @@
+.product-services
+	&__container
+		margin-top: 80px
+		margin-bottom: 95px
+		padding-top: 100px
+		padding-bottom: 100px
+		position: relative
+		@media screen and (max-width: $md-min)
+		    padding-top: 48px
+		    padding-bottom: 60px
+		    margin-top: 56px
+		    margin-bottom: 60px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 32px
+		    margin-bottom: 36px
+		&:before
+			content: ''
+			position: absolute
+			top: 0
+			background-color: #F8F8F8
+			width: 100vw
+			right: 0
+			height: 100%
+			@media screen and (max-width: $xs-max)
+			    right: -10px
+
+
+	&__list
+		display: flex
+		flex-direction: column
+		padding-right: 100px
+		position: relative
+		@media screen and (max-width: $md-min)
+		    padding-right: 24px
+
+	&__item
+		width: 100%
+		border-bottom: 1px solid #e8e8e8
+
+	&__link
+		width: 100%
+		display: flex
+		align-items: flex-start
+		font-size: 22px
+		line-height: 30px
+		color: #898989
+		transition: color 0.7s ease-in-out
+		padding-top: 20px
+		text-transform: uppercase
+		font-weight: 700
+		padding-bottom: 20px
+		cursor: pointer
+		@media screen and (max-width: $md-min)
+		    font-size: 18px
+		    line-height: 24px
+		@media screen and (max-width: $xs-max)
+		    font-size: 14px
+		    line-height: 18px
+		    padding: 16px 0
+		    padding-top: 28px
+		&.active
+			color: #303030
+			.product-services__count
+				background-color: #75A600
+
+
+
+	&__count
+		display: flex
+		align-items: center
+		justify-content: center
+		background-color: #93C718
+		color: #fff
+		width: 40px
+		height: 40px
+		min-width: 40px
+		min-height: 40px
+		margin-right: 20px
+		color: #fff
+		font-size: 22px
+		line-height: 40px
+		font-weight: 700
+		border-radius: 50%
+		margin-top: -5px
+		line-height: 40px
+		transition: background-color 0.7s ease-in-out
+		@media screen and (max-width: $xs-max)
+		    margin-right: 16px
+		    margin-top: -12px
+
+	&__content
+		display: none
+		padding-bottom: 20px
+		&-box
+			padding-left: 60px
+			max-height: 260px
+			overflow-y: auto!important
+			@media screen and (max-width: $xs-max)
+			    padding-left: 56px
+
+
+

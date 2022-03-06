@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load feedback_tags pagination_tags static %}
+
+{% block content_title %}Отзывы{% endblock %}
+
+{% block content %}
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="review__header">
+                <div class="review__header-item review__header-item--5 review__header-item--xs-12">
+                    <a class="review__header-btn btn btn--accent modal-open" href="#review-modal">
+                        <span>
+                            Оставьте свой отзыв на сайте
+                        </span>
+                    </a>
+                </div>
+                {% if chunks.ya_market_review.content %}
+                <div class="review__header-item review__header-item--7 review__header-item--xs-12">
+                    <a class="btn-market" target="_blank" href="{{ chunks.ya_market_review.content }}">
+                        <span class="btn-market__title">
+                            Оставьте отзыв о нашей компании на
+                        </span>
+                        <span class="btn-market__logo">
+                            <img src="{% static 'img/yandex-market.svg' %}" alt="ЯндексМаркет" title="ЯндексМаркет">
+                        </span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if review_list %}
+                {% with review_list|length as review_length %}
+                {% autopaginate review_list 10 %}
+                <div class="review mfp-gallery">
+                    {% for review in review_list %}
+                    <div class="review__item">
+                        {% if review.name %}
+                        <span class="review__item-title">
+                            {{ review.name }}
+                        </span>
+                        {% endif %}
+                        {% if review.date %}
+                        <span class="review__item-date">
+                            {{ review.date }}
+                        </span>
+                        {% endif %}
+                        <div class="review__item-wrapper">
+                            <div class="tall">
+                                {% if review.content %}
+                                <div class="review__item-content">
+                                    {{ review.content }}
+                                </div>
+                                {% endif %}
+                                {% if review.image %}
+                                <a class="review__item-img" href="{{ review.image.url }}">
+                                    <img src="{{ review.image.url }}" alt="{{ review.name }}" title="{{ review.name }}">
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if review_length > 10 %}
+                    <div class="pagination-container pagination--default pagination--right pagination--center-md">
+                        {% paginate %}
+                    </div>
+                {% endif %}
+                {% endwith %}
+            {% endif %}
+
+            <div class="modal mfp-hide mfp-anim" id="review-modal">
+                <div class="modal__header">
+                    <h3 class="modal__title">
+                        Оставьте свой отзыв
+                    </h3>
+                    <span class="modal__subtitle">
+                        Если вы хотите получить ответ от нашего специалиста, укажите контакты для связи.
+                    </span>
+                </div>
+                <!--noindex-->
+                    {% include 'reviews/feedback.html' %}
+                <!--/noindex-->
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

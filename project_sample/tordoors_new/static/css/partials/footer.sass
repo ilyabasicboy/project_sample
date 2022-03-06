@@ -1,0 +1,270 @@
+.footer
+	padding-top: 100px
+	padding-bottom: 40px
+	background-color: #1E1E1E
+	overflow: hidden
+	@media screen and (max-width: $md-min)
+	    padding-top: 80px
+	    padding-bottom: 48px
+	@media screen and (max-width: $xs-max)
+	    padding: 60px 0
+	&__grid
+		display: grid
+		grid-template-columns: repeat(12, 1fr)
+		grid-gap: 32px
+		@media screen and (max-width: $md-min)
+		    grid-gap: 40px 0
+		&-8
+			grid-column: 8 span
+		&-12
+			grid-column: 12 span
+
+		@media screen and (max-width: $md-min)
+		    &-md-12
+		        grid-column: 12 span
+
+	&__top
+		display: grid
+		grid-template-columns: repeat(12, 1fr)
+		grid-gap: 32px
+		@media screen and (max-width: $md-min)
+		    grid-gap: 40px 0
+		&-menu
+			width: 100%
+			display: flex
+			justify-content: space-between
+			grid-column: 8 span
+			padding-right: 8%
+			@media screen and (max-width: $md-min)
+			    grid-column: 12 span
+			    padding-right: 0
+			    margin: auto
+			    justify-content: space-around
+			@media screen and (max-width: $xs-max)
+			    flex-direction: column
+
+
+	&__list
+		padding-right: 32px
+		min-width: 140px
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+		@media screen and (max-width: $md-min)
+		    padding-right: 40px
+		@media screen and (max-width: $xs-max)
+		    padding-right: 0
+
+		&-title
+			font-size: 14px
+			line-height: 24px
+			font-weight: 700
+			color: rgba(255, 255, 255, 0.6)
+			margin-bottom: 10px
+			@media screen and (max-width: $md-min)
+			    font-size: 13px
+			    line-height: 22px
+			@media screen and (max-width: $xs-max)
+			    font-size: 16px
+			    line-height: 24px
+			    color: #fff
+
+	@media screen and (max-width: $xs-max)
+	    &__list + &__list
+	        margin-top: 24px
+
+
+	@media screen and (max-width: $xs-max)
+	    &__menu
+	        display: flex
+	        flex-wrap: wrap
+	        margin-bottom: -8px
+	        margin-right: -16px
+
+	&__menu-item
+		width: 100%
+		@media screen and (max-width: $xs-max)
+		    width: auto
+		    margin-right: 16px
+		    margin-bottom: 8px
+		+ .footer__menu-item
+			margin-top: 10px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 0
+
+
+	&__menu-link
+		font-size: 14px
+		line-height: 24px
+		font-weight: 400
+		color: rgba(255, 255, 255, 0.6)
+		@media screen and (max-width: $md-min)
+		    font-size: 13px
+		    line-height: 22px
+		@media screen and (max-width: $xs-max)
+		    font-size: 12px
+		    line-height: 16px
+		    color: #fff
+		&:hover
+			text-decoration: underline
+
+
+	&__right
+		grid-column: 4 span
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+		@media screen and (max-width: $md-min)
+		    grid-column: 12 span
+
+	&__contacts
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+		@media screen and (max-width: $md-min)
+		    width: 100%
+		    align-items: center
+		    justify-content: center
+
+	&__phone
+		font-size: 24px
+		line-height: 33px
+		color: #fff
+		font-weight: 700
+		display: inline-block
+		margin-bottom: 16px
+		text-decoration: none
+		position: relative
+		&:before
+		    content: ''
+		    position: absolute
+		    top: calc(100% + 4px)
+		    left: 0
+		    height: 2px
+		    width: 0
+		    opacity: 0
+		    pointer-events: none
+		    background-color: #fff
+		    transition: opacity 0.5s ease-in-out, width 0.5s ease-in-out
+		&:hover
+		    &:before
+		        opacity: 1
+		        width: 100%
+
+
+	&__address
+		display: inline-block
+		margin-bottom: 10px
+		font-size: 14px
+		line-height: 19px
+		color: #fff
+		@media screen and (max-width: $xs-max)
+		    margin-bottom: 16px
+		    font-size: 13px
+		    line-height: 18px
+		    text-align: center
+
+	&__email
+		display: inline-block
+		font-size: 16px
+		line-height: 22px
+		color: #fff
+		text-decoration: underline
+		@media screen and (max-width: $xs-max)
+		    font-size: 13px
+		    line-height: 14px
+		&:hover
+			text-decoration: none
+
+
+	&__social
+		display: flex
+		flex-wrap: wrap
+		&-item
+			display: flex
+			align-items: center
+			justify-content: center
+			margin-top: 10px
+			margin-right: 10px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 16px
+
+		&-link
+			display: flex
+			align-items: center
+			justify-content: center
+
+
+	&__content
+		margin-top: 40px
+		font-size: 14px
+		line-height: 24px
+		color: #fff
+		@media screen and (max-width: $md-min)
+		    text-align: center
+		@media screen and (max-width: $xs-max)
+		    font-size: 13px
+		    line-height: 20px
+		    margin-top: 24px
+		strong
+			font-weight: 700
+
+
+	&__logos
+		margin-top: 22px
+		@media screen and (max-width: $md-min)
+		    margin: auto
+		    margin-top: 22px
+
+
+	&__bottom
+		margin-top: 50px
+		padding-right: 8%
+		@media screen and (max-width: $md-min)
+            padding-right: 0
+            margin-top: 0
+
+	&__search
+	    margin-bottom: 40px
+	    width: 100%
+	    @media screen and (max-width: $md-min)
+	        max-width: 492px
+	        margin: auto
+	        margin-bottom: 40px
+	    @media screen and (max-width: $xs-max)
+	        margin-bottom: 32px
+
+
+	&__copy
+		color: rgba(255, 255, 255, 0.8)
+		font-size: 14px
+		line-height: 20px
+		font-weight: 400
+		@media screen and (max-width: $md-min)
+		    text-align: center
+		@media screen and (max-width: $xs-max)
+		    font-size: 12px
+		    line-height: 20px
+		a
+			color: rgba(255, 255, 255, 0.8)
+			text-decoration: underline
+			&:hover
+				text-decoration: none
+
+	&__developer
+		display: flex
+		align-items: center
+		margin-top: 32px
+		@media screen and (max-width: $md-min)
+		    justify-content: center
+		span
+			padding: 0 0 0 6px
+			color: #666
+			font-size: 14px
+			line-height: 20px
+			font-weight: 300
+		a
+			color: #d2d2d2
+
+
+

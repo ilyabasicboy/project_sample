@@ -1,0 +1,144 @@
+<form class="filter__form short_filter-form" method="GET" action="{% url 'filter_products' %}" {% if not fast_filter %}data-object="{{ object.id }}" data-type="{{ c_type }}"{% endif %} novalidate>
+    {% csrf_token %}
+
+    <div class="filter">
+        <div class="filter__right">
+            <div class="filter__dropdown">
+                <div class="dropdown">
+                    <button type="button" class="dropdown__button dropdown__button-filter dropdown__button--catalog-js">
+                        <span>
+                            {% for option in form.dir %}
+                                {% if option.data.value == form.dir.initial %}
+                                    {{ option.data.label }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="5px" viewBox="0 0 8 5" version="1.1">
+                            <title>Выбрать</title>
+                            <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+                                <g id="КАТАЛОГ" transform="translate(-798.000000, -484.000000)" stroke="#000000" stroke-width="1.5">
+                                    <g id="Desktop/Sort" transform="translate(664.000000, 467.000000)">
+                                        <g id="Group" transform="translate(0.000000, 4.875000)">
+                                            <polyline id="Path-5" points="135 13.2954545 138 15.9545455 140.999791 13.29564"/>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                    <ul class="dropdown__list dropdown__list-filter dropdown__list--catalog-js">
+                        {% for option in form.dir %}
+                            <li class="dropdown__item dropdown__item-filter dropdown__item--catalog-js" data-text="{{ option.data.label }}" data-value="{{ option.data.value }}">
+                                {{ option.data.label }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <input class="dropdown__input-hidden" type="text" id="id_dir" name="{{ form.dir.name }}" value="{{ form.dir.initial }}">
+                </div>
+            </div>
+            <div class="filter__counter">
+                Всего<div class="filter__counter--mhidden"> товаров</div>: <span class="filter__counter-number">0</span>
+            </div>
+        </div>
+
+        {% if fast_filter %}
+        <button class="btn btn--accent btn--min modal-open" href="#fast-filter-modal" type="submit">
+            <span>
+                Фильтр
+            </span>
+        </button>
+        {% else %}
+        <div class="filter__wrapper">
+            <button type="button" class="filter__open">
+                <span>
+                    Цена
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 12 12" version="1.1">
+                    <title>Открыть</title>
+                    <g id="Mobile-320px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="КАТАЛОГ" transform="translate(-283.000000, -405.000000)">
+                            <g id="Строка-фильтр-сортировки" transform="translate(15.000000, 395.000000)">
+                                <g id="Цена---кнопка" transform="translate(221.000000, 2.000000)">
+                                    <g id="majesticons:filter" transform="translate(47.000000, 8.000000)">
+                                        <rect id="ViewBox" x="0" y="0" width="12" height="12"/>
+                                        <g id="Group" transform="translate(0.999649, 1.500000)" fill="#7F7F7F">
+                                            <path d="M0.500350923,0 C0.309314736,-0.000132489147 0.134899304,0.108600564 0.0509141813,0.280185359 C-0.0330709412,0.451770153 -0.01194537,0.656214107 0.105350923,0.807000121 L3.50035092,5.17200012 L3.50035092,7 C3.50035092,7.15737877 3.574448,7.30557293 3.70035092,7.40000012 L5.70035092,8.90000012 C5.85185975,9.01363174 6.05456571,9.03190972 6.22395772,8.94721372 C6.39334974,8.86251771 6.50035092,8.68938615 6.50035092,8.5 L6.50035092,5.17150012 L9.89535092,0.806500121 C10.0123432,0.655711254 10.0332914,0.451474297 9.94934531,0.280075559 C9.86539925,0.108676822 9.69120288,0 9.50035092,0 L0.500350923,0 Z" id="Path"/>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+            <div class="filter__left">
+                <button type="button" class="filter__close">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13px" height="14px" viewBox="0 0 13 14" version="1.1">
+                        <title>Закрыть</title>
+                        <g id="Mobile-320px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="РАЗДЕЛ-КАТАЛОГА" transform="translate(-283.000000, -254.000000)" fill="#979797" fill-rule="nonzero">
+                                <g id="Фильтр-по-цене" transform="translate(12.000000, 244.000000)">
+                                    <g id="Icons/Form-close" transform="translate(265.000000, 5.000000)">
+                                        <g id="Group" transform="translate(6.281942, 5.939085)">
+                                            <path d="M13.415201,5.03234384 L-1.29337045,5.03234384 C-1.4065133,5.03234384 -1.48194188,5.09111935 -1.48194188,5.17928261 L-1.48194188,6.94254792 C-1.48194188,7.03071119 -1.4065133,7.0894867 -1.29337045,7.0894867 L13.415201,7.0894867 C13.5283438,7.0894867 13.6037724,7.03071119 13.6037724,6.94254792 L13.6037724,5.17928261 C13.6037724,5.09111935 13.5283438,5.03234384 13.415201,5.03234384 Z" id="Path" transform="translate(6.060915, 6.060915) rotate(-315.000000) translate(-6.060915, -6.060915) "/>
+                                            <path d="M13.415201,5.03234384 L-1.29337045,5.03234384 C-1.4065133,5.03234384 -1.48194188,5.09111935 -1.48194188,5.17928261 L-1.48194188,6.94254792 C-1.48194188,7.03071119 -1.4065133,7.0894867 -1.29337045,7.0894867 L13.415201,7.0894867 C13.5283438,7.0894867 13.6037724,7.03071119 13.6037724,6.94254792 L13.6037724,5.17928261 C13.6037724,5.09111935 13.5283438,5.03234384 13.415201,5.03234384 Z" id="Path" transform="translate(6.060915, 6.060915) scale(-1, 1) rotate(-315.000000) translate(-6.060915, -6.060915) "/>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </button>
+                <div class="filter__inputs">
+                    <div class="filter__inputs-info filter__inputs-info__mobile">
+                        Цена <span>от</span>
+                    </div>
+                    <div class="filter__inputs-item">
+                        <input class="filter__input" id="min_price" name="min_price" type="number" step="500" min="{{ object.get_min_price|safe }}" max="{{ object.get_max_price|safe }}" value="{{ object.get_min_price|safe }}">
+                    </div>
+                    <span class="filter__inputs-info">
+                        до
+                    </span>
+                    <div class="filter__inputs-item">
+                        <input class="filter__input" id="max_price" name="max_price" type="number" step="500" min="{{ object.get_min_price|safe }}" max="{{ object.get_max_price|safe }}" value="{{ object.get_max_price|safe }}">
+                    </div>
+                    <span class="filter__inputs-info">
+                        руб.
+                    </span>
+                </div>
+                <div class="filter__buttons">
+                    <div class="filter__submit">
+                        <button class="btn btn--accent btn--min filter-submit-js" type="submit">
+                            <span>
+                                Выбрать
+                            </span>
+                        </button>
+                    </div>
+                    <button class="filter__reset filter__reset--hidden filter-reset-js" type="reset">
+                        <span>
+                            Очистить
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="25px" viewBox="0 0 24 25" version="1.1">
+                            <title>Очистить</title>
+                            <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="КАТАЛОГ" transform="translate(-1536.000000, -474.000000)" fill="#979797" fill-rule="nonzero">
+                                    <g id="Desktop/Sort" transform="translate(664.000000, 467.000000)">
+                                        <g id="Очистить" transform="translate(802.000000, 4.875000)">
+                                            <g id="Group" transform="translate(70.000000, 2.925000)">
+                                                <g id="Group" transform="translate(6.281942, 5.790608)">
+                                                    <path d="M13.3361296,4.80174953 L-1.18858473,4.98560667 C-1.3003133,4.98702096 -1.37553371,5.04600463 -1.37663575,5.13306586 L-1.39868875,6.87429034 C-1.39977861,6.96135157 -1.32602759,7.01844953 -1.21429902,7.01703524 L13.3104153,6.8331781 C13.4221438,6.83176381 13.4973642,6.77278014 13.4984663,6.68571892 L13.5205193,4.94449443 C13.5216091,4.8574332 13.4478581,4.80033524 13.3361296,4.80174953 Z" id="Path" transform="translate(6.060915, 5.909392) rotate(-315.000000) translate(-6.060915, -5.909392) "/>
+                                                    <path d="M13.3361296,4.80174953 L-1.18858473,4.98560667 C-1.3003133,4.98702096 -1.37553371,5.04600463 -1.37663575,5.13306586 L-1.39868875,6.87429034 C-1.39977861,6.96135157 -1.32602759,7.01844953 -1.21429902,7.01703524 L13.3104153,6.8331781 C13.4221438,6.83176381 13.4973642,6.77278014 13.4984663,6.68571892 L13.5205193,4.94449443 C13.5216091,4.8574332 13.4478581,4.80033524 13.3361296,4.80174953 Z" id="Path" transform="translate(6.060915, 5.909392) scale(-1, 1) rotate(-315.000000) translate(-6.060915, -5.909392) "/>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</form>

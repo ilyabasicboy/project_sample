@@ -1,0 +1,47 @@
+{% load static feedback_tags %}
+<section class="order content-anim content-anim--opacity" style="background-image: url('{% static 'img/banner-order.jpg' %}')">
+    <div class="container">
+        <div class="grid grid--gap-xs-0">
+            <div class="grid__item-4 grid__item-pc-6 grid__item-xs-12 order__item-left">
+                <h3 class="title-min">
+                    Заказать
+                </h3>
+                <span class="subtitle-min">
+                    индивидуальный расчет
+                </span>
+            </div>
+            <div class="grid__item-4 grid__item-pc-6 grid__item-xs-12 order__item-center">
+                <a class="btn btn--border modal-open" href="#calculate-modal">
+                    <span>
+                        Оформить заявку
+                    </span>
+                </a>
+            </div>
+            <div class="grid__item-4 grid__item-pc-6 grid__item-xs-12 order__item-right">
+                {% if chunks.header_phone.content %}
+                <a href="tel:{{ chunks.header_phone.content|cut:' ' }}" class="order__phone">
+                    {{ chunks.header_phone.content }}
+                </a>
+                {% endif %}
+                {% if chunks.email.content %}
+                <a href="mailto:{{ chunks.email.content }}" class="order__email">
+                    {{ chunks.email.content }}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="modal mfp-hide mfp-anim" id="calculate-modal">
+            <div class="modal__header">
+                <h3 class="modal__title">
+                    Заявка
+                </h3>
+                <span class="modal__subtitle">
+                    на индивидуальный расчет
+                </span>
+            </div>
+            <!--noindex-->
+                {% show_feedback 'calculate' %}
+            <!--/noindex-->
+        </div>
+    </div>
+</section>

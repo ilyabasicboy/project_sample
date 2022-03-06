@@ -1,0 +1,21 @@
+{% load catalog_tags attachment_tags custom_catalog_tags %}
+{% for object in children %}
+   {# Отображение раздела/категории в главном меню #}
+    {% with products=object.get_products_count %}
+    {% if products or object.tree.get.content_type.model == 'category' %}
+        <a class="header__bigmenu-link" href="{{ object.get_absolute_url }}">
+            {{ object.long_title|default:object.title }}
+            {% if object.tree.get.content_type.model == 'section' %}
+                <span>({{ products }})</span>
+            {% endif %}
+        </a>
+        {% if object.tree.get.content_type.model == 'section' %}
+            {# Найти дочерние разделы/категории #}
+            {% get_catalog_menu_items for object as children %}
+            {% if children %}
+                {% include 'catalog/parts/catalog_main_menu_items.html' %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% endwith %}
+{% endfor %}

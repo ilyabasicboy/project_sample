@@ -1,0 +1,213 @@
+.search-form
+	border-bottom: 1px solid rgba(255, 255, 255, 0.6)
+	padding-bottom: 10px
+	transition: border 0.5s ease-in-out
+	min-height: 36px
+	@media screen and (max-width: $xs-max)
+	    padding-bottom: 8px
+	    min-height: 34px
+	&.active
+	    border-bottom: 1px solid rgba(255, 255, 255, 1)
+	    .ya-site-form
+	        opacity: 1
+	table
+		margin: 0
+		border: none
+		line-height: 0
+
+		tr, td
+			border: none
+			padding: 0 !important
+			border: none !important
+
+		input
+			border: none !important
+			background: none !important
+			height: 25px !important
+
+		input[type="button"]
+			width: 20px !important
+			height: 20px !important
+			cursor: pointer
+			background-image: url("../img/search.svg") !important
+			background-repeat: no-repeat !important
+			background-position: center !important
+			background-size: contain !important
+			margin: 0 !important
+
+	.ya-site-form
+	    opacity: 0.6
+	    transition: opacity 0.5s ease-in-out
+	#ya-site-form0, #ya-site-form1
+		.ya-site-form__form
+			.ya-site-form__input
+				.ya-site-form__input-text
+					background-color: transparent !important
+					padding: 0 !important
+					font-size: 18px !important
+					line-height: 21px !important
+					font-weight: 300 !important
+					color: #fff !important
+					border-radius: 0 !important
+					-webkit-appearance: none !important
+					font-family: inherit !important
+					@media screen and (max-width: $xs-max)
+					    font-size: 16px!important
+					    line-height: 20px!important
+					&::-webkit-input-placeholder
+						opacity: 1
+						color: #fff
+					&::-moz-placeholder
+						opacity: 1
+						color: #fff
+					&:-moz-placeholder
+						opacity: 1
+						color: #fff
+					&::placeholder
+						opacity: 1
+						color: #fff
+					&::-webkit-search-decoration,
+					&::-webkit-search-cancel-button,
+					&::-webkit-search-results-button,
+					&::-webkit-search-results-decoration
+						-webkit-appearance: none
+		.ya-site-suggest
+			display: none
+
+
+.search-result
+	width: 100%
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+	padding-bottom: 10px
+	transition: border 0.5s ease-in-out
+	min-height: 40px
+	@media screen and (max-width: $xs-max)
+	    min-height: 36px
+	@media screen and (max-width: $md-min)
+	    min-height: 34px
+	    padding-bottom: 5px
+	&.active
+	    border-bottom: 1px solid rgba(0, 0, 0, 1)
+	    .ya-site-form
+	        opacity: 1
+	table
+		margin: 0
+		border: none
+		line-height: 0
+
+		tr, td
+			border: none
+			padding: 0 !important
+			border: none !important
+
+		input
+			border: none !important
+			background: none !important
+			height: 32px !important
+			@media screen and (max-width: $xs-max)
+			    height: 22px
+
+		input[type="button"]
+			width: 20px !important
+			height: 20px !important
+			cursor: pointer
+			background-image: url("../img/search-grey.svg") !important
+			background-repeat: no-repeat !important
+			background-position: center !important
+			background-size: contain !important
+			margin: 0 !important
+
+	.ya-site-form
+	    opacity: 0.6
+	    transition: opacity 0.5s ease-in-out
+	#ya-site-form0, #ya-site-form1
+		.ya-site-form__form
+			.ya-site-form__input
+				.ya-site-form__input-text
+					background-color: transparent !important
+					padding: 0 !important
+					font-size: 24px !important
+					line-height: 32px !important
+					font-weight: 400 !important
+					color: #000 !important
+					border-radius: 0 !important
+					-webkit-appearance: none !important
+					font-family: inherit !important
+					@media screen and (max-width: $md-min)
+					    font-size: 18px
+					    line-height: 24px
+					@media screen and (max-width: $xs-max)
+					    font-size: 16px!important
+					    line-height: 20px!important
+					&::-webkit-input-placeholder
+						opacity: 1
+						color: #fff
+					&::-moz-placeholder
+						opacity: 1
+						color: #fff
+					&:-moz-placeholder
+						opacity: 1
+						color: #fff
+					&::placeholder
+						opacity: 1
+						color: #fff
+					&::-webkit-search-decoration,
+					&::-webkit-search-cancel-button,
+					&::-webkit-search-results-button,
+					&::-webkit-search-results-decoration
+						-webkit-appearance: none
+		.ya-site-suggest
+			display: none
+
+
+.search__results
+	.b-head__found
+	    font-size: 14px
+	    line-height: 24px
+	    color: #303030
+	.b-body-items
+	    @media screen and (max-width: $xs-max)
+	        padding-left: 40px
+	.b-serp-item__links-link
+	    color: #303030
+	    text-decoration: underline
+	    @media screen and (max-width: $xs-max)
+	        display: block
+	        margin-top: 5px
+	#ya-site-results .b-serp-item__title-link:link, #ya-site-results .b-serp-item__title-link
+	    font-size: 14px
+	    text-decoration: underline
+	    color: #0D3DFF!important
+	    @media screen and (max-width: $xs-max)
+	        font-size: 13px
+	        line-height: 17px!important
+	.b-head__l, .b-head__specify
+	    padding-left: 0
+	#ya-site-results .b-pager
+	    @media screen and (max-width: $xs-max)
+	        font-size: 12px
+	        margin-left: 40px
+	.l-page_layout_70-30 .l-page__left
+	    @media screen and (max-width: $xs-max)
+	        margin-right: 0
+	#ya-site-results a:link, #ya-site-results a:active, #ya-site-results .b-pseudo-link, #ya-site-results .b-head-tabs__link, #ya-site-results .b-head-tabs__link:link, #ya-site-results .b-head-tabs__link:visited, #ya-site-results .b-dropdown__list .b-pseudo-link, #ya-site-results .b-dropdowna__switcher .b-pseudo-link, .b-popupa .b-popupa__content .b-menu__item, #ya-site-results .b-foot__link:link, #ya-site-results .b-copyright__link:link, #ya-site-results .b-serp-item__mime, #ya-site-results .b-pager :link
+	    color: #0D3DFF
+	.b-serp-url__item
+	    color: #3A9D3A!important
+	    line-height: 17px
+	.b-head__link .b-head__logo
+	    margin-top: -8px
+	.b-bottom-wizard
+	    @media screen and (max-width: $xs-max)
+	        margin-top: 0
+	.b-serp-item__text
+	    color: #303030
+	    margin-top: 8px
+	    margin-top: 4px
+	#ya-site-results .b-serp-item__links-link
+	    color: #303030!important
+	.b-serp-item
+	    margin-bottom: 24px
+	    @media screen and (max-width: $md-min)
+	        margin-bottom: 32px
+

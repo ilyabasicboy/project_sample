@@ -1,0 +1,61 @@
+{% load attachment_tags %}
+
+<a href="{{ obj.get_absolute_url }}" class="news__item">
+    {% if obj.main_image %}
+        <div class="news__item-overlay">
+            <img src="{{ obj.main_image.image.url }}" title="{{ obj.main_image.title }}" alt="{{ obj.main_image.title }}">
+        </div>
+    {% endif %}
+    <div class="news__item-content">
+        <div class="news__item-header">
+            <span class="news__item-date">
+                {{ obj.date|date:"d.m.Y" }}
+            </span>
+            {% if obj.video or obj.add_images %}
+                <ul class="news__item-tags">
+                    {% if obj.video %}
+                    <li class="news__item-tags__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23px" height="14px" viewBox="0 0 23 14" version="1.1">
+                            <title>Присутствует видео</title>
+                            <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="ГЛАВНАЯ-4-Copy" transform="translate(-1063.000000, -8905.000000)" fill="#C5C5C5" fill-rule="nonzero">
+                                    <g id="НОВОСТИ" transform="translate(-26.000000, 8525.000000)">
+                                        <g id="Desktop/News-blocks" transform="translate(378.000000, 347.000000)">
+                                            <g id="Новость-2" transform="translate(416.000000, 0.000000)">
+                                                <path d="M308.707631,33.000656 C308.942713,33.0095126 310.647059,33.1379321 310.647059,35.0000154 L310.647059,35.0000154 L310.647059,44.9999846 C310.647059,47 308.680866,47 308.680866,47 L308.680866,47 L296.966193,47 C296.966193,47 295,47 295,44.9999846 L295,44.9999846 L295,35.0000154 C295,33.1379321 296.704346,33.0095126 296.939428,33.000656 Z M317.235294,33 L317.235294,47 L312.294118,43.128985 L312.294118,36.9069985 L317.235294,33 Z" id="icon-video"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </li>
+                    {% endif %}
+                    {% if obj.add_images %}
+                    <li class="news__item-tags__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19px" height="16px" viewBox="0 0 19 16" version="1.1">
+                            <title>Присутствуют фотографии</title>
+                            <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="ГЛАВНАЯ-4-Copy" transform="translate(-1102.000000, -8903.000000)" fill="#C5C5C5" fill-rule="nonzero">
+                                    <g id="НОВОСТИ" transform="translate(-26.000000, 8525.000000)">
+                                        <g id="Desktop/News-blocks" transform="translate(378.000000, 347.000000)">
+                                            <g id="Новость-2" transform="translate(416.000000, 0.000000)">
+                                                <path d="M346.65013,40.1427979 C346.65013,42.035703 345.104899,43.5713424 343.200057,43.5713424 C341.294722,43.5713424 339.750021,42.035703 339.750021,40.1427979 C339.750021,38.2500059 341.294722,36.7142911 343.200057,36.7142911 C345.104899,36.7142911 346.65013,38.2500436 346.65013,40.1427979 Z M352.4,35.5713801 L352.4,44.7143665 C352.4,45.9765168 351.370124,47 350.10009,47 L336.299986,47 C335.029876,47 334,45.9765544 334,44.7144042 L334,35.5713801 C334,34.3091545 335.029876,33.2856712 336.299986,33.2856712 L339.750021,33.2856712 L339.750021,32.1427979 C339.750021,31.511101 340.264959,31 340.900071,31 L345.499967,31 C346.135723,31 346.650168,31.511101 346.650168,32.1427979 L346.650168,33.2857089 L350.100128,33.2857089 C351.370124,33.2857089 352.4,34.3091545 352.4,35.5713801 Z M347.799991,40.1427979 C347.799991,37.6227182 345.735839,35.5713801 343.200019,35.5713801 C340.663668,35.5713801 338.600047,37.6227182 338.600047,40.1427979 C338.600047,42.6630661 340.663668,44.7144042 343.200019,44.7144042 C345.735877,44.7144042 347.799991,42.6630661 347.799991,40.1427979 Z M351.25014,34.4285822 L347.800028,34.4285822 L347.800028,36.7142911 L351.25014,36.7142911 L351.25014,34.4285822 Z" id="icon-cam"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="news__item-wrapper">
+            <div class="news__item-text">
+                {{ obj.title }}
+            </div>
+        </div>
+    </div>
+</a>

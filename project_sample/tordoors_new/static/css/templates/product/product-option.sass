@@ -1,0 +1,155 @@
+.product
+	&__section
+		width: 100%
+
+	&__options
+		display: flex
+		flex-direction: column
+		width: 100%
+
+	&__option
+		display: flex
+		flex-direction: column
+		+ .product__option
+			margin-top: 80px
+			@media screen and (max-width: $md-min)
+			    margin-top: 60px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 30px
+
+		&-title
+			font-size: 20px
+			line-height: 27px
+			color: #9A9898
+			font-weight: 400
+			text-transform: uppercase
+			margin-bottom: 5px
+			@media screen and (max-width: $md-min)
+			    font-size: 18px
+			    line-height: 24px
+			@media screen and (max-width: $xs-max)
+			    font-size: 15px
+			    line-height: 19px
+			    margin-bottom: 16px
+
+		&-slider
+			width: 100%
+			.slick-track
+				margin: 0
+
+			&:not(.slick-initialized)
+				display: flex
+				min-height: 319px
+				overflow: hidden
+				@media screen and (max-width: $md-min)
+				    min-height: 249px
+				@media screen and (max-width: $xs-max)
+				    min-height: 225px
+
+
+		&-item
+			display: flex
+			margin-right: 32px
+			width: 280px
+			min-width: 280px
+			@media screen and (max-width: $md-min)
+			    min-width: 236px
+			    width: 236px
+			@media screen and (max-width: $xs-max)
+			    margin-right: 30px
+			    width: 210px
+			    min-width: 210px
+			&__content
+				display: flex
+				flex-direction: column
+
+			&__name
+				font-size: 14px
+				line-height: 19px
+				color: #303030
+				font-weight: 500
+				display: inline-block
+				white-space: nowrap
+				overflow: hidden
+				text-overflow: ellipsis
+				@media screen and (max-width: $xs-max)
+				    font-size: 13px
+				    line-height: 18px
+
+			&__preview
+				width: 100%
+				position: relative
+				margin-top: 10px
+				@media screen and (max-width: $xs-max)
+				    margin-top: 8px
+				img
+					width: 100%
+
+
+			&__info
+				display: inline-block
+				color: #303030
+				font-size: 12px
+				line-height: 17px
+				font-weight: 400
+				font-style: italic
+				margin-top: 10px
+				@media screen and (max-width: $xs-max)
+				    margin-top: 8px
+
+			&__price
+				display: inline-block
+				margin-left: 8px
+				font-size: 16px
+				line-height: 22px
+				color: #303030
+				font-weight: 800
+				@media screen and (max-width: $xs-max)
+				    font-size: 13px
+				    line-height: 22px
+
+
+		&-checkbox
+			width: 100%
+			display: flex
+			&__label
+				width: 100%
+				display: flex
+				cursor: pointer
+
+			&__input
+				display: none
+
+			&__title
+				display: flex
+				align-items: center
+				margin-top: 10px
+				min-height: 22px
+				@media screen and (max-width: $xs-max)
+				    margin-top: 8px
+
+			&__icon
+				width: 20px
+				height: 20px
+				min-height: 20px
+				min-width: 20px
+				background-color: #fff
+				display: flex
+				align-items: center
+				justify-content: center
+				border: 1px solid #9a9898
+				img, svg
+					width: 12px
+					height: 12px
+					user-select: none
+					margin-right: 1px
+					opacity: 0
+					transition: opacity 0.5s ease-in-out
+
+
+			.product__option-checkbox__input:checked + .product__option-checkbox__content .product__option-checkbox__icon img, .product__option-checkbox__input:checked + .product__option-checkbox__content .product__option-checkbox__icon svg
+				opacity: 1
+
+
+
+

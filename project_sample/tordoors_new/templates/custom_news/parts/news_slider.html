@@ -1,0 +1,13 @@
+{% load custom_news_tags %}
+{% get_news num=3 current_new=object as object_list %}
+{% if object_list %}
+    <div class="news__slider news--slider swiper">
+        <div class="news__slider-wrapper grid swiper-wrapper">
+            {% for obj in object_list %}
+                <div class="news__slider-item grid__item-4 swiper-slide">
+                    {% include 'custom_news/parts/card.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

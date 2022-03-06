@@ -1,0 +1,66 @@
+.grid
+	display: grid
+	grid-template-columns: repeat(12, 1fr)
+	grid-gap: 32px
+	@media screen and (max-width: $md-min)
+	    grid-gap: 20px
+	@media screen and (max-width: $xs-max)
+	    grid-gap: 16px
+
+	&--gap56
+		grid-gap: 56px 32px
+		@media screen and (max-width: $xs-max)
+		    grid-gap: 32px 0
+
+	&__item-2
+		grid-column: 2 span
+
+	&__item-3
+		grid-column: 3 span
+
+	&__item-4
+		grid-column: 4 span
+
+	&__item-5
+		grid-column: 5 span
+
+	&__item-6
+		grid-column: 6 span
+
+	&__item-7
+		grid-column: 7 span
+
+	&__item-8
+		grid-column: 8 span
+
+	&__item-9
+		grid-column: 9 span
+
+	&__item-10
+		grid-column: 10 span
+
+	&__item-11
+		grid-column: 11 span
+
+	&__item-12
+		grid-column: 12 span
+
+@media screen and (max-width: $md-max)
+    .grid
+        &__item-pc-6
+            grid-column: 6 span
+
+@media screen and (max-width: $md-min)
+    .grid
+        &__item-md-6
+            grid-column: 6 span
+        &__item-md-12
+            grid-column: 12 span
+
+@media screen and (max-width: $xs-max)
+    .grid
+        &__item-xs-12
+            grid-column: 12 span
+        &--gap-xs-0
+            grid-gap: 0
+

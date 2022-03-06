@@ -1,0 +1,233 @@
+.page-sidebar
+	display: flex
+	align-items: flex-start
+	@media screen and (max-width: $md-max)
+	    flex-direction: column
+
+.catalog__sidebar
+	width: 280px
+	margin-right: 32px
+	@media screen and (max-width: $md-max)
+	    width: initial
+	    margin: 0
+	    margin-right: -15px
+	    margin-bottom: 24px
+	@media screen and (max-width: $xs-max)
+	    margin-right: -10px
+	&-content
+		width: 100%
+		display: flex
+		flex-direction: column
+		overflow: hidden
+		overflow-x: auto
+		@media screen and (max-width: $md-max)
+		    flex-direction: row
+
+	&-footer
+		margin-top: 40px
+		width: 100%
+		@media screen and (max-width: $md-max)
+		    margin-top: 0
+		    margin-right: 10px
+		    order: 1
+
+	&-btn
+		display: flex
+		align-items: center
+		justify-content: flex-start
+		width: 100%
+		padding: 19px 18px
+		position: relative
+		background-color: #93C718
+		overflow: hidden
+		@media screen and (max-width: $md-max)
+		    height: 35px
+		    padding: 0 16px
+		    white-space: nowrap
+		    border-radius: 10px
+		span
+			position: relative
+			z-index: 1
+			font-weight: 700
+			color: #fff
+			font-size: 24px
+			line-height: 28px
+			text-transform: uppercase
+			@media screen and (max-width: $md-max)
+			    font-size: 12px
+			    line-height: 13px
+			    font-weight: 400
+
+		b
+			font-weight: 400
+			color: rgba(255,255,255,0.6)
+			text-transform: none
+			@media screen and (max-width: $md-max)
+			    display: none
+
+		&__icon
+		    display: none
+		    @media screen and (max-width: $md-max)
+		        display: block
+		        margin-right: 4px
+		        height: 20px
+		        width: 20px
+
+		&:before
+			content: ''
+			position: absolute
+			left: 0
+			top: 0
+			width: 100%
+			height: 100%
+			transform: translateX(-100%)
+			background-color: #93d200
+			transition: transform 0.4s ease-in-out
+			will-change: transform
+			@media screen and (max-width: $md-max)
+			    display: none
+
+		&:hover:before
+			transform: translateX(0)
+
+
+
+.catalog__menu
+	width: 100%
+	display: flex
+	flex-direction: column
+	@media screen and (max-width: $md-max)
+	    width: initial
+	    flex-direction: row
+	    white-space: nowrap
+	    order: 2
+	&-item
+		width: 100%
+		@media screen and (max-width: $md-max)
+		    padding-right: 8px
+		    &:last-child
+		        padding-right: 54px
+		+ .catalog__menu-item
+			margin-top: 20px
+			@media screen and (max-width: $md-max)
+			    margin-top: 0
+
+
+	&-container
+		position: relative
+		padding-right: 18px
+		@media screen and (max-width: $md-max)
+		    padding-right: 0
+		&.active .catalog__menu-link
+			color: #303030
+
+		&.active .catalog__menu-icon:before
+			background-color: #303030
+			transform: translateY(-50%) rotate(90deg)
+			opacity: 0
+
+		&.active .catalog__menu-icon:after
+			background-color: #303030
+			transform: translateX(-50%) rotate(90deg)
+
+
+	&-link
+		font-weight: 700
+		color: #898989
+		font-size: 14px
+		line-height: 19px
+		text-transform: uppercase
+		display: inline-block
+		transition: color 0.7s ease-in-out
+		&:hover
+			color: #93C718
+		@media screen and (max-width: $md-max)
+		    position: relative
+		    font-size: 12px
+		    line-height: 17px
+		    font-weight: 400
+		    color: #303030
+		    display: flex
+		    align-items: center
+		    justify-content: center
+		    text-align: center
+		    padding: 8px 16px
+		    background-color: #fafafa
+		    border: 1px solid #f4f4f4
+		    overflow: hidden
+		    border-radius: 10px
+		    transition: color 0.5s ease-in-out
+		    text-transform: none
+		    &:hover
+		        color: #303030
+
+
+	&-count
+		font-size: 12px
+		line-height: 16px
+		color: #898989
+		font-weight: 400
+		text-transform: none
+		@media screen and (max-width: $md-max)
+		    display: none
+
+	&-icon
+		position: absolute
+		right: 0
+		top: 5px
+		width: 12px
+		height: 12px
+		cursor: pointer
+		@media screen and (max-width: $md-max)
+		    display: none
+		&:before
+			content: ''
+			position: absolute
+			top: 50%
+			left: 0
+			transform: translateY(-50%)
+			width: 100%
+			height: 2px
+			background-color: #898989
+			border-radius: 1px
+			transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out
+
+		&:after
+			content: ''
+			position: absolute
+			top: 0
+			left: 50%
+			transform: translateX(-50%)
+			height: 100%
+			width: 2px
+			background-color: #898989
+			border-radius: 1px
+			transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out
+
+		&:hover:before, &:hover:after
+			background-color: #93C718
+
+
+
+.catalog__submenu
+	display: none
+	@media screen and (max-width: $md-max)
+	    display: none!important
+	&-item
+		margin-top: 8px
+
+	.catalog__menu-link
+		font-size: 14px
+		line-height: 18px
+		color: #303030
+		font-weight: 400
+		transition: color 0.5s ease-in-out
+		padding-left: 20px
+		text-transform: none
+		display: inline-block
+		&:hover
+			color: #93C718
+
+.catalog__menu-container
+    &.visited + .catalog__submenu
+        display: block

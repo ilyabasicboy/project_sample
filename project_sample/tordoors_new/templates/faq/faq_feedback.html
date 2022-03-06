@@ -1,0 +1,133 @@
+{% load feedback_tags %}
+<form action="{% url 'ajax_faq_feedback' %}" method="post" id="id_feedback_form_{{ form.get_settings_key }}" novalidate class="form feedback-form {{ form.get_settings_key }}">
+    {% csrf_token %}
+    {{ form.message_ }}
+
+    <div class="form__item-full form__column form__grid">
+        <div class="form__grid form__grid--bgap form__grid-6 form__grid-xs-12">
+            <div class="form__item form__grid-12">
+                <label class="input__label {% if form.theme.errors %}error{% endif %}">
+                    <span class="input__info">
+                        {{ form.theme.label }}
+                    </span>
+                    <div class="dropdown dropdown--fixheight">
+                        <button type="button" class="dropdown__button dropdown__button-default dropdown__button--default-js">
+
+                            <span>
+                                {{ form.theme.1.data.label }}
+                            </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11px" height="8px" viewBox="0 0 11 8" version="1.1">
+                                <title>Выбрать</title>
+                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+                                    <g id="ГЛАВНАЯ-4-Copy" transform="translate(-589.000000, -3605.000000)" stroke="#000" stroke-width="2">
+                                        <g id="БЫСТРЫЙ-ПОДБОР" transform="translate(-0.841270, 3146.000000)">
+                                            <g id="Group" transform="translate(352.000000, 104.000000)">
+                                                <g id="Group-5" transform="translate(0.000000, 313.000000)">
+                                                    <g id="Огнестойкость" transform="translate(0.000000, 2.000000)">
+                                                        <polyline id="Path-5" points="238.509978 40.9974861 243.350362 45.8378706 248.190409 40.9978237"/>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                        <ul class="dropdown__list dropdown__list-default dropdown__list--default-js">
+                            {% for field in form.theme|slice:'1:' %}
+                                <li class="dropdown__item dropdown__item-default dropdown__item--default-js" data-value="{{ field.data.value }}">
+                                    {{ field.data.label }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <input class="dropdown__input-hidden" id="id_theme" type="text" name="theme" value="{{ form.theme.1.data.value|floatformat }}">
+                    </div>
+                </label>
+            </div>
+            <div class="form__item form__grid-12">
+                <label class="input__label {% if form.question.errors %}error{% endif %}">
+                    <span class="input__info">
+                        {{ form.question.label }}
+                    </span>
+                    <div class="input__content textarea textarea--dheight">
+                        {{ form.question }}
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="form__grid form__grid--bgap form__grid-6 form__grid-xs-12">
+            <div class="form__item form__grid-12">
+                <label class="input__label">
+                    <span class="input__info">
+                        {{ form.name.label }}
+                    </span>
+                    <div class="input__content input">
+                        {{ form.name }}
+                    </div>
+                </label>
+            </div>
+            <div class="form__item form__grid-12">
+                <label class="input__label">
+                    <span class="input__info">
+                        {{ form.phone.label }}
+                    </span>
+                    <div class="input__content input">
+                        {{ form.phone }}
+                    </div>
+                </label>
+            </div>
+            <div class="form__item form__grid-12">
+                <label class="input__label">
+                    <span class="input__info">
+                        {{ form.email.label }}
+                    </span>
+                    <div class="input__content input">
+                        {{ form.email }}
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__item-full">
+        <div class="form__bottom">
+            <div class="form__privacy">
+                <div class="default-checkbox {% if form.confirm.errors %}error{% endif %}">
+                    <label class="default-checkbox__label">
+                        <input class="default-checkbox__input" type="checkbox" name="confirm" required="" id="id_confirm" {% if not form.confirm.errors %}checked{% endif %}>
+                        <div class="default-checkbox__content">
+                            <div class="default-checkbox__fake">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="11px" viewBox="0 0 14 11" version="1.1">
+                                    <title>Выбрать</title>
+                                    <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="КАРТОЧКА-товара-Однопольная---1" transform="translate(-819.000000, -945.000000)" stroke="#303030" stroke-width="2">
+                                            <g id="Вид-внтури" transform="translate(766.000000, 349.000000)">
+                                                <g id="Отделка-внутри" transform="translate(0.000000, 526.000000)">
+                                                    <g id="Рисунок-внутри" transform="translate(0.000000, 28.000000)">
+                                                        <g id="Float" transform="translate(50.000000, 36.000000)">
+                                                            <polyline id="Check" points="4.5 11.5 8 15 16 7"/>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="default-checkbox__text form__privacy-text">
+                                {{ chunks.privacy_policy.content }}
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn--accent">
+                <span>
+                    Отправить
+                </span>
+            </button>
+        </div>
+    </div>
+</form>
+
+

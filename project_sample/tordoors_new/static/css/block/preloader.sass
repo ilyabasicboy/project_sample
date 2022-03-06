@@ -1,0 +1,40 @@
+.preloader
+    position: fixed
+    left: 0
+    width: 100vw
+    height: 100%
+    will-change: transform
+    overflow: hidden
+    background-color: #1e1e1e
+    z-index: 1000
+    top: 0
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-direction: column
+    text-align: center
+    &__content
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        text-align: center
+    &__logo
+        width: 250px
+        opacity: 0.5
+        transform: scale(0.8)
+        @media screen and (max-width: $md-min)
+            width: 200px
+        @media screen and (max-width: $xs-max)
+            width: 180px
+    &__info
+        font-size: 18px
+        display: inline-block
+        font-weight: 500
+        color: #fff
+        margin-top: 15px
+        opacity: 0.5
+        @media screen and (max-width: $md-min)
+            font-size: 16px
+        @media screen and (max-width: $xs-max)
+            font-size: 14px

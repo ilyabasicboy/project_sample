@@ -1,0 +1,124 @@
+.modal
+    width: calc(100% - 16px)
+    max-width: 1000px
+    margin: auto
+    padding: 40px 80px
+    background-color: #fff
+    margin-top: 40px
+    margin-bottom: 40px
+    position: relative
+    @media screen and (max-width: $md-min)
+        padding: 55px 40px
+    @media screen and (max-width: $xs-max)
+        padding: 65px 16px
+        margin: 0
+        min-height: 100%
+        display: flex
+        flex-direction: column
+        width: 100%
+    &__header
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        margin-bottom: 60px
+        @media screen and (max-width: $md-min)
+            padding-right: 40px
+            &--center-md
+                justify-content: center
+                align-items: center
+        @media screen and (max-width: $xs-max)
+            margin-bottom: 48px
+            padding-right: 0
+            &--left-xs
+                justify-content: flex-start
+                align-items: flex-start
+    &__title
+        font-size: 60px
+        line-height: 82px
+        color: #000
+        font-weight: 800
+        margin: 0
+        &--white
+            color: #fff
+        @media screen and (max-width: $md-min)
+            font-size: 48px
+            line-height: 65px
+        @media screen and (max-width: $xs-max)
+            font-size: 32px
+            line-height: 38px
+    &__subtitle
+        display: inline-block
+        margin: 0
+        margin-top: 4px
+        font-size: 30px
+        line-height: 41px
+        color: #898989
+        font-weight: 400
+        @media screen and (max-width: $md-min)
+            margin-top: 8px
+            font-size: 24px
+            line-height: 33px
+        @media screen and (max-width: $xs-max)
+            font-size: 18px
+            line-height: 24px
+        &--min
+            font-size: 16px
+            line-height: 24px
+            color: #8B8B8B
+            font-weight: 400
+            @media screen and (max-width: $md-min)
+                font-size: 14px
+                line-height: 18px
+            @media screen and (max-width: $xs-max)
+                font-size: 13px
+                line-height: 17px
+
+
+    &-selection
+        min-height: 100vh
+        background-repeat: no-repeat
+        background-size: cover
+        background-position: center
+        background-image: url('../img/selection-bg.png')
+        width: 100%
+        position: relative
+        display: flex
+        align-items: center
+        padding: 95px 0
+        padding-bottom: 190px
+        @media screen and (max-width: $md-min)
+            padding: 80px 24px
+        @media screen and (max-width: $xs-max)
+            padding: 65px 16px
+            max-height: 100%
+            min-height: inherit
+            height: 100%
+            align-items: flex-start
+
+        &__container
+            @media screen and (max-width: $xs-max)
+                display: flex
+                flex-direction: column
+                height: 100%
+                form
+                    height: calc(100% - 156px)
+                    display: flex
+                    flex-direction: column
+
+        &__close
+            display: none
+            @media screen and (max-width: $md-min)
+                display: flex
+                align-items: center
+                background-color: transparent
+                border: none
+                padding: 0
+                width: 32px
+                position: absolute
+                top: 40px
+                left: 32px
+            @media screen and (max-width: $xs-max)
+                top: 18px
+                left: 18px
+
+

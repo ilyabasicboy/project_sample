@@ -1,0 +1,119 @@
+*, :after, :before
+	box-sizing: border-box
+
+body
+	font-family: 'Open Sans', sans-serif
+	font-weight: 400
+	line-height: 1.5
+	font-size: 14px
+	overflow-x: hidden
+
+body.fix-anim *
+    transition: none
+
+h1
+	font-weight: 800
+
+h2, h3, h4, h5, h6
+	font-weight: 600
+
+a
+	text-decoration: none
+	outline: none
+	&:focus
+	    outline: none!important
+
+img
+	max-width: 100%
+	height: auto
+
+.container
+	max-width: 1250px
+	width: 100%
+	margin: 0 auto
+	padding: 0 15px
+	position: relative
+	@media screen and (max-width: $md-min)
+	    padding: 0 10px
+
+.section-default
+	padding: 95px 0
+	@media screen and (max-width: $md-min)
+	    padding: 60px 0
+	@media screen and (max-width: $xs-max)
+	    padding: 36px 0
+
+.section-default--top
+    padding-top: 0
+
+.section-default--bottom
+    padding-bottom: 0
+
+.section--blue
+	background-color: #0d314f
+
+.section--dark
+	background-color: #1e1e1e
+
+.section--grey
+	background-color: #F8F8F8
+	@media screen and (max-width: $md-min)
+	    &-md
+	        background-color: #f8f8f8
+
+.section--overflow
+    overflow: hidden
+
+.page
+	overflow: hidden
+	&--default
+		padding-top: 80px
+		@media screen and (max-width: $xs-max)
+		    padding-top: 60px
+	&--overflow
+	    overflow: initial
+	    @media screen and (max-width: $xs-max)
+	        overflow: hidden
+
+.noscroll
+	overflow: hidden
+
+.img-anim
+    position: relative
+    overflow: hidden
+    img
+        height: 100%
+        width: 100%
+        object-fit: cover
+        transform-origin: left
+
+.content-anim
+    position: relative
+    overflow: hidden
+    transition: 0.6s ease-in-out
+    &--opacity
+        opacity: 0
+        &.is-inview
+            opacity: 1
+    &--bottom
+        transform: translate3d(0, 10px, 0)
+        &.is-inview
+            transform: translate3d(0, 0, 0)
+    &--zoom
+        transform: translate3d(0, 0, 0) scale(1.1)
+        transition-duration: 5s
+        &.is-inview
+            transform: translate3d(0, 0, 0) scale(1)
+    &--scale
+        opacity: 0
+        transform: translateY(20px) scale(1.2)
+        transition: 1.2s cubic-bezier(0.19,1,0.22,1)
+        &.is-inview
+            opacity: 1
+            transform: translateY(0) scale(1)
+
+
+
+
+
+

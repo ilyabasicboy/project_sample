@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load attachment_tags  %}
+
+{% block header-options %}header--static-xs{% endblock %}
+{% block page-options %}page--overflow{% endblock %}
+{% block content_title %}Вопрос-ответ{% endblock %}
+
+{% block content %}
+
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="faq faq__grid">
+                {% if questions_by_themes %}
+                    <div class="faq__answers faq__grid-9 faq__grid-md-8 faq__grid-xs-12">
+                    {% for item in questions_by_themes %}
+                        {% if item.1 %}
+                        <div class="faq__answers-list" id="{{ item.0.slug }}">
+                            <h2 class="faq__answers-title title-default--mtop0 h2">
+                                {{ item.0.name }}
+                            </h2>
+                            {% for question in item.1 %}
+                                <div class="faq__answers-item" id="{{ item.0.slug }}-{{ forloop.counter }}">
+                                    <a class="faq__answers-link _slide" href="#{{ item.0.slug }}-{{ forloop.counter }}">
+                                        {{ question.question|safe }}
+                                        <span class="faq__answers-icon">
+                                            <svg width="45" height="44" viewBox="0 0 45 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_413:2)">
+                                                    <path d="M0.00195313 21.9995C0.00195313 34.1504 9.85105 43.9995 22.002 43.9995C34.1529 43.9995 44.002 34.1504 44.002 21.9995C44.002 9.85005 34.1529 -0.000488281 22.002 -0.000488281C9.85105 -0.000488281 0.00195313 9.84861 0.00195313 21.9995ZM31.7933 15.7625C32.331 15.2248 33.2013 15.2248 33.7375 15.7625C34.2738 16.3001 34.2738 17.1705 33.7375 17.7068L23.2092 28.2351C22.8792 28.5651 22.4282 28.6668 22.0006 28.5912C21.5743 28.6668 21.122 28.5637 20.792 28.2351L10.2636 17.7068C9.72595 17.1691 9.72595 16.2987 10.2636 15.7625C10.7998 15.2248 11.6716 15.2248 12.2078 15.7625L22.002 25.5553L31.7933 15.7625Z" fill="#E8E8E8"/>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_413:2">
+                                                        <rect width="44" height="44" fill="white" transform="translate(0.00195312 43.9995) rotate(-90)"/>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                    <div class="faq__answers-content _slide-target">
+                                        <div class="faq__answers-content__box placeholder">
+                                            {{ question.answer|safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                         </div>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if questions_by_themes %}
+                    <div class="faq__theme faq__grid-3 faq__grid-md-4 faq__grid-xs-12">
+                        <div class="faq__sticky">
+                            <ul class="faq__nav">
+                                {% for item in questions_by_themes %}
+                                    {% if item.1 %}
+                                    <li class="faq__nav-item">
+                                        <a class="faq__nav-link anchor-link anchor-link-m20" href="#{{ item.0.slug }}">{{ item.0.name }}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                            <a class="faq__btn modal-open btn btn--accent" href="#faq-modal">
+                                <span>
+                                    Задать вопрос
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="modal mfp-hide mfp-anim" id="faq-modal">
+                <div class="modal__header">
+                    <h3 class="modal__title">
+                        Задайте свой вопрос
+                    </h3>
+                    <span class="modal__subtitle">
+                        Если вы хотите получить ответ от нашего специалиста, укажите контакты для связи.
+                    </span>
+                </div>
+                <!--noindex-->
+                    {% include 'faq/faq_feedback.html' %}
+                <!--/noindex-->
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

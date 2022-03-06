@@ -1,0 +1,109 @@
+.selection
+	background-repeat: no-repeat
+	background-size: cover
+	background-position: center
+	background-color: #202020
+	position: relative
+	padding-bottom: 180px
+	@media screen and (max-width: $md-min)
+	    padding-bottom: 100px
+	    padding-left: 24px
+	    padding-right: 24px
+	@media screen and (max-width: $xs-max)
+	    padding: 60px 15px
+	&:before
+		content: ''
+		position: absolute
+		top: 0
+		left: 0
+		height: 100%
+		width: 100%
+		background-color: #000
+		opacity: 0
+
+	&--hidden-xs
+	    @media screen and (max-width: $xs-max)
+	        display: none
+
+	&__content
+		margin-top: 64px
+		@media screen and (max-width: $md-min)
+		    margin: auto
+		    width: 100%
+		    margin-top: 64px
+		    @media screen and (max-width: $xs-max)
+		        margin-top: 0
+		        width: 100%
+		        height: 100%
+		&-overflow
+		    @media screen and (max-width: $xs-max)
+		        overflow: hidden
+		        overflow-y: auto
+		        height: calc(100% - 94px)
+		&-price
+			max-width: 386px
+
+		&-dropdown
+			display: flex
+			flex-direction: column
+			align-items: flex-start
+
+
+	&__price
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+		&-wrapper
+			display: flex
+			align-items: center
+
+		&-info
+			color: rgba(255, 255, 255, 1)
+			font-size: 14px
+			line-height: 19px
+			display: inline-block
+			font-weight: 400
+			@media screen and (max-width: $xs-max)
+			    font-size: 12px
+			    line-height: 17px
+
+		&-input
+			margin-left: 20px
+			margin-right: 20px
+			@media screen and (max-width: $xs-max)
+			    margin-right: 10px
+			    margin-left: 10px
+			    width: 60px
+
+
+	&__dropdown
+		max-width: 250px
+		@media screen and (max-width: $md-min)
+		    max-width: 100%
+
+	&__footer
+		margin-top: 56px
+
+	&__btn
+	    max-width: 250px
+	    @media screen and (max-width: $md-min)
+	        margin: auto
+	    &--mobile
+	        display: none
+	        @media screen and (max-width: $xs-max)
+	            display: flex
+	            margin-top: 40px
+	    &--hidden-xs
+	        @media screen and (max-width: $xs-max)
+	            display: none
+
+	&__info
+	    @media screen and (max-width: $xs-max)
+	        &--big-xs
+	            font-size: 16px
+	            line-height: 22px
+	        &--medium-xs
+	            font-size: 14px
+	            line-height: 19px
+
+

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load pages_tags custom_news_tags catalog_tags  %}
+
+{% block keywords %}{% endblock %}
+
+{% block description %}{% endblock %}
+
+{% block title %}{% block content_title %}Карта сайта{% endblock %}{% endblock %}
+
+{% block content %}
+	<section class="section-default section-default--top">
+		<div class="container">
+			<ul class="sitemap">
+				{% load_pages %}
+				{% for page in pages_navigation %}
+					{% pages_menu page %}
+				{% endfor %}
+				<li class="sitemap__item">
+					{% get_news as news %}
+					<a class="sitemap__item-link" href="/news/">
+						<span>
+							Новости
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</section>
+{% endblock %}

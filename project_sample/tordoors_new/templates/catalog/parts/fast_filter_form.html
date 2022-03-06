@@ -1,0 +1,176 @@
+<form id="id_filter_form" class="{% if ajax %}ajax_filter_form{% endif %}" method="GET" action="{% url 'filter_products' %}" novalidate>
+    {% csrf_token %}
+
+    <div class="selection__content">
+        <div class="selection__content-overflow scroll-custom-y--xs grid grid--gap56">
+            <div class="grid__item-6 grid__item-md-12 selection__content-price">
+                <span class="selection__info--big-xs input__info input__info--bold input__info--white">
+                    Цена
+                </span>
+                <div class="selection__price-wrapper">
+                    <span class="selection__price-info">
+                        от
+                    </span>
+                    <div class="input__content input input--white selection__price-input">
+                        <input id="min_price" name="min_price" type="number" step="500" min="{{ object.get_min_price|safe|default:0 }}" max="{{ object.get_max_price|safe|default:0 }}" value="{{ form.min_price.initial|default:object.get_min_price|safe }}">
+                    </div>
+                    <span class="selection__price-info">
+                        до
+                    </span>
+                    <div class="input__content input input--white selection__price-input">
+                        <input id="max_price" name="max_price" type="number" step="500" min="{{ object.get_min_price|safe|default:0 }}" max="{{ object.get_max_price|safe|default:0 }}" value="{{ form.max_price.initial|default:object.get_max_price|safe }}">
+                    </div>
+                    <span class="selection__price-info">
+                        руб.
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid grid__item-6 grid__item-xs-12">
+                <div class="grid__item-6 grid__item-md-12 selection__content-dropdown">
+                    <span class="selection__info--medium-xs input__info input__info--bold input__info--white">
+                        {{ form.dir.label }}
+                    </span>
+                    <div class="dropdown dropdown--fixheight selection__dropdown">
+                        <button type="button" class="dropdown__button dropdown__button-white dropdown__button--catalog-js">
+                            <span>
+                                {% for option in form.dir %}
+                                    {% if option.data.value == form.dir.initial %}
+                                        {{ option.data.label }}
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="5px" viewBox="0 0 8 5" version="1.1">
+                                <title>Выбрать</title>
+                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+                                    <g id="КАТАЛОГ" transform="translate(-798.000000, -484.000000)" stroke="#fff" stroke-width="1.5">
+                                        <g id="Desktop/Sort" transform="translate(664.000000, 467.000000)">
+                                            <g id="Group" transform="translate(0.000000, 4.875000)">
+                                                <polyline id="Path-5" points="135 13.2954545 138 15.9545455 140.999791 13.29564"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                        <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js">
+                            {% for option in form.dir %}
+                                <li class="dropdown__item dropdown__item-white dropdown__item--catalog-js" data-text="{{ option.data.label }}" data-value="{{ option.data.value }}">
+                                    {{ option.data.label }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <input class="dropdown__input-hidden" type="text" id="id_dir" name="{{ form.dir.name }}" value="{{ form.dir.initial }}">
+                    </div>
+                </div>
+            </div>
+
+            {# Список обычных полей для фильтра #}
+            {% for field in form.get_simple_fields %}
+            <div class="grid__item-3 grid__item-md-6 grid__item-xs-12 selection__content-dropdown">
+                <span class="selection__info--medium-xs input__info input__info--bold input__info--white">
+                    {{ field.label }}
+                </span>
+                <div class="dropdown dropdown--fixheight selection__dropdown">
+                    <button type="button" class="dropdown__button dropdown__button-white dropdown__button--catalog-js">
+                        <span>
+                            {# если есть входные данные формы, отображается соответствующее название пункта #}
+                            {% if field.initial %}
+                                {% for option in field %}
+                                    {% if option.data.value|stringformat:'s' == field.initial %}
+                                        {{ option.data.label }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {{ field.0.data.label }}
+                            {% endif %}
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="5px" viewBox="0 0 8 5" version="1.1">
+                            <title>Выбрать</title>
+                            <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+                                <g id="КАТАЛОГ" transform="translate(-798.000000, -484.000000)" stroke="#fff" stroke-width="1.5">
+                                    <g id="Desktop/Sort" transform="translate(664.000000, 467.000000)">
+                                        <g id="Group" transform="translate(0.000000, 4.875000)">
+                                            <polyline id="Path-5" points="135 13.2954545 138 15.9545455 140.999791 13.29564"/>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                    {# Элементы select #}
+                    <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js">
+                        {% for option in field %}
+                            <li class="dropdown__item dropdown__item-white dropdown__item--catalog-js" data-text="{{ option.data.label }}" data-value="{{ option.data.value }}">
+                                {{ option.data.label }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <input class="dropdown__input-hidden" type="text" id="id_{{ field.name }}" name="{{ field.name }}" value="{{ field.initial|default:'' }}">
+                </div>
+            </div>
+            {% endfor %}
+
+            {# Список динамических параметров, добавляемых из админки #}
+            {% for field in form.get_dynamic_fields %}
+            <div class="grid__item-3 grid__item-md-6 grid__item-xs-12 selection__content-dropdown">
+                <span class="selection__info--medium-xs input__info input__info--bold input__info--white">
+                    {{ field.label }}
+                </span>
+                <div class="dropdown dropdown--fixheight selection__dropdown">
+                    <button type="button" class="dropdown__button dropdown__button-white dropdown__button--catalog-js">
+                        <span>
+                            {# если есть входные данные формы, отображается соответствующее название пункта #}
+                            {% if field.initial %}
+                                {% for option in field %}
+                                    {% if option.data.value|stringformat:'s' == field.initial %}
+                                        {{ option.data.label }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {{ field.0.data.label }}
+                            {% endif %}
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="5px" viewBox="0 0 8 5" version="1.1">
+                            <title>Выбрать</title>
+                            <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+                                <g id="КАТАЛОГ" transform="translate(-798.000000, -484.000000)" stroke="#fff" stroke-width="1.5">
+                                    <g id="Desktop/Sort" transform="translate(664.000000, 467.000000)">
+                                        <g id="Group" transform="translate(0.000000, 4.875000)">
+                                            <polyline id="Path-5" points="135 13.2954545 138 15.9545455 140.999791 13.29564"/>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                    {# Элементы select #}
+                    <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js">
+                        {% for option in field %}
+                            <li class="dropdown__item dropdown__item-white dropdown__item--catalog-js" data-text="{{ option.data.label }}" data-value="{{ option.data.value }}">
+                                {{ option.data.label }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <input class="dropdown__input-hidden" type="text" id="id_{{ field.name }}" name="{{ field.name }}" value="{{ field.initial|default:'' }}">
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="grid__item-3 grid__item-md-12 selection__btn--hidden-xs">
+                <button class="btn btn--accent btn--full close-modal selection__btn {% if ajax %}fast_filter-submit-js{% endif %}" type="submit">
+                    <span>
+                        Подобрать
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="selection__btn--mobile">
+            <button class="btn btn--accent btn--full close-modal selection__btn {% if ajax %}fast_filter-submit-js{% endif %}" type="submit">
+                <span>
+                    Подобрать
+                </span>
+            </button>
+        </div>
+    </div>
+</form>

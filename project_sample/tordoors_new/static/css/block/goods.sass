@@ -1,0 +1,48 @@
+.goods
+	&__slider
+		@media screen and (max-width: $xs-max)
+		    margin-right: -30px
+		&:not(.slick-initialized)
+		    min-height: 489px
+		    @media screen and (max-width: $md-min)
+		        min-height: 405px
+		    @media screen and (max-width: $xs-max)
+		        min-height: 390px
+		    .goods__item
+		        display: none
+
+
+	&--slider .slick-track
+		display: flex
+		margin: 0
+
+	&--slider .slick-slide
+		height: auto
+
+	&--slider .slick-list
+		overflow: visible
+		max-width: 100%
+
+	&--slider
+		margin-right: -32px
+		@media screen and (max-width: $md-min)
+		    margin-right: -20px
+		@media screen and (max-width: $xs-max)
+		    margin-right: -30px
+
+	&__item
+		margin-right: 32px
+		@media screen and (max-width: $md-min)
+		    margin-right: 20px
+		@media screen and (max-width: $xs-max)
+		    margin-right: 30px
+		    width: 210px
+		    min-width: 210px
+
+	&__footer
+		margin-top: 60px
+		display: flex
+		align-items: center
+		justify-content: center
+		@media screen and (max-width: $md-min)
+		    display: none

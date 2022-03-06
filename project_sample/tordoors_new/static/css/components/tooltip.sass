@@ -1,0 +1,62 @@
+.tooltip
+    position: absolute
+    top: 0
+    left: calc(100% + 2px)
+    z-index: 8
+    &__btn
+        background-color: transparent
+        border: none
+        padding: 0
+        margin: 0
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 16px
+        height: 16px
+    &__content
+        position: absolute
+        bottom: calc(100% + 10px)
+        left: 50%
+        box-shadow: 0 2px 40px 0 rgba(192,192,192,0.5)
+        border-radius: 10px
+        background-color: #fff
+        padding: 26px 24px
+        padding-right: 45px
+        font-size: 14px
+        line-height: 18px
+        font-weight: 300
+        color: #303030
+        width: 370px
+        transform: translate(-50%, 10px)
+        opacity: 0
+        pointer-events: none
+        transition: opacity .5s ease-in-out,transform .5s ease-in-out
+        @media screen and (max-width: $md-max)
+            width: 280px
+        @media screen and (max-width: $md-min)
+            width: 200px
+            padding: 16px 45px 16px 16px
+            border-radius: 5px
+            font-size: 12px
+            line-height: 16px
+        &.open
+            opacity: 1
+            transform: translate(-50%, 0)
+            pointer-events: auto
+        @media screen and (max-width: $xs-max)
+            &--posbottom-xs
+                bottom: auto
+                top: calc(100% + 10px)
+    &__close
+        background-color: transparent
+        border: none
+        padding: 0
+        margin: 0
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 12px
+        height: 12px
+        position: absolute
+        top: 16px
+        right: 16px

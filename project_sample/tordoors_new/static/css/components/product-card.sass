@@ -1,0 +1,213 @@
+.product-card
+	padding: 32px
+	width: 100%
+	height: 100%
+	background-color: #fff
+	border: 1px solid #DADADA
+	display: flex
+	flex-direction: column
+	align-items: flex-start
+	text-decoration: none
+	transition: border 0.4s ease-in-out
+	@media screen and (max-width: $md-min)
+	    padding: 20px
+	@media screen and (max-width: $xs-max)
+	    padding: 12px
+	&:hover
+		border-color: #303030
+
+	&__img
+		height: 270px
+		width: 100%
+		display: flex
+		align-items: flex-end
+		justify-content: flex-start
+		position: relative
+		@media screen and (max-width: $md-min)
+		    height: 222px
+		@media screen and (max-width: $xs-max)
+		    height: 210px
+		&-item
+			position: absolute
+			bottom: 0
+			left: 50%
+			transform: translate(-50%)
+			width: 100%
+			height: 100%
+			&:not(.active)
+				display: none
+
+			img
+				height: 100%
+				width: auto
+				object-fit: contain
+
+
+		&-content
+			width: 100%
+			height: 100%
+			display: flex
+			align-items: flex-end
+			justify-content: center
+
+		&--noimg
+		    align-items: center
+		    justify-content: center
+
+
+	&__color
+		width: 100%
+		display: flex
+		flex-wrap: wrap
+		flex-grow: 1
+		justify-content: center
+		margin-right: -10px
+		margin-bottom: -10px
+		margin-top: 12px
+		@media screen and (max-width: $xs-max)
+		    margin-bottom: -6px
+		    margin-right: -6px
+		&-item
+			width: 12px
+			height: 12px
+			min-width: 12px
+			min-height: 12px
+			border-radius: 50%
+			margin-right: 10px
+			margin-bottom: 10px
+			cursor: pointer
+			transition: box-shadow 0.7s ease-in-out
+			@media screen and (max-width: $xs-max)
+			    min-width: 8px
+			    min-height: 8px
+			    width: 8px
+			    height: 8px
+			    margin-right: 8px
+			    margin-bottom: 8px
+			&.active
+				box-shadow: 0 0 0 3px #93c718
+				@media screen and (max-width: $xs-max)
+				    box-shadow: 0 0 0 2px #93c718
+
+
+
+	&__title
+		overflow: hidden
+		display: -webkit-box
+		-webkit-line-clamp: 2
+		-webkit-box-orient: vertical
+		margin-top: 18px
+		min-height: 42px
+		@media screen and (max-width: $md-min)
+		    margin-top: 12px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 10px
+
+
+	&__text
+		text-decoration: underline
+		font-size: 14px
+		line-height: 20px
+		color: #5a5a5a
+		font-weight: 400
+		@media screen and (max-width: $md-min)
+		    font-size: 13px
+		@media screen and (max-width: $xs-max)
+		    font-size: 12px
+		&:hover
+			text-decoration: none
+
+
+	&__tags
+		color: #fff
+		font-size: 14px
+		line-height: 19px
+		font-weight: 800
+		padding: 2px 8px
+		margin-right: 8px
+		background-color: #DDDDDD
+		@media screen and (max-width: $xs-max)
+		    font-size: 12px
+		    line-height: 13px
+
+	&__time
+		display: flex
+		align-items: flex-start
+		margin-top: 14px
+		width: 100%
+		@media screen and (max-width: $md-min)
+		    margin-top: 10px
+		&-icon
+			display: flex
+			align-items: center
+			justify-content: center
+			margin-right: 6px
+			margin-top: 3px
+			width: 12px
+			height: 12px
+			min-width: 12px
+			min-height: 12px
+			@media screen and (max-width: $xs-max)
+			    margin-right: 4px
+			svg
+				width: 100%
+				height: 100%
+
+
+		&-info
+			font-size: 12px
+			line-height: 17px
+			color: #8C8C8C
+			font-weight: 400
+
+
+	&__price
+		margin-top: 10px
+		font-size: 14px
+		line-height: 19px
+		color: #303030
+		font-weight: 400
+		@media screen and (max-width: $xs-max)
+		    font-size: 12px
+		    line-height: 16px
+		span
+			font-size: 21px
+			line-height: 28px
+			font-weight: 700
+			@media screen and (max-width: $xs-max)
+			    font-size: 16px
+			    line-height: 22px
+
+	&--min
+	    .product-card
+            @media screen and (max-width: $xs-max)
+                padding: 12px 8px
+            &__img
+                @media screen and (max-width: $xs-max)
+                    height: auto
+                    max-height: 300px
+                    overflow: hidden
+                    &:before
+                        content: ''
+                        display: block
+                        padding-top: 105%
+                        width: 100%
+                    &--noimg
+                        svg
+                            position: absolute
+                            top: 50%
+                            left: 50%
+                            transform: translate(-50%, -50%)
+            &__time-info
+                @media screen and (max-width: $xs-max)
+                    font-size: 11px
+                    line-height: 15px
+            &__price
+                @media screen and (max-width: $xs-max)
+                    span
+                        font-size: 14px
+                        line-height: 16px
+
+
+
+

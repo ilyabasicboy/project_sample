@@ -1,0 +1,246 @@
+.partners
+	&__container
+		margin-top: 80px
+		padding-top: 120px
+		padding-bottom: 120px
+		@media screen and (max-width: $md-min)
+		    margin-top: 40px
+		    padding: 60px 0
+		@media screen and (max-width: $xs-max)
+		    padding: 36px 0
+		    margin-top: 18px
+		&--active
+			padding-bottom: 250px
+			@media screen and (max-width: $md-min)
+			    padding-bottom: 160px
+			@media screen and (max-width: $xs-max)
+			    padding-bottom:  36px
+
+
+	&-review__slider
+		min-height: 500px
+		@media screen and (max-width: $md-min)
+		    min-height: 255px
+		&:not(.slick-initialized) .partners-review__item
+			display: none
+
+		.slick-track
+			display: flex
+			align-items: center
+
+
+	&-review__wrapper
+		display: grid
+		grid-template-columns: repeat(12, 1fr)
+		grid-gap: 32px
+		align-items: center
+		position: relative
+		@media screen and (max-width: $md-min)
+		    grid-gap: 0
+		    display: flex
+		@media screen and (max-width: $xs-max)
+		    margin-bottom: 60px
+
+	&-review__img
+		grid-column: 4 span
+		display: flex
+		justify-content: flex-end
+		align-items: center
+		@media screen and (max-width: $xs-max)
+		    position: absolute
+		    top: 100%
+		    transform: translateY(-50%)
+		    left: 20px
+		    z-index: 2
+		    height: 107px
+		    width: 78px
+		img
+			max-width: 280px
+			width: 280px
+			height: auto
+			@media screen and (max-width: $md-min)
+			    max-width: 174px
+			    width: 174px
+			    max-height: 252px
+			    object-fit: contain
+			@media screen and (max-width: $xs-max)
+			    width: 78px
+			    height: 107px
+			    max-width: 107px
+			    max-height: 107px
+
+		a
+			border: 4px solid #DEDEDE
+
+
+	&-review__content
+		grid-column: 8 span
+		padding: 52px
+		padding-right: 82px
+		position: relative
+		background-color: #fff
+		border-radius: 80px
+		max-width: 622px
+		width: calc(100% - 92px)
+		margin-left: 60px
+		@media screen and (max-width: $md-min)
+		    margin-left: 45px
+		    padding: 26px 36px
+		    border-radius: 60px
+		    height: 252px
+		    width: calc(100% - 45px + 174px)
+		    max-width: 100%
+		@media screen and (max-width: $xs-max)
+		    height: 340px
+		    width: 100%
+		    margin-left: 0
+		    padding: 34px 20px
+		    border-radius: 43px
+		&--full
+			grid-column: 12 span
+			max-width: 80%
+			margin: auto
+			@media screen and (max-width: $md-min)
+			    max-width: 100%
+			    width: calc(100% - 45px)
+			    margin-left: auto
+			    margin-right: inherit
+			@media screen and (max-width: $xs-max)
+			    width: 100%
+
+		&:before
+			content: ''
+			position: absolute
+			top: 80px
+			right: 100%
+			border: 30px solid transparent
+			border-right: 55px solid #fff
+			@media screen and (max-width: $md-min)
+			    border: 20px solid transparent
+			    border-right: 35px solid #fff
+			@media screen and (max-width: $xs-max)
+			    display: none
+
+	&-review__header
+		margin-bottom: 15px
+
+	&-review__title
+		color: #5A5A5A
+		font-size: 26px
+		line-height: 36px
+		font-weight: 700
+		text-transform: uppercase
+		@media screen and (max-width: $md-min)
+		    font-size: 16px
+		    line-height: 22px
+		@media screen and (max-width: $xs-max)
+		    font-size: 12px
+		    line-height: 17px
+
+	&-review__date
+		display: inline-block
+		margin-top: 5px
+		color: #c8c8c8
+		font-size: 20px
+		line-height: 24px
+		@media screen and (max-width: $md-min)
+		    margin-top: 8px
+		    font-size: 14px
+		    line-height: 19px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 4px
+		    font-size: 11px
+		    line-height: 12px
+
+	&-review__text
+		font-size: 16px
+		line-height: 26px
+		color: #5a5a5a
+		overflow: hidden
+		display: -webkit-box
+		-webkit-line-clamp: 8
+		-webkit-box-orient: vertical
+		@media screen and (max-width: $md-min)
+		    display: block
+		    font-size: 14px
+		    line-height: 20px
+		@media screen and (max-width: $xs-max)
+		    font-size: 12px
+		    line-height: 18px
+
+	&-review__footer
+		margin-top: 48px
+		display: flex
+		justify-content: center
+		align-items: center
+		position: relative
+		z-index: 2
+		@media screen and (max-width: $md-min)
+		    margin-top: 24px
+		@media screen and (max-width: $xs-max)
+		    justify-content: flex-end
+		    padding: 0 10px
+		    margin-top: -36px
+
+	&-review__box
+		position: relative
+		@media screen and (max-width: 1600px)
+		    padding-left: calc(10px + 80px + 18px)
+		    padding-right: calc(10px + 80px + 18px)
+		@media screen and (max-width: $md-min)
+		    padding-left: calc(10px + 56px + 18px)
+		    padding-right: calc(10px + 56px + 18px)
+		@media screen and (max-width: $xs-max)
+		    padding: 0 10px
+
+	@media screen and (max-width: $md-min)
+	    &-review__overflow
+	        max-height: 200px
+	        @media screen and (max-width: $xs-max)
+	            max-height: 236px
+
+	&-logo
+		margin-top: 75px
+		display: flex
+		min-height: 86px
+		@media screen and (max-width: $md-min)
+		    margin-top: 60px
+		    min-height: 60px
+		@media screen and (max-width: $xs-max)
+		    min-height: 38px
+		    margin-top: 40px
+		&:not(.slick-initialized) .partners-logo__item
+			display: none
+
+		&__item
+			display: flex
+			align-items: center
+			justify-content: center
+
+		@media screen and (max-width: $md-min)
+		    &__img
+		        max-height: 60px
+		        @media screen and (max-width: $xs-max)
+		            max-height: 38px
+		        img
+		            height: 60px
+		            width: auto
+		            object-fit: contain
+		            @media screen and (max-width: $xs-max)
+		                height: 38px
+
+		&--slider .slick-track
+			display: flex
+			align-items: center
+			cursor: move
+
+		&--slider .slick-list
+			overflow: visible
+
+		&--slider .slick-slide
+			margin: 0 25px
+			@media screen and (max-width: $xs-max)
+			    margin: 0 15px
+
+
+

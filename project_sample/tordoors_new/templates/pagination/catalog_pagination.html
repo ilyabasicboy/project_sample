@@ -1,0 +1,11 @@
+{% load base_tags %}
+{% if pages|length > 1 %}
+   {% get_simple_custom_pagination page_obj.number pages as nav %}
+    {% if nav.next %}
+        <a class="btn btn--accent" href="?page={{ nav.next }}">
+            <span>
+                Показать ещё
+            </span>
+        </a>
+    {% endif %}
+{% endif %}

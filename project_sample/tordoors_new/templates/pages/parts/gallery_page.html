@@ -1,0 +1,5 @@
+{% for image in images %}
+    <a class="gallery__slider-item" href="{{ image.watermarkpicture.url }}">
+        <img src="{{ image.galleryslider.url }}" alt="{{ image.title }}" title="{{ image.title }}">
+    </a>
+{% endfor %}

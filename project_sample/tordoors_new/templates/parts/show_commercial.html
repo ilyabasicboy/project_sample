@@ -1,0 +1,36 @@
+{% load static feedback_tags %}
+<section class="banner banner--position" style="background-image: url('{% static 'img/banner.png' %}')">
+    <div class="banner__content">
+        <div class="banner__content-info">
+            <span class="banner__title">
+                юрлицам
+            </span>
+            <h3 class="title-min">
+                ЗАПРОСИТЬ
+            </h3>
+            <span class="subtitle-min">
+                коммерческое предложение
+            </span>
+        </div>
+        <div class="banner__content-item">
+            <a class="btn btn--border modal-open" href="#commercial-modal">
+                <span>
+                    Оформить заявку
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="modal mfp-hide mfp-anim" id="commercial-modal">
+        <div class="modal__header">
+            <h3 class="modal__title">
+                Заявка
+            </h3>
+            <span class="modal__subtitle">
+                на коммерческое предложение
+            </span>
+        </div>
+        <!--noindex-->
+            {% show_feedback 'commercial' %}
+        <!--/noindex-->
+    </div>
+</section>

@@ -1,0 +1,12 @@
+{% extends 'pages/base.html' %}
+{% load treemenus_tags custom_pages_tags custom_news_tags feedback_tags reviews_tags pages_tags attachment_tags base_tags %}
+
+{% block article_selector %}default{% endblock %}
+
+{% block content_title %}{% placeholder title label 'Заголовок' as title %}{% endblock %}
+
+{% block content %}
+
+    {% placeholder description with Textarea label 'Описание' as description %}
+
+{% endblock %}

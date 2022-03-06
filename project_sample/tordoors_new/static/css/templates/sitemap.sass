@@ -1,0 +1,65 @@
+.sitemap
+    &__item
+        display: block
+        + .sitemap__item
+            margin-top: 12px
+
+        &-link
+            color: #303030
+            font-size: 14px
+            line-height: 20px
+            font-weight: 400
+            position: relative
+            padding-left: 22px
+            text-decoration: underline
+            display: block
+            @media screen and (max-width: $xs-max)
+                font-size: 13px
+            &:hover
+                text-decoration: none
+            &.active .sitemap__item-icon:before
+                background-color: #303030
+                transform: translateY(-50%) rotate(90deg)
+                opacity: 0
+            &.active .sitemap__item-icon:after
+                background-color: #303030
+                transform: translateX(-50%) rotate(90deg)
+
+        &-icon
+            position: absolute
+            left: 0
+            top: 5px
+            width: 12px
+            height: 12px
+            cursor: pointer
+            &:before
+                content: ''
+                position: absolute
+                top: 50%
+                left: 0
+                transform: translateY(-50%)
+                width: 100%
+                height: 2px
+                background-color: #898989
+                border-radius: 1px
+                transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out
+            &:after
+                content: ''
+                position: absolute
+                top: 0
+                left: 50%
+                transform: translateX(-50%)
+                height: 100%
+                width: 2px
+                background-color: #898989
+                border-radius: 1px
+                transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out
+
+            &:hover:before, &:hover:after
+                background-color: #93C718
+
+    &__submenu
+        display: none
+        padding-left: 20px
+        li:first-child
+            margin-top: 12px

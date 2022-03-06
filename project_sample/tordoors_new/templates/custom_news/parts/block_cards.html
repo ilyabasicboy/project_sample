@@ -1,0 +1,16 @@
+{% load pagination_tags %}
+
+{% if object_list %}
+    <div class="news grid">
+        {% autopaginate object_list 12 %}
+        {% for obj in object_list %}
+            <div class="grid__item-4 grid__item-pc-6 grid__item-xs-12">
+                {% include 'custom_news/parts/card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination-container pagination--default pagination--right pagination--center-md">
+        {% paginate %}
+    </div>
+{% endif %}

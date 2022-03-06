@@ -1,0 +1,172 @@
+{% extends 'pages/base.html' %}
+{% load custom_attachment_tags custom_catalog_tags treemenus_tags custom_pages_tags custom_news_tags feedback_tags reviews_tags pages_tags attachment_tags base_tags static %}
+
+{% block breadcrumbs_section %}{% endblock %}
+{% block title_section %}{% endblock %}
+
+{% block content %}
+
+   {% get_images for current_page as images %}
+    {% with images=images|role:'обложка' %}
+        {% placeholder advantages with PageAdvantageSelect label 'Выбрать блок преимущества' as advantages %}
+        {% get_advantages advantages as advantages %}
+        <section class="hero {% if advantages %}hero--dignity{% endif %}">
+            <div class="hero__bg content-anim content-anim--zoom" {% if images %}style="background-image: url('{{ images.0.image.url }}');"{% endif %}></div>
+            <div class="container">
+                <div class="breadcrumbs breadcrumbs--white section-breadcrumbs scroll-custom-x-hidden--xs">
+                    {% block breadcrumbs %}
+                        {{ block.super }}
+                    {% endblock %}
+                </div>
+                <div class="hero__content">
+                    <h1 class="hero__title">
+                        {% block content_title %}
+                            {{ block.super }}
+                        {% endblock %}
+                    </h1>
+                </div>
+            </div>
+        </section>
+    {% endwith %}
+
+   {% if advantages %}
+     <section class="dignity--margin">
+         {% include 'pages/parts/block_advantages.html' %}
+     </section>
+   {% endif %}
+
+    <div class="other-page section-default">
+        <div class="container">
+            {% placeholder top_content with TinyMCE label 'Контент сверху' as top_content %}
+            {% if top_content %}
+                <div class="other-page__top">
+                    <div class="placeholder">
+                        {% show_block_content top_content %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% placeholder show_add_menu label 'Показывать доп. меню' with Checkbox as show_add_menu %}
+            {% if show_add_menu == 'True' %}
+                <div class="other-page__menu scroll-custom-x-shadow--xs">
+                    {% show_menu 'additional_menu' %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+   {% placeholder products_block_title label 'Заголовок для блока товаров' as products_block_title %}
+   {% placeholder products_block label 'Выбрать товары для блока' with ProductsMultiSelect as products_block %}
+   {% if products_block %}
+     <section class="section-default section-default--top">
+         <div class="container">
+             {% if products_block_title %}
+                <h2 class="h2 title-default--mtop0">
+                     {% show_block_content products_block_title %}
+                 </h2>
+             {% endif %}
+
+            {% get_products_by_id products_block as object_list %}
+            {% if object_list %}
+                <div class="catalog__grid catalog__grid-main-col-3 catalog__grid-main-col-4--md catalog__grid-main-col-6--xs catalog__grid--hidden-loader">
+                    {% include 'catalog/parts/block_cards.html' %}
+                </div>
+            {% endif %}
+
+            <div class="catalog__grid-footer">
+                <a class="btn btn--accent" href="/catalog">
+                   <span>
+                       Перейти в каталог
+                   </span>
+                </a>
+            </div>
+         </div>
+     </section>
+   {% endif %}
+
+   {% placeholder bottom_content with TinyMCE label 'Контент снизу' as bottom_content %}
+   {% if bottom_content %}
+        <section class="section-default section-default--top">
+            <div class="container">
+                <div class="placeholder">
+                    {% show_block_content bottom_content %}
+                </div>
+            </div>
+        </section>
+   {% endif %}
+
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="banner__accent--full">
+                <a class="banner__accent modal-open" href="#calculate-modal">
+                    <div class="banner__accent-visible">
+                        <div class="banner__accent-rotate">
+                            <div class="banner__accent-default">
+                                <h4 class="banner__accent-title">
+                                    Оформить предварительный заказ
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="banner__accent-default">
+                            <h4 class="banner__accent-title">
+                                Оформить предварительный заказ
+                            </h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="modal mfp-hide mfp-anim" id="calculate-modal">
+            <div class="modal__header">
+                <h3 class="modal__title">
+                    Заявка
+                </h3>
+                <span class="modal__subtitle">
+                    на индивидуальный расчет
+                </span>
+            </div>
+            <!--noindex-->
+                {% show_feedback 'calculate' %}
+            <!--/noindex-->
+        </div>
+    </section>
+
+    {% get_more_articles current_page as more_articles %}
+    {% if more_articles %}
+        <section class="section-default section-default--top">
+            <div class="container">
+                <h2 class="h2 title-default--mtop0">
+                    Читайте также:
+                </h2>
+                <div class="articles__slider articles--slider swiper">
+                    <div class="articles__slider-wrapper grid swiper-wrapper">
+                        {% for obj in more_articles %}
+                            <div class="articles__slider-item grid__item-3 swiper-slide">
+                                {% include 'pages/parts/article_card.html' %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% placeholder 'Выбрать примеры дверей' with GallerySelect as gallery_id %}
+    {% if gallery_id %}
+        {% get_page gallery_id as gallery %}
+        {% get_images for gallery as images %}
+        {% if images %}
+            <section class="section-default gallery__slider--margin mfp-gallery">
+                {% include 'parts/door_samples.html' %}
+            </section>
+        {% endif %}
+    {% endif %}
+
+    {% get_reviews_list as review_list %}
+    {% placeholder show_already_with_us label 'Показывать блок "Уже с нами"' with Checkbox as show_already_with_us %}
+    {% placeholder 'Выбрать логотипы' with GallerySelect as logos_id %}
+    {% if show_already_with_us == 'True' and review_list %}
+        {% include 'parts/already_with_us.html' %}
+    {% endif %}
+
+{% endblock %}

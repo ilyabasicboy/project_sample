@@ -1,0 +1,17 @@
+{% load static feedback_tags %}
+<section class="sign section--dark section--overflow bg-anim" data-bgcolor="#0d314f" id="sign">
+    <div class="container">
+        <h3 class="title-default title-default--center-md title-default--left-xs">
+            Записаться на замер
+        </h3>
+        <span class="subtitle-default subtitle-default--center-md subtitle-default--left-xs subtitle-default--grey">
+            Услуга доступна на территории Москвы и Московской области.
+        </span>
+        <!--noindex-->
+            {% show_feedback 'metering_call' %}
+        <!--/noindex-->
+    </div>
+    <div class="sign__decor">
+        <img src="{% static 'img/hand.png' %}" alt="Записаться на замер">
+    </div>
+</section>

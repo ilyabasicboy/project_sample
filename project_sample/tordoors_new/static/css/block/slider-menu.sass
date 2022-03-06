@@ -1,0 +1,31 @@
+.slider__menu
+	display: flex
+	align-items: center
+	justify-content: center
+	margin-top: 72px
+	margin-right: -40px
+	@media screen and (max-width: $md-min)
+	    margin-top: 40px
+	@media screen and (max-width: $xs-max)
+	    margin-right: -32px
+	&-item
+		margin-right: 40px
+		outline: none
+		@media screen and (max-width: $xs-max)
+		    margin-right: 32px
+
+	&-link
+		color: #DEDEDE
+		font-size: 18px
+		line-height: 24px
+		font-weight: 800
+		text-transform: uppercase
+		display: inline-block
+		white-space: nowrap
+		outline: none
+		transition: color 0.5s ease-in-out
+		@media screen and (max-width: $xs-max)
+		    font-size: 14px
+		    line-height: 18px
+		&:hover
+			color: #303030

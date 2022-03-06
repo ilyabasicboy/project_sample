@@ -1,0 +1,15 @@
+<div class="dignity dignity--slider">
+    {% for advantage in advantages %}
+        <div class="dignity__item">
+            <div class="dignity__item-content">
+                <img class="dignity__item-icon" src="{{ advantage.image.url }}" alt="icon">
+            </div>
+            <div class="dignity__item-title">
+                {{ advantage.text }}
+                <span>
+                    {{ advantage.bold_text }}
+                </span>
+            </div>
+        </div>
+    {% endfor %}
+</div>

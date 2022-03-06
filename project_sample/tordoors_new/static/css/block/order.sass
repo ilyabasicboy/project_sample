@@ -1,0 +1,83 @@
+.order
+	background-repeat: no-repeat
+	background-size: cover
+	background-position: center
+	padding-top: 135px
+	padding-bottom: 135px
+	background-color: #D8D8D8
+	@media screen and (max-width: $md-min)
+	    padding: 100px 0
+	@media screen and (max-width: $xs-max)
+	    padding: 40px 0
+	&__item-left
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+		justify-content: center
+		@media screen and (max-width: $md-max)
+		    order: 1
+		@media screen and (max-width: $xs-max)
+		    text-align: center
+		    width: 100%
+		    align-items: center
+
+	&__item-center
+		display: flex
+		align-items: center
+		justify-content: flex-end
+		@media screen and (max-width: $md-max)
+            order: 3
+            justify-content: flex-start
+            margin-top: 20px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 32px
+		    justify-content: center
+		    text-align: center
+
+	&__item-right
+		display: flex
+		flex-direction: column
+		align-items: flex-end
+		justify-content: center
+		@media screen and (max-width: $md-max)
+		    order: 2
+		    position: relative
+		    top: 50%
+		@media screen and (max-width: $xs-max)
+		    top: auto
+		    margin-top: 24px
+		    align-items: center
+
+	&__phone
+		display: inline-block
+		margin-bottom: 8px
+		font-weight: 700
+		font-size: 32px
+		line-height: 43px
+		color: #fff
+		@media screen and (max-width: $xs-max)
+		    font-size: 24px
+		    line-height: 33px
+		    margin-bottom: 12px
+		&:hover
+			text-decoration: underline
+
+
+	&__email
+		font-size: 24px
+		line-height: 33px
+		color: #e0e0e0
+		text-decoration: underline
+		@media screen and (max-width: $xs-max)
+		    font-size: 18px
+		    line-height: 20px
+		&:hover
+			text-decoration: none
+
+
+	@media screen and (max-width: $md-max)
+	    .grid
+	        align-items: center
+
+
+

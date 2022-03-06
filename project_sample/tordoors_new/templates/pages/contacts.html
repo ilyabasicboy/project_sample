@@ -1,0 +1,39 @@
+{% extends 'pages/base.html' %}
+{% load pages_tags feedback_tags base_tags %}
+
+{% block content %}
+
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="contacts__content">
+                {% placeholder main_content with TinyMCE label 'Контент страницы' as main_content %}
+                {% if main_content %}
+                    <div class="contacts__info placeholder">
+                        {% show_block_content main_content %}
+                    </div>
+                {% endif %}
+
+                {% placeholder map with LargeTextarea label 'Скрипт карты' as map %}
+                {% if map %}
+                    <div class="contacts__map">
+                        {{ map|safe }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}
+    {% if bottom_content %}
+        <section class="section-default section-default--top">
+            <div class="container contacts__bottom-container">
+                <div class="contacts__bottom placeholder">
+                    {% show_block_content bottom_content %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# show_feedback 'director_mail' #}
+
+{% endblock %}

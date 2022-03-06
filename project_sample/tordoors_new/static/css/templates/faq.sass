@@ -1,0 +1,181 @@
+.faq
+    &__grid
+        display: grid
+        grid-template-columns: repeat(12, 1fr)
+        grid-gap: 32px
+        @media screen and (max-width: $md-min)
+            grid-gap: 20px
+        @media screen and (max-width: $xs-max)
+            grid-gap: 0
+        &-3
+            grid-column: 3 span
+        &-9
+            grid-column: 9 span
+        @media screen and (max-width: $md-max)
+            &-md-4
+                grid-column: 4 span
+            &-md-8
+                grid-column: 8 span
+        @media screen and (max-width: $xs-max)
+            &-xs-12
+                grid-column: 12 span
+
+    &__answers
+        max-width: 800px
+        @media screen and (max-width: $xs-max)
+            order: 2
+
+        &-list
+            display: flex
+            flex-direction: column
+
+        &-list + &-list
+            margin-top: 80px
+            @media screen and (max-width: $md-min)
+                margin-top: 48px
+            @media screen and (max-width: $xs-max)
+                margin-top: 40px
+
+        &-item
+            border-bottom: 1px solid #e8e8e8
+            overflow: hidden
+
+        &-title
+            margin-bottom: 20px
+            @media screen and (max-width: $xs-max)
+                margin-bottom: 8px
+
+        &-link
+            padding-top: 30px
+            padding-bottom: 30px
+            padding-right: 88px
+            color: #303030
+            font-size: 14px
+            line-height: 24px
+            font-weight: 700
+            display: block
+            position: relative
+            cursor: pointer
+            transition: color 0.7s ease-in-out
+            @media screen and (max-width: $md-min)
+                line-height: 20px
+                padding-top: 24px
+                padding-bottom: 24px
+                padding-right: 60px
+            @media screen and (max-width: $xs-max)
+                padding-top: 16px
+                padding-bottom: 16px
+                padding-right: 30px
+                font-size: 12px
+                line-height: 18px
+            &:hover
+                color: #000
+                .faq__answers-icon
+                    svg
+                        *[fill="#E8E8E8"]
+                            fill: #303030
+            &.active
+                color: #000
+                .faq__answers-icon
+                    transform: translateY(-50%) rotate(-180deg)
+                    svg
+                        *[fill="#E8E8E8"]
+                            fill: #303030
+
+        &-icon
+            position: absolute
+            top: 50%
+            right: 0
+            transform: translateY(-50%)
+            display: flex
+            align-items: center
+            justify-content: center
+            width: 46px
+            height: 44px
+            min-width: 46px
+            min-height: 44px
+            transition: transform 0.5s ease-in-out
+            @media screen and (max-width: $xs-max)
+                width: 24px
+                height: 24px
+                min-height: 24px
+                min-width: 24px
+            svg
+                *[fill="#E8E8E8"]
+                    transition: fill 0.7s ease-in-out
+
+        &-content
+            display: none
+            &__box
+                padding-left: 20px
+                padding-bottom: 40px
+                padding-right: 88px
+                @media screen and (max-width: $md-min)
+                    padding-right: 60px
+                    padding-bottom: 24px
+                @media screen and (max-width: $xs-max)
+                    padding-right: 30px
+                    padding-left: 10px
+
+
+    @media screen and (max-width: $xs-max)
+        &__theme
+            order: 1
+            height: 60px
+            position: relative
+            margin-bottom: 20px
+
+    &__nav
+        width: 100%
+        min-width: 232px
+        @media screen and (max-width: $xs-max)
+            display: none;
+        &-item + &-item
+            margin-top: 16px
+        &-link
+            font-size: 14px
+            line-height: 19px
+            color: #898989
+            font-weight: 700
+            transition: color 0.7s ease-in-out
+            text-transform: uppercase
+            &:hover
+                color: #93c718
+
+    &__btn
+        padding: 13px 20px
+        margin-top: 25px
+        @media screen and (max-width: $xs-max)
+            margin-top: 0
+            padding: 14px 32px
+            width: 100%
+            height: 40px
+            font-size: 16px
+
+    &__sticky
+        position: sticky
+        top: 140px
+        @media screen and (max-width: $xs-max)
+            position: relative
+            top: 60px
+            transform: translateY(-60px)
+            height: 60px
+            background-color: #fff
+            width: calc(100% + 20px)
+            left: -10px
+            padding: 0 10px
+            display: flex
+            align-items: center
+            justify-content: center
+            transition: transform 0.5s ease-in-out, visibility 0.8s
+            &.fixed
+                position: fixed
+                top: 0
+                transform: translateY(0)
+                left: 0
+                right: 0
+                width: 100%
+                z-index: 10
+
+
+

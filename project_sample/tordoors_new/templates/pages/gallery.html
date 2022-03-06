@@ -1,0 +1,30 @@
+{% extends 'pages/base.html' %}
+{% load treemenus_tags custom_pages_tags custom_news_tags feedback_tags reviews_tags pages_tags attachment_tags base_tags %}
+
+{% block content %}
+    <section class="section-default section-default--top">
+        <div class="container">
+            {% placeholder top__content with TinyMCE label 'Контент вверху страницы' as top__content %}
+            {% if top__content %}
+                <div class="gallery-page__top">
+                    <div class="placeholder">
+                        {% show_block_content top__content %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="gallery-page__list">
+                {% show_block_gallery %}
+            </div>
+
+            {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}
+            {% if bottom_content %}
+                <div class="gallery-page__bottom">
+                    <div class="placeholder">
+                        {% show_block_content bottom_content %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

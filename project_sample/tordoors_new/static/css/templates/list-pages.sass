@@ -1,0 +1,88 @@
+.list-pages
+	display: grid
+	grid-template-columns: repeat(12, 1fr)
+	grid-gap: 60px 32px
+	@media screen and (max-width: $md-min)
+	    grid-gap: 32px 20px
+	@media screen and (max-width: $xs-max)
+	    grid-gap: 32px 0
+	    max-width: 500px
+	    margin: 0 auto
+
+	@media screen and (max-width: $md-max)
+	    &__sidebar
+	        width: 100%
+
+	&__link
+	    grid-column: 3 span
+	    display: flex
+	    flex-direction: column
+	    overflow: hidden
+	    @media screen and (max-width: $md-min)
+	        grid-column: 4 span
+	    @media screen and (max-width: $xs-max)
+	        grid-column: 12 span
+	&__img
+	    width: 100%
+	    display: flex
+	    align-items: center
+	    justify-content: center
+	    position: relative
+	    overflow: hidden
+	    &:before
+	        content: ''
+	        display: block
+	        padding-top: 71%
+	        width: 100%
+	    &:after
+	        content: ''
+	        position: absolute
+	        top: 0
+	        left: 0
+	        bottom: 0
+	        right: 0
+	        border: 4px solid #93C718
+	        background-color: transparent
+	        opacity: 0
+	        transition: opacity 1s cubic-bezier(.215, .61, .355, 1)
+	    img
+	        width: auto
+	        height: 100%
+	        object-fit: cover
+	        position: absolute
+	        top: 50%
+	        left: 50%
+	        transform: translate(-50%, -50%)
+	        transition: transform 1s cubic-bezier(.215, .61, .355, 1)
+	        will-change: transform
+	&__title
+	    display: inline-block
+	    margin-top: 10px
+	    color: #303030
+	    font-size: 14px
+	    line-height: 24px
+	    font-weight: 700
+	    @media screen and (max-width: $md-min)
+	        line-height: 20px
+	    @media screen and (max-width: $xs-max)
+	        font-size: 13px
+	        line-height: 18px
+	&__link
+	    &:hover
+	        .list-pages__img
+	            &:after
+	                opacity: 1
+	            img
+	                transform: translate(-50%, -50%) scale(1.1)
+	        .list-pages__title
+	            text-decoration: underline
+
+	&__wrapper
+	    width: 100%
+
+	    &--full
+	        .list-pages__link
+	            grid-column: 4 span
+	            @media screen and (max-width: $xs-max)
+	                grid-column: 12 span
+

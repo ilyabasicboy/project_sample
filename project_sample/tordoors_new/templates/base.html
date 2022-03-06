@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>{% load cache static feedback_tags treemenus_tags seo_tags base_tags %}{% smart_spaceless %}
+<html lang="ru">
+    <head>
+        {% block seo %}
+            {% seo object title_default=object.title|default:"" %}
+        {% endblock %}
+
+        <meta name="theme-color" class="theme-color" content="#fff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="utf-8">
+        {% if request.GET.page > 1 %}<link rel="canonical" href="{{ request.path }}">{% endif %}
+
+        {% include 'parts/block_favicon.html' %}
+
+        {{ chunks.end_of_head.content }}
+
+        {% block css %}
+            <link rel="stylesheet" href="{% static 'bundle/bundle.b0c28d527f1108c42da3.css' %}">
+        {% endblock %}
+    </head>
+
+    {% block body %}
+    <body class="body fix-anim">
+        {{ chunks.top_of_body.content }}
+
+        <div class="preloader">
+            <div class="preloader__content">
+                <img class="preloader__logo" src="{% static 'img/svg/logo.svg' %}" alt="Противопожарные двери" title="Противопожарные двери">
+                <span class="preloader__info">
+                    Подготавливаем двери....
+                </span>
+            </div>
+        </div>
+
+        <header class="header {% block header-options %}{% endblock %}">
+            <div class="header__container">
+                <div class="header__item menu-more">
+                    <a class="header__logo" href="/">
+                        <img src="{% static 'img/svg/logo.svg' %}" alt="Противопожарные двери" title="Противопожарные двери">
+                    </a>
+                    <div class="header__list menu-wrapper">
+                        {% block header_menu %}
+                            {% show_menu 'header_menu' %}
+                        {% endblock %}
+                        <div class="header__more-btn menu-hidden-btn hidden">
+                            <svg width="15px" height="3px" viewBox="0 0 15 3" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Меню</title>
+                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.8">
+                                    <g id="ГЛАВНАЯ-1024px" transform="translate(-406.000000, -40.000000)" fill="#D8D8D8">
+                                        <g id="Главное-меню" transform="translate(182.000000, 31.000000)">
+                                            <g id="Group-23-Copy" transform="translate(224.000000, 9.000000)">
+                                                <circle id="Oval" cx="1.5" cy="1.5" r="1.5"></circle>
+                                                <circle id="Oval-Copy-156" cx="7.5" cy="1.5" r="1.5"></circle>
+                                                <circle id="Oval-Copy-157" cx="13.5" cy="1.5" r="1.5"></circle>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <ul class="header__menu-more menu-hidden"></ul>
+                        </div>
+                        <div class="header__list-footer">
+                            <div class="header__contacts">
+                                {% if chunks.header_phone.content %}
+                                    <a class="header__contacts-phone" href="tel:{{ chunks.header_phone.content|cut:' ' }}">
+                                        {{ chunks.header_phone.content }}
+                                    </a>
+                                {% endif %}
+                                {% if chunks.header_phone.content %}
+                                    <a class="header__contacts-phone" href="tel:{{ chunks.header_phone_extra.content|cut:' ' }}">
+                                        {{ chunks.header_phone_extra.content }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header__right">
+                    {% if chunks.viber.content or chunks.telegram.content or chunks.whatsapp.content %}
+                        <ul class="header__social">
+                            {% if chunks.viber.content %}
+                                <li class="header__social-item">
+                                    <a class="header__social-link" href="{{ chunks.viber.content }}" target="_blank">
+                                        <img src="{% static 'img/social/viber.svg' %}" alt="Social" title="Viber">
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if chunks.telegram.content %}
+                                <li class="header__social-item">
+                                    <a class="header__social-link" href="{{ chunks.telegram.content }}" target="_blank">
+                                        <img src="{% static 'img/social/telegram.svg' %}" alt="Social" title="Telegram">
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if chunks.whatsapp.content %}
+                                <li class="header__social-item">
+                                    <a class="header__social-link" href="{{ chunks.whatsapp.content }}" target="_blank">
+                                        <img src="{% static 'img/social/whatsapp.svg' %}" alt="Social" title="WhatsApp">
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+
+                    <div class="header__contacts header__contacts--hidden-xs">
+                        {% if chunks.header_phone.content %}
+                            <a class="header__contacts-phone" href="tel:{{ chunks.header_phone.content|cut:' ' }}">
+                                {{ chunks.header_phone.content }}
+                            </a>
+                        {% endif %}
+                        {% if chunks.header_phone.content %}
+                            <a class="header__contacts-phone" href="tel:{{ chunks.header_phone_extra.content|cut:' ' }}">
+                                {{ chunks.header_phone_extra.content }}
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <button class="header__burger burger" type="button">
+                        <span class="burger__item">Menu</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="page page--default {% block page-options %}{% endblock %}">
+            {% block breadcrumbs_section %}
+            <section class="section-breadcrumbs">
+                <div class="container">
+                    <div class="scroll-custom-x-shadow--xs">
+                        <div class="breadcrumbs scroll-custom-x-hidden--xs">
+                            {% block breadcrumbs %}
+                            <a class="breadcrumbs__item" href="/">
+                                Главная
+                            </a>
+                            <span class="breadcrumbs__item">
+                                /
+                            </span>
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endblock %}
+
+            {% block title_section %}
+            <section class="section-title">
+                <div class="container">
+                    <div class="title-content">
+                        <h1 class="title">
+                            {% block content_title %}
+                                {{ object.title|default:"" }}
+                            {% endblock %}
+                        </h1>
+                    </div>
+                </div>
+            </section>
+            {% endblock %}
+
+            {% block content %}{% endblock %}
+
+            {% block metering %}
+                {% include 'parts/metering_block.html' %}
+            {% endblock %}
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__grid">
+                    <div class="footer__top footer__grid-12">
+                        <div class="footer__top-menu">
+                            {% show_menu 'footer_menu' %}
+                        </div>
+                        <div class="footer__right">
+                            <div class="footer__contacts">
+                                {% if chunks.header_phone.content %}
+                                    <a class="footer__phone" href="tel:{{ chunks.header_phone.content|cut:' ' }}">
+                                        {{ chunks.header_phone.content }}
+                                    </a>
+                                {% endif %}
+                                {% if chunks.footer_contacts.content %}
+                                    <span class="footer__address">
+                                        {{ chunks.footer_contacts.content }}
+                                    </span>
+                                {% endif %}
+                                {% if chunks.email.content %}
+                                    <a class="footer__email" href="mailto:{{ chunks.email.content }}">
+                                        {{ chunks.email.content }}
+                                    </a>
+                                {% endif %}
+                                {% if chunks.vk.content or chunks.facebook.content or chunks.instagram.content or chunks.vimeo.content %}
+                                    <ul class="footer__social">
+                                        {% if chunks.vk.content %}
+                                            <li class="footer__social-item">
+                                                <a class="footer__social-link" href="{{ chunks.vk.content }}" target="_blank">
+                                                    <img src="{% static 'img/footer/social/vk.svg' %}" alt="Icon" title="Icon">
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% if chunks.facebook.content %}
+                                            <li class="footer__social-item">
+                                                <a class="footer__social-link" href="{{ chunks.facebook.content }}" target="_blank">
+                                                    <img src="{% static 'img/footer/social/facebook.svg' %}" alt="Icon" title="Icon">
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% if chunks.instagram.content %}
+                                            <li class="footer__social-item">
+                                                <a class="footer__social-link" href="{{ chunks.instagram.content }}" target="_blank">
+                                                    <img src="{% static 'img/footer/social/instagram.svg' %}" alt="Icon" title="Icon">
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% if chunks.vimeo.content %}
+                                            <li class="footer__social-item">
+                                                <a class="footer__social-link" href="{{ chunks.vimeo.content }}" target="_blank">
+                                                    <img src="{% static 'img/footer/social/vimeo.svg' %}" alt="Icon" title="Icon">
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            {% if chunks.footer_description.content %}
+                            <div class="footer__content">
+                                {{ chunks.footer_description.content }}
+                            </div>
+                            {% endif %}
+                            {% get_doc_types as doc_types %}
+                            {% if doc_types %}
+                                <div class="footer__logos">
+                                    {% include 'parts/logos.html' %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="footer__bottom footer__grid-8 footer__grid-md-12">
+                        {% if chunks.yandex_search_form.content %}
+                            <div class="search-form footer__search">
+                                {{ chunks.yandex_search_form.content }}
+                            </div>
+                        {% endif %}
+                        {% if chunks.copyright.content %}
+                            <div class="footer__copy">
+                                {{ chunks.copyright.content }}{% now "Y" %} гг.
+                            </div>
+                        {% endif %}
+                        <div class="footer__developer">
+                            <img src="{% static 'img/svg/redmedia.svg' %}" alt="redmedia">
+                            <span>
+                                Сделано в
+                                <a href="https://www.redmediaonline.ru/" title="Создание сайта" target="_blank">
+                                    Redmedia
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="btn__up">
+            <div class="btn__up-content">
+                <svg width="33" height="18" viewBox="0 0 33 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.13588 16.825C2.41741 17.5288 1.25428 17.5288 0.537731 16.825C-0.178918 16.1212 -0.178918 14.9818 0.537731 14.2798L14.6074 0.497212C15.0484 0.0652119 15.6511 -0.0679635 16.2225 0.0310483C16.7922 -0.0679635 17.3967 0.0670001 17.8377 0.497212L31.9074 14.2798C32.6259 14.9837 32.6259 16.123 31.9074 16.825C31.1909 17.5288 30.0258 17.5288 29.3093 16.825L16.2207 4.00545L3.13588 16.825Z" fill="#CBCBCB"/>
+                </svg>
+            </div>
+        </div>
+
+        {% block js %}
+            <script src="{{ STATIC_URL }}bundle/bundle.b0c28d527f1108c42da3.js"></script>
+        {% endblock %}
+
+        {{ chunks.end_of_body.content }}
+    </body>
+    {% endblock body %}
+</html>
+{% end_smart_spaceless %}

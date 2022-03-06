@@ -1,0 +1,9 @@
+<a class="list-pages__link" href="{{ obj.get_absolute_url }}">
+    {% if obj.image %}
+        <div class="list-pages__img">
+            <img src="{{ obj.image.imglistpages.url }}" alt="{{ obj.image.title }}"/>
+        </div>
+    {% endif %}
+    <span class="list-pages__title">{{ obj.title }}</span>
+</a>
+

@@ -1,0 +1,455 @@
+.product
+	&-sections
+		display: flex
+		flex-wrap: wrap
+		padding-top: 40px
+		@media screen and (max-width: $md-min)
+		    padding-top: 32px
+		@media screen and (max-width: $xs-max)
+		    padding-top: 0
+
+	&-grid
+		display: grid
+		grid-template-columns: repeat(12, 1fr)
+		grid-gap: 32px
+		align-items: flex-start
+		@media screen and (max-width: $md-min)
+		    grid-gap: 20px
+		@media screen and (max-width: $xs-max)
+		    grid-gap: 0
+		&-4
+			grid-column: 4 span
+
+		&-6
+			grid-column: 6 span
+
+		&-8
+			grid-column: 8 span
+
+		@media screen and (max-width: $xs-max)
+		    &-12--xs
+		        grid-column: 12 span
+
+
+	&__top
+	    @media screen and (max-width: $lg-max)
+	        padding-left: 40px
+	    @media screen and (max-width: $md-min)
+	        padding-left: 26px
+	    @media screen and (max-width: $xs-max)
+	        overflow: hidden
+	        overflow-x: auto
+	        margin-right: -10px
+	        padding-left: 30px
+	        padding-top: 30px
+
+	&__item
+	    @media screen and (max-width: $xs-max)
+	        display: flex
+	        grid-gap: 0
+
+	&__view
+		width: 100%
+		@media screen and (max-width: $xs-max)
+		    min-width: 220px
+		    &:first-child
+		        margin-right: 20px
+		    &:last-child
+		        padding-right: 10px
+
+		&-dimensions
+		    position: relative
+
+		&-img
+			height: 500px
+			display: flex
+			align-items: flex-end
+			justify-content: flex-end
+			position: relative
+			@media screen and (max-width: $md-min)
+			    height: 240px
+			    width: 220px
+			    margin-right: 20px
+
+		&-link
+			position: absolute
+			height: 100%
+			width: 100%
+			top: 0
+			bottom: 0
+			left: 0
+			right: 0
+			&__img
+				display: flex
+				align-items: flex-end
+				justify-content: flex-start
+				height: 100%
+				width: 100%
+				img
+				    max-height: 100%
+				    object-fit: contain
+
+			&:not(.active)
+				display: none
+
+
+		&-type
+			display: inline-block
+			margin-top: 12px
+			font-size: 18px
+			line-height: 24px
+			color: #E8E8E8
+			font-weight: 800
+			@media screen and (max-width: $md-min)
+			    font-size: 14px
+			    line-height: 19px
+
+		&-drawing
+		    font-size: 14px
+		    line-height: 19px
+		    color: #303030
+		    font-weight: 300
+		    display: inline-block
+		    margin-top: 20px
+		    width: 100%
+		    @media screen and (max-width: $md-min)
+		        font-size: 12px
+		        line-height: 16px
+		        margin-top: 16px
+		    span
+		        font-weight: 500
+
+	&__section-sidebar
+	    grid-row: 12 span
+	    height: 100%
+	    @media screen and (max-width: $xs-max)
+	        height: auto
+	        grid-row: auto
+
+	&__sidebar
+		width: 100%
+		display: flex
+		flex-direction: column
+		z-index: 8
+		@media (min-width: $sm-min) and (min-height: 750px)
+		    position: sticky
+		    top: 100px
+		@media screen and (max-width: $xs-max)
+		    position: relative
+		    top: 0
+		    left: -10px
+		    width: calc(100% + 20px)
+		&-content
+			background-color: #FCFCFC
+			border: 1px solid #f2f2f2
+			padding: 20px
+			padding-bottom: 30px
+			width: 100%
+			@media screen and (max-width: $md-min)
+			    padding: 16px 14px
+			    padding-bottom: 24px
+			@media screen and (max-width: $xs-max)
+			    padding: 16px 10px
+
+
+		&-header
+			display: flex
+			flex-direction: column
+
+		&-title
+			text-transform: uppercase
+			font-size: 20px
+			line-height: 24px
+			color: #303030
+			word-wrap: break-word
+			hyphens: auto
+			@media screen and (max-width: $md-min)
+			    font-size: 14px
+			    line-height: 18px
+
+		&-info
+			display: inline-block
+			margin-top: 10px
+			font-size: 14px
+			line-height: 19px
+			color: #989898
+			@media screen and (max-width: $md-min)
+			    margin-top: 6px
+			    font-size: 12px
+			    line-height: 16px
+
+
+		&-specifications
+			margin-top: 20px
+			padding-top: 20px
+			width: 100%
+			border-top: 1px solid #f2f2f2
+			display: flex
+			flex-direction: column
+			font-size: 14px
+			line-height: 19px
+			color: #303030
+			font-weight: 300
+			@media screen and (max-width: $md-min)
+			    font-size: 12px
+			    line-height: 16px
+			    margin-top: 16px
+			    padding-top: 16px
+			li + li
+				margin-top: 10px
+				@media screen and (max-width: $md-min)
+				    margin-top: 4px
+
+			li span
+				font-weight: 500
+
+
+		&-color
+			margin-top: 20px
+			padding-top: 20px
+			width: 100%
+			border-top: 1px solid #f2f2f2
+			@media screen and (max-width: $md-min)
+			    margin-top: 14px
+			    padding-top: 14px
+
+		&-bottom
+			margin-top: 20px
+			width: 100%
+			border-top: 1px solid #f2f2f2
+			@media screen and (max-width: $md-min)
+			    margin-top: 14px
+			    padding-top: 4px
+			@media screen and (max-width: $xs-max)
+			    height: 65px
+
+		&-footer
+			padding-top: 20px
+			width: 100%
+			display: flex
+			align-items: center
+			justify-content: space-between
+			@media screen and (max-width: $md-max)
+			    flex-direction: column
+			    align-items: flex-start
+			@media screen and (max-width: $md-min)
+			    padding-top: 10px
+			    padding-bottom: 10px
+			@media screen and (max-width: $xs-max)
+			    align-items: center
+			    flex-direction: row
+			    &--sticky
+			        height: 60px
+			        position: relative
+			        width: calc(100% + 20px)
+			        top: 60px
+			        transform: translateY(-60px)
+			        padding: 10px
+			        left: -10px
+			        z-index: 9
+			        background-color: #FCFCFC
+			        transition: transform 0.5s ease-in-out
+			        &.fixed
+			            border: 1px solid #F2F2F2
+			            position: fixed
+			            top: 0
+			            transform: translateY(0)
+			            left: 0
+			            right: 0
+			            width: 100%
+
+		&-btn
+			font-size: 14px
+			line-height: 19px
+			height: 40px
+			padding: 9px 16px
+			@media screen and (max-width: $md-max)
+			    width: 100%
+			@media screen and (max-width: $xs-max)
+			    font-size: 12px
+			    line-height: 15px
+			    padding: 9px 12px
+			    width: auto
+
+		&-nav
+			margin-top: 30px
+			@media screen and (max-width: $md-min)
+			    margin-top: 16px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 20px
+			    padding-left: 10px
+
+
+	&__price
+		position: relative
+		color: #303030
+		font-size: 14px
+		line-height: 19px
+		display: inline-block
+		margin-right: 16px
+		@media screen and (max-width: $md-max)
+		    margin-right: 18px
+		    margin-bottom: 12px
+		@media screen and (max-width: $md-min)
+		    font-size: 12px
+		    line-height: 12px
+		@media screen and (max-width: $xs-max)
+		    margin-right: 28px
+		    margin-bottom: 0
+		span
+			font-size: 30px
+			line-height: 41px
+			color: #303030
+			font-weight: 700
+			@media screen and (max-width: $md-min)
+			    font-size: 24px
+			    line-height: 26px
+
+
+	&__btn-configurator
+		height: 60px
+		width: 100%
+		margin-top: 30px
+		display: flex
+		align-items: center
+		justify-content: center
+		padding: 10px 19px
+		font-size: 16px
+		line-height: 22px
+		color: #d8d8d8
+		font-weight: 700
+		border: 1px solid #f3f3f3
+		cursor: pointer
+		transition: color 0.7s ease-in-out, border 0.7s ease-in-out
+		svg g[fill="#D8D8D8"]
+			transition: fill 0.7s ease-in-out
+
+		&:hover
+			color: #696969
+			border-color: #a9a8a8
+			svg g[fill="#D8D8D8"]
+				fill: #696969
+
+
+		span
+			position: relative
+			z-index: 1
+			display: inline-block
+			margin-left: 4px
+
+
+.view-dimensions
+    &__item
+        position: absolute
+        text-align: center
+        font-size: 12px
+        line-height: 15px
+        color: #989898
+        pointer-events: none
+        @media screen and (max-width: $md-min)
+            font-size: 11px
+            line-height: 12px
+        &--top
+            bottom: calc(100% + 20px)
+            width: 240px
+            padding-bottom: 6px
+            border-bottom: 1px solid #E8E8E8
+            @media screen and (max-width: $md-min)
+                width: 115px
+                bottom: calc(100% + 10px)
+            &:after
+                content: ''
+                position: absolute
+                right: -4px
+                bottom: -4.6px
+                width: 8px
+                height: 8px
+                background-image: url('../img/arrow-end.svg')
+        &--left
+            right: calc(100% - 88px)
+            white-space: nowrap
+            transform: rotate(270deg) translateX(calc(-50% + 8px))
+            width: 240px
+            padding-bottom: 6px
+            border-bottom: 1px solid #E8E8E8
+            @media screen and (max-width: $md-min)
+                width: 115px
+                right: calc(100% - 38px)
+            &:after
+                content: ''
+                position: absolute
+                left: -4px
+                bottom: -4.6px
+                width: 8px
+                height: 8px
+                transform: rotate(180deg)
+                background-image: url('../img/arrow-end.svg')
+
+
+.view-color
+	display: flex
+	flex-direction: column
+	&__title
+		display: flex
+		font-size: 14px
+		line-height: 19px
+		color: #303030
+		font-weight: 300
+		margin-bottom: 9px
+		@media screen and (max-width: $md-min)
+		    font-size: 12px
+		    line-height: 16px
+		span
+			font-weight: 500
+
+
+	&__text
+	    display: inline-block
+	    overflow: hidden
+	    text-overflow: ellipsis
+	    white-space: nowrap
+	    margin-left: 5px
+
+	&__list
+		display: flex
+		align-items: center
+		margin-right: -16px
+		margin-bottom: -16px
+		@media screen and (max-width: $md-min)
+		    margin-bottom: -12px
+		    margin-right: -12px
+
+	&__item
+		display: flex
+		align-items: center
+		justify-content: center
+		width: 26px
+		height: 26px
+		min-width: 26px
+		min-height: 26px
+		border-radius: 50%
+		overflow: hidden
+		cursor: pointer
+		position: relative
+		margin-right: 16px
+		margin-bottom: 16px
+		transition: box-shadow 0.7s ease-in-out
+		@media screen and (max-width: $md-min)
+		    width: 20px
+		    height: 20px
+		    min-width: 20px
+		    min-height: 20px
+		    margin-right: 12px
+		    margin-bottom: 12px
+		&.active
+			box-shadow: 0 0 0 3px #93c718
+			@media screen and (max-width: $md-min)
+			    box-shadow: 0 0 0 2px #93c718
+
+		img
+			width: 100%
+			height: 100%
+			object-fit: contain
+
+
+
