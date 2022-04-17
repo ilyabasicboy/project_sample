@@ -33,7 +33,7 @@
                                 </g>
                             </svg>
                         </button>
-                        <ul class="dropdown__list dropdown__list-default dropdown__list--default-js">
+                        <ul class="dropdown__list dropdown__list-default dropdown__list--default-js scroll-custom-y scroll-custom-y--nopadding">
                             {% for field in form.theme|slice:'1:' %}
                                 <li class="dropdown__item dropdown__item-default dropdown__item--default-js" data-value="{{ field.data.value }}">
                                     {{ field.data.label }}

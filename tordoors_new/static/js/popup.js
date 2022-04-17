@@ -103,14 +103,10 @@ $(function () {
                         '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
                         '</div>',
                 patterns: {
-                        youtube: {
-                            index: 'youtube.com/',
-                            id: function(url) {
-                                var m = url.match(/[\\?\\&]v=([^\\?\\&]+)/);
-                                if ( !m || !m[1] ) return null;
-                                return m[1];
-                            },
-                            src: '//www.youtube.com/embed/%id%?autoplay=1&rel=0'
+                        vimeo: {
+                            index: 'vimeo.com/',
+                            id: '/',
+                            src: '//player.vimeo.com/video/%id%?autoplay=1'
                         },
                 },
                 srcAction: 'iframe_src',

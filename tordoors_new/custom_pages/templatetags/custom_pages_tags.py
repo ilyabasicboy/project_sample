@@ -31,11 +31,11 @@ def show_block_gallery(context, key='all'):
     # если не нужно выводить изображения без групп
     if key == "grouped_only":
         images = images.exclude(group="").exclude(group=None)
-    images = images.order_by("group", "position")
+    images = images.order_by("position", "group")
 
     grouped_images = OrderedDict()
     if images.exists():
-        groups = images.order_by("group").values_list("group", flat=True)
+        groups = images.order_by('position', "group").values_list("group", flat=True)
         empty_group_images = []
         for group in groups:
             if group:
@@ -119,5 +119,5 @@ def get_advantages(page):
 
 @register.simple_tag()
 def get_more_articles(page, num_pages=4):
-    siblings = page.get_siblings().filter(template='pages/article.html')[:num_pages]
+    siblings = page.get_siblings().filter(template='pages/article.html').order_by('?')[:num_pages]
     return siblings

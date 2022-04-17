@@ -26,6 +26,9 @@ class NewsRootAdmin(admin.ModelAdmin):
         post_url = reverse('admin:easy_news_news_changelist', current_app=self.admin_site.name)
         return HttpResponseRedirect(post_url)
 
+    def view_on_site(self, obj):
+        return obj.get_absolute_url()
+
 
 admin.site.unregister(News)
 @admin.register(CustomNews)
@@ -36,6 +39,9 @@ class NewsAdmin(admin.ModelAdmin):
     #     media = super(NewsAdmin, self).media
     #     media.add_css(news_settings.ADMIN_EXTRA_CSS)
     #     return media
+
+    def view_on_site(self, obj):
+        return obj.get_absolute_url()
 
     list_filter = ['show']
     search_fields = ['title', 'text', ]

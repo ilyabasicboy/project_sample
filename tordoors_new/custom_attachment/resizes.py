@@ -2,6 +2,10 @@
 from imagekit.processors import Resize
 
 
+class ResizeWatermarkPicture(Resize):
+    height = 1200
+
+
 class Resize80x56(Resize):
     width = 80
     height = 56
@@ -27,14 +31,12 @@ class ResizeDisplay(Resize):
 
 
 class ResizeImg300x300(Resize):
-    # test resize
     width = 300
     height = 300
     crop = True
 
 
 class ResizeImgAutox200(Resize):
-    # test resize
     height = 200
 
 
@@ -45,9 +47,12 @@ class ResizeImg120x120(Resize):
 
 
 class ResizeImg100x100(Resize):
-    # test resize
     width = 100
     height = 100
+
+
+class ResizeProduce(Resize):
+    height = 500
 
 
 class ResizeGallerySlider(Resize):
@@ -88,6 +93,10 @@ class ResizeDocuments(Resize):
 
 class ResizeFlittingImg(Resize):
     height = 280
+
+
+class ResizeFlittingImgBig(Resize):
+    height = 1000
 
 
 class ResizeFlittingImgThumb(Resize):

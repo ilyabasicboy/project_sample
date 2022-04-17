@@ -176,12 +176,18 @@
 				width: 100%
 				height: 100%
 				bottom: 0
-				display: flex
-				align-items: flex-end
-				justify-content: center
-				img
-				    max-height: 100%
-				    object-fit: contain
+				display: block
+				&:not(.active)
+				    display: none
+			&__wrapper
+			    width: 100%
+			    height: 100%
+			    display: flex
+			    align-items: flex-end
+			    justify-content: center
+			    img
+			        max-height: 100%
+			        object-fit: contain
 
 
 @keyframes scaleAnimation

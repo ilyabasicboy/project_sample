@@ -38,7 +38,7 @@
                     {% placeholder main_content with TinyMCE label 'Контент страницы' as main_content %}
                     {% if main_content %}
                         <div class="default-page__top">
-                            <div class="placeholder">
+                            <div class="placeholder mfp-gallery">
                                 {% show_block_content main_content %}
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                     {% placeholder middle_content with TinyMCE label 'Контент посередине страницы' as middle_content %}
                     {% if middle_content %}
                         <div class="default-page__middle">
-                            <div class="placeholder">
+                            <div class="placeholder mfp-gallery">
                                 {% show_block_content middle_content %}
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                     {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}
                     {% if bottom_content %}
                         <div class="default-page__bottom">
-                            <div class="placeholder">
+                            <div class="placeholder mfp-gallery">
                                 {% show_block_content bottom_content %}
                             </div>
                         </div>
@@ -98,11 +98,11 @@
     {% with show_commercial=True %}
         {% if show_already_with_us == 'True' and review_list %}
             {% include 'parts/already_with_us.html' %}
-        {% endif %}
 
-        {% placeholder show_commercial label 'Показывать блок "Запросить комм. предложение"' with Checkbox as show_commercial %}
-        {% if show_commercial == 'True' %}
-            {% include 'parts/show_commercial.html' %}
+            {% placeholder show_commercial label 'Показывать блок "Запросить комм. предложение"' with Checkbox as show_commercial %}
+            {% if show_commercial == 'True' %}
+                {% include 'parts/show_commercial.html' %}
+            {% endif %}
         {% endif %}
     {% endwith %}
 

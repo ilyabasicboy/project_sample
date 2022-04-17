@@ -129,7 +129,7 @@ def catalog_main_menu(context):
         for type in TYPE_CHOICES:
             sections = Section.objects.filter(product_type=type[0], tree__parent=root.tree.get().id)
             categories = Category.objects.filter(product_type=type[0], tree__parent=root.tree.get().id)
-            objects = list(chain(sections, categories))
+            objects = get_sorted_content_objects(list(chain(sections, categories)))
             if objects:
                 section_list[type[1]] = objects
         context['section_list'] = section_list
@@ -175,3 +175,13 @@ def get_products_by_id(product_ids):
 @register.simple_tag
 def get_facing_by_id(id):
     return Facing.objects.filter(id__in=id).first()
+
+
+@register.simple_tag
+def get_basic_parameters(object):
+    return object.get_parameters().filter(property__show_on_item_desc=False)
+
+
+@register.simple_tag
+def get_last_products(num=20):
+    return Product.objects.filter(show=True).order_by('-id')[:num]

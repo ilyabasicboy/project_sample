@@ -1,6 +1,6 @@
 {% load catalog_tags attachment_tags custom_catalog_tags %}
 {% if section_list %}
-    <div class="header__submenu-bg">
+    <div class="header__submenu-bg scroll-custom-y scroll-custom-y--dark scroll-custom-y--nopadding">
         <div class="header__submenu-container">
             {# Разделы каталога отсортированы по типу изделия: Двери/Люки/Ворота #}
             <div class="header__submenu-min">
@@ -36,33 +36,36 @@
                 {% for type, children in section_list.items %}
                     <ul class="header__bigmenu" data-target="menu{{ forloop.counter }}">
                         {% for object in children %}
-
                             {# Отображение раздела/категории в главном меню #}
                             {% with products=object.get_products_count %}
-                            {% if products or object.tree.get.content_type.model == 'category' %}
-                            <li class="header__bigmenu-item">
-                                {# Изображение раздела 1-го уровня #}
-                                {% get_images for object as images %}
-                                {% if images %}
-                                    <div class="header__bigmenu-preview">
-                                        <img class="header__bigmenu-img" src="{{ images.0.display.url }}" alt="object.title" title="object.title">
-                                    </div>
-                                {% endif %}
-                                {% if object.tree.get.content_type.model == 'section' %}
-                                    <div class="header__bigmenu-links">
-                                        <a class="header__bigmenu-link" href="{{ object.get_absolute_url }}">
-                                            {{ object.long_title|default:object.title }}
-                                            <span>({{ products }})</span>
-                                        </a>
-                                        {# Найти дочерние разделы/категории #}
-                                        {% get_catalog_menu_items for object as children %}
-                                        {% if children %}
-                                            {% include 'catalog/parts/catalog_main_menu_items.html' %}
+                                {% if products or object.tree.get.content_type.model == 'category' %}
+                                    <li class="header__bigmenu-item">
+                                        {# Изображение раздела 1-го уровня #}
+                                        {% get_images for object as images %}
+                                        {% if images %}
+                                            <div class="header__bigmenu-preview">
+                                                <img class="header__bigmenu-img" src="{{ images.0.display.url }}" alt="object.title" title="object.title">
+                                            </div>
                                         {% endif %}
-                                    </div>
+
+                                            <div class="header__bigmenu-links">
+                                                <a class="header__bigmenu-link" href="{{ object.get_absolute_url }}">
+                                                    {{ object.title }}
+                                                    {% if object.tree.get.content_type.model == 'section' %}
+                                                        <span>({{ products }})</span>
+                                                    {% endif %}
+                                                </a>
+                                                {% if object.tree.get.content_type.model == 'section' %}
+                                                    {# Найти дочерние разделы/категории #}
+                                                    {% get_catalog_menu_items for object as children %}
+                                                    {% if children %}
+                                                        {% include 'catalog/parts/catalog_main_menu_items.html' %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+
+                                    </li>
                                 {% endif %}
-                            </li>
-                            {% endif %}
                             {% endwith %}
                         {% endfor %}
                     </ul>

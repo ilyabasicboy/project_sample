@@ -4,11 +4,11 @@
 {% block content %}
     <section class="section-default section-default--top">
         <div class="container">
-            {% placeholder top__content with TinyMCE label 'Контент вверху страницы' as top__content %}
-            {% if top__content %}
+            {% placeholder main_content with TinyMCE label 'Контент вверху страницы' as main_content %}
+            {% if main_content %}
                 <div class="gallery-page__top">
-                    <div class="placeholder">
-                        {% show_block_content top__content %}
+                    <div class="placeholder mfp-gallery">
+                        {% show_block_content main_content %}
                     </div>
                 </div>
             {% endif %}
@@ -20,7 +20,7 @@
             {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}
             {% if bottom_content %}
                 <div class="gallery-page__bottom">
-                    <div class="placeholder">
+                    <div class="placeholder mfp-gallery">
                         {% show_block_content bottom_content %}
                     </div>
                 </div>

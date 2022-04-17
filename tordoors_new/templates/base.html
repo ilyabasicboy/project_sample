@@ -8,14 +8,14 @@
         <meta name="theme-color" class="theme-color" content="#fff">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta charset="utf-8">
-        {% if request.GET.page > 1 %}<link rel="canonical" href="{{ request.path }}">{% endif %}
+        {% if request.GET.page %}<link rel="canonical" href="{{ request.path }}">{% endif %}
 
         {% include 'parts/block_favicon.html' %}
 
         {{ chunks.end_of_head.content }}
 
         {% block css %}
-            <link rel="stylesheet" href="{% static 'bundle/bundle.b0c28d527f1108c42da3.css' %}">
+            <link rel="stylesheet" href="{% static 'bundle/bundle.760a296e5ace8e467fad.css' %}">
         {% endblock %}
     </head>
 
@@ -268,7 +268,7 @@
         </div>
 
         {% block js %}
-            <script src="{{ STATIC_URL }}bundle/bundle.b0c28d527f1108c42da3.js"></script>
+            <script src="{{ STATIC_URL }}bundle/bundle.760a296e5ace8e467fad.js"></script>
         {% endblock %}
 
         {{ chunks.end_of_body.content }}

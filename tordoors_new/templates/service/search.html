@@ -22,7 +22,9 @@
     {% if chunks.yandex_search_results.content %}
         <section class="search-page__result section-default section-default--top">
             <div class="container">
-                {{ chunks.yandex_search_results.content }}
+                <div class="search__results">
+                    {{ chunks.yandex_search_results.content }}
+                </div>
             </div>
         </section>
     {% endif %}

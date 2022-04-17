@@ -1,0 +1,17 @@
+{% load catalog_tags custom_catalog_tags %}
+<ul class="sitemap__submenu _slide-target">
+    {% for object in tree_list %}
+        <li class="sitemap__item">
+            {% get_catalog_menu_items for object as tree_list %}
+            <a class="sitemap__item-link" href="{{ object.get_absolute_url }}">
+                {% if tree_list %}
+                    <span class="sitemap__item-icon _slide _slide-parent"></span>
+                {% endif %}
+                <span>{{ object }}</span>
+            </a>
+            {% if tree_list %}
+                {% include 'catalog/tree_sitemap.html' %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

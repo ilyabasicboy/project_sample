@@ -122,3 +122,18 @@ def create_parameter(sender, **kwargs):
 value_saved.connect(create_parameter)
 object_saved.connect(create_parameter)
 parameter_saved.connect(create_parameter)
+
+
+def set_products_by_parameters(sender, instance, **kwargs):
+    """ При изменении параметров, назначить товары по параметрам для категорий """
+    for category in Category.objects.all():
+        parameters = list(
+            category.category_parameters.exclude(value=None).values_list('value', flat=True).order_by('value')
+        )
+        product_ids = [
+            product.id for product in Product.objects.all() if
+            all(val in parameters for val in list(product.get_parameters().values_list('value', flat=True)))
+        ]
+        category.products_by_parameters.set(Product.objects.filter(id__in=product_ids))
+        category.save()
+# post_save.connect(set_products_by_parameters, sender=Parameter)

@@ -37,11 +37,11 @@
 
     <div class="other-page section-default">
         <div class="container">
-            {% placeholder top_content with TinyMCE label 'Контент сверху' as top_content %}
-            {% if top_content %}
+            {% placeholder main_content with TinyMCE label 'Контент сверху' as main_content %}
+            {% if main_content %}
                 <div class="other-page__top">
-                    <div class="placeholder">
-                        {% show_block_content top_content %}
+                    <div class="placeholder mfp-gallery">
+                        {% show_block_content main_content %}
                     </div>
                 </div>
             {% endif %}
@@ -74,7 +74,7 @@
             {% endif %}
 
             <div class="catalog__grid-footer">
-                <a class="btn btn--accent" href="/catalog">
+                <a class="btn btn--accent" href="/catalog/">
                    <span>
                        Перейти в каталог
                    </span>
@@ -88,7 +88,7 @@
    {% if bottom_content %}
         <section class="section-default section-default--top">
             <div class="container">
-                <div class="placeholder">
+                <div class="placeholder mfp-gallery">
                     {% show_block_content bottom_content %}
                 </div>
             </div>
@@ -102,15 +102,15 @@
                     <div class="banner__accent-visible">
                         <div class="banner__accent-rotate">
                             <div class="banner__accent-default">
-                                <h4 class="banner__accent-title">
+                                <span class="banner__accent-title">
                                     Оформить предварительный заказ
-                                </h4>
+                                </span>
                             </div>
                         </div>
                         <div class="banner__accent-default">
-                            <h4 class="banner__accent-title">
+                            <span class="banner__accent-title">
                                 Оформить предварительный заказ
-                            </h4>
+                            </span>
                         </div>
                     </div>
                 </a>

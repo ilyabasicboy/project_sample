@@ -1,4 +1,5 @@
-{% for image in images %}
+{% load base_tags %}
+{% for image in images|shuffle|slice:':20' %}
     <a class="gallery__slider-item" href="{{ image.watermarkpicture.url }}">
         <img src="{{ image.galleryslider.url }}" alt="{{ image.title }}" title="{{ image.title }}">
     </a>

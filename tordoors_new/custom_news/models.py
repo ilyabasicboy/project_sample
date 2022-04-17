@@ -15,13 +15,12 @@ class CustomNews(News):
         verbose_name = u'Новость'
         verbose_name_plural = u'Новости'
 
-    video = models.CharField(verbose_name=u'id после https://www.youtube.com/watch?v=', max_length=255, blank=True, null=True)
+    video = models.CharField(verbose_name=u'id после https://vimeo.com/', max_length=255, blank=True, null=True)
 
     def main_image(self):
         return AttachmentImage.objects.filter(
             object_id=self.id,
             content_type=ContentType.objects.get_for_model(CustomNews),
-            role=settings.ROLE_COVER
         ).first()
 
     def add_images(self):

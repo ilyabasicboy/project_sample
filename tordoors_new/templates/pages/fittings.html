@@ -44,7 +44,7 @@
                                         <div class="swiper-wrapper">
                                             {% for image in images %}
                                                 <div class="swiper-slide furniture__slider-item">
-                                                    <a class="furniture__slider-img" href="{{ image.flittingimg.url }}">
+                                                    <a class="furniture__slider-img" href="{{ image.watermarkpicture.url }}">
                                                         <img src="{{ image.flittingimg.url }}" alt="{{ image.title }}" title="{{ image.title }}">
                                                     </a>
                                                 </div>
@@ -68,7 +68,7 @@
                             {% placeholder right_content with TinyMCE label 'Технические характеристики' as right_content %}
                             {% if right_content %}
                                 <div class="furniture__content">
-                                    <div class="placeholder">
+                                    <div class="placeholder mfp-gallery">
                                         <h2>
                                             Технические характеристики
                                         </h2>
@@ -103,7 +103,7 @@
                                 {% endif %}
 
                                 <div class="catalog__grid-footer">
-                                    <a class="btn btn--accent" href="/catalog">
+                                    <a class="btn btn--accent" href="/catalog/">
                                        <span>
                                            Перейти в каталог
                                        </span>
@@ -115,7 +115,7 @@
                         {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}
                         {% if bottom_content %}
                             <div class="furniture__bottom">
-                                <div class="placeholder">
+                                <div class="placeholder mfp-gallery">
                                     {% show_block_content bottom_content %}
                                 </div>
                             </div>

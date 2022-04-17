@@ -49,6 +49,10 @@ class Review(models.Model):
         verbose_name=u'Опубликовано',
         default=False
     )
+    show_in_reviews_block = models.BooleanField(
+        verbose_name=u'Отображать в блоке "Отзывы" на сайте',
+        default=False
+    )
 
     class Meta:
         verbose_name = u'Отзыв'

@@ -47,6 +47,16 @@
             &--posbottom-xs
                 bottom: auto
                 top: calc(100% + 10px)
+        &--posleft-pc
+            left: 0
+            transform: translate(-80%, 10px)
+            @media screen and (max-width: $xs-max)
+                left: 50%
+                transform: translate(-50%, 10px)
+            &.open
+                transform: translate(-80%, 0)
+                @media screen and (max-width: $xs-max)
+                    transform: translate(-50%, 0)
     &__close
         background-color: transparent
         border: none

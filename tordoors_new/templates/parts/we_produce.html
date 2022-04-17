@@ -59,54 +59,54 @@
         <div class="container">
             <div class="produce__slider produce--slider">
                 {% for section in we_produce %}
-                <div class="produce__slider-item produce__item">
-                    <div class="produce__item-content">
-                        {% get_images for section as images %}
-                        {% get_image_groups for images as image_groups %}
-                        {% if image_groups|key:'main' %}
-                        {% with images=image_groups|key:'main' %}
-                            <div class="produce__item-img">
-                                <img src="{{ images.0.display.url }}" alt="Img" title="Img">
-                            </div>
-                        {% endwith %}
-                        {% endif %}
-                        <div class="produce__item-info">
-                            <div class="produce__item-info__top">
-                                <h4 class="produce__item-title">
-                                    {{ section.title }}
-                                    {% catalog_children for section type product descendants all as products %}
-                                    <span>{{ products.count }} шт</span>
-                                </h4>
-                                {% if section.fireproof_types %}
-                                    {% show_block_content section.fireproof_types %}
-                                {% endif %}
-                            </div>
-                            <div class="produce__item-info__bottom">
-                                <div class="produce__item-price">
-                                    от <span>{{ section.get_min_price }}</span> руб
+                    <a class="produce__slider-item produce__item" href="{{ section.get_absolute_url }}">
+                        <div class="produce__item-content">
+                            {% get_images for section as images %}
+                            {% get_image_groups for images as image_groups %}
+                            {% if image_groups|key:'main' %}
+                            {% with images=image_groups|key:'main' %}
+                                <div class="produce__item-img">
+                                    <img src="{{ images.0.produce.url }}" alt="{{ images.0.title }}" title="{{ images.0.title }}">
                                 </div>
-                                <a class="btn__line produce__item-link" href="{{ section.get_absolute_url }}">
-                                    <div class="btn__line-icon produce__item-link__icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="103px" height="19px" viewBox="0 0 103 19" version="1.1">
-                                            <title>Перейти к разделу</title>
-                                            <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <g id="ГЛАВНАЯ-4-Copy" transform="translate(-771.000000, -1432.000000)" fill="#75A600" fill-rule="nonzero">
-                                                    <g id="МЫ-ПРОИЗВОДИМ" transform="translate(-271.000000, 700.000000)">
-                                                        <g id="Блоки-Каталога" transform="translate(0.000000, 307.000000)">
-                                                            <g id="Блок-Противопожарные-двери" transform="translate(624.000000, 0.000000)">
-                                                                <path id="Line-hover" d="M501.5,425 L520.5,434.5 L501.5,444 L501.5,436 L418.5,436 L418.5,433 L501.5,433 L501.5,425 Z"/>
+                            {% endwith %}
+                            {% endif %}
+                            <div class="produce__item-info">
+                                <div class="produce__item-info__top">
+                                    <div class="produce__item-title">
+                                        {{ section.title }}
+                                        {% catalog_children for section type product descendants all as products %}
+                                        <span>{{ products.count }} шт</span>
+                                    </div>
+                                    {% if section.fireproof_types %}
+                                        {% show_block_content section.fireproof_types %}
+                                    {% endif %}
+                                </div>
+                                <div class="produce__item-info__bottom">
+                                    <div class="produce__item-price">
+                                        от <span>{{ section.get_min_price }}</span> руб
+                                    </div>
+                                    <div class="btn__line produce__item-link">
+                                        <div class="btn__line-icon produce__item-link__icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="103px" height="19px" viewBox="0 0 103 19" version="1.1">
+                                                <title>Перейти к разделу</title>
+                                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <g id="ГЛАВНАЯ-4-Copy" transform="translate(-771.000000, -1432.000000)" fill="#75A600" fill-rule="nonzero">
+                                                        <g id="МЫ-ПРОИЗВОДИМ" transform="translate(-271.000000, 700.000000)">
+                                                            <g id="Блоки-Каталога" transform="translate(0.000000, 307.000000)">
+                                                                <g id="Блок-Противопожарные-двери" transform="translate(624.000000, 0.000000)">
+                                                                    <path id="Line-hover" d="M501.5,425 L520.5,434.5 L501.5,444 L501.5,436 L418.5,436 L418.5,433 L501.5,433 L501.5,425 Z"/>
+                                                                </g>
                                                             </g>
                                                         </g>
                                                     </g>
                                                 </g>
-                                            </g>
-                                        </svg>
+                                            </svg>
+                                        </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </a>
                 {% endfor %}
             </div>
 

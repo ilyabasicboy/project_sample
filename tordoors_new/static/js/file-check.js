@@ -3,32 +3,32 @@ $(function () {
     //File Length
     $(document).on('change', '.input-file', function() {
         let file = $(this)[0].files;
-        let fileType;
-
-        if ($(this).is('[data-accept-img]')) {
-            fileType = ['image/jpeg', 'image/png'].includes(file[0].type);
-        }
-
-        if ($(this).is('[data-accept-imgfile]')) {
-            fileType = ['image/jpeg', 'image/png', 'application/pdf'].includes(file[0].type);
-        }
 
         $(this).parent().parent().find('.upload__info').removeClass('error');
+
         if (file.length == 0 || file.length == '') {
             $(this).next('.upload__btn').children().text("Файл не выбран");
             $(this).parent().parent().find('.upload__delete').removeClass('active');
             $(this).parent().parent().find('.upload__info').removeClass('error');
-        }
-
-        if (file[0].size < 5242880 && fileType) {
-            if (file.length == 1) {
-              var filename = $(this).val().replace(/^.*[\\\/]/, '');
-              $(this).next('.upload__btn').children().text(filename);
-            }
         } else {
-            $(this).parent().parent().find('.upload__info').addClass('error');
-            $(this).parent().parent().find('.upload__delete').addClass('active');
-            $(this).next('.upload__btn').addClass('hidden');
+            let fileType = '';
+            if ($(this).is('[data-accept-img]')) {
+                fileType = ['image/jpeg', 'image/png'].includes(file[0].type);
+            }
+            if ($(this).is('[data-accept-imgfile]')) {
+                fileType = ['image/jpeg', 'image/png', 'application/pdf'].includes(file[0].type);
+            }
+
+            if (file[0].size < 5242880 && fileType) {
+                if (file.length == 1) {
+                  var filename = $(this).val().replace(/^.*[\\\/]/, '');
+                  $(this).next('.upload__btn').children().text(filename);
+                }
+            } else {
+                $(this).parent().parent().find('.upload__info').addClass('error');
+                $(this).parent().parent().find('.upload__delete').addClass('active');
+                $(this).next('.upload__btn').addClass('hidden');
+            }
         }
     });
 

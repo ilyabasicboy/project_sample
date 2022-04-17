@@ -590,6 +590,13 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
 		&-thumb
 			background-color: #D8D8D8
 			border-radius: 2px
+	&--dark
+	    scrollbar-color: #a7a6a6 #F8F8F8
+	    &::-webkit-scrollbar
+	        &-thumb
+	            background-color: #a7a6a6
+	&--nopadding
+	    padding-right: 0
 
 @media screen and (max-width: $xs-max)
     .scroll-custom-y--xs

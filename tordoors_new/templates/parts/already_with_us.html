@@ -23,9 +23,9 @@
                                 <div class="partners-review__overflow scroll-custom-y">
                                     <div class="partners-review__header">
                                         {% if review.name %}
-                                            <h4 class="partners-review__title">
+                                            <span class="partners-review__title">
                                                 {{ review.name }}
-                                            </h4>
+                                            </span>
                                         {% endif %}
                                         {% if review.date %}
                                             <span class="partners-review__date">
@@ -78,7 +78,7 @@
                 </button>
             </div>
             <div class="partners-review__footer">
-                <a class="btn__line btn__line--text" href="/reviews">
+                <a class="btn__line btn__line--text" href="/reviews/">
                     <span class="btn__line-text">
                         Все отзывы
                     </span>
@@ -111,7 +111,7 @@
                 {% for logo in logos %}
                 <a class="partners-logo__item">
                     <div class="partners-logo__img">
-                        <img src="{{ logo.image.url }}" alt="Img" title="Img">
+                        <img src="{{ logo.image.url }}" {% if logo.title %}alt="{{ logo.title }}" title="{{ logo.title }}"{% endif %}>
                     </div>
                 </a>
                 {% endfor %}

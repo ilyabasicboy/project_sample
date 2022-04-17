@@ -1,13 +1,15 @@
+{% load pages_tags %}
 <div class="container">
     <div class="gallery__overlay">
         <h3 class="gallery__title">
-            <span>Примеры</span> дверей
+            <span>Примеры</span> изделий
         </h3>
         <span class="gallery__subtitle">
-            в интерьере
+            нашего производства
         </span>
         <div class="gallery__text">
-            Фото установленных дверей произвдства ООО «Двери ТОР».
+            {% get_content gallery 'long_title' as long_title %}
+            {{ long_title|default:gallery.title }}
         </div>
         <div class="gallery__footer">
             <a class="btn__line btn__line--white btn__line--grey-md btn__line--text" href="{{ gallery.get_url_path }}">

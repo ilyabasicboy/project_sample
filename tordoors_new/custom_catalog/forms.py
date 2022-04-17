@@ -58,7 +58,7 @@ class FacingColorAdminForm(forms.ModelForm):
 
     class Meta:
         model = FacingColor
-        fields = '__all__'
+        exclude = ('order_key',)
         widgets = {
             'facing': FilteredSelectMultiple(verbose_name=u'Типы отделки', is_stacked=False),
         }
@@ -127,7 +127,7 @@ class CategoryAdminForm(forms.ModelForm):
             'products': FilteredSelectMultiple(verbose_name=u'Товары', is_stacked=False),
             'articles': FilteredSelectMultiple(verbose_name=u'Виды изделий', is_stacked=False)
         }
-        fields = '__all__'
+        exclude = ['products_by_parameters']
 
 
 class FilterForm(forms.Form):
@@ -176,15 +176,19 @@ class FilterForm(forms.Form):
     """ Try необходим для инициализации миграций в новую бд """
     try:
         FIRE_CHOICES = tuple(
-            (fire.id, fire.name) for fire in FireResistance.objects.all()
+            (fire.id, fire.name) for fire in FireResistance.objects.all().order_by('order_key')
         )
     except:
         FIRE_CHOICES = None
     if FIRE_CHOICES:
         fireproof = forms.ChoiceField(
             label="Огнестойкость",
-            choices=(('', 'Не важно'),) + FIRE_CHOICES,
+            choices=(
+                        ('', 'Не важно'),
+                        ('0', 'Нет'),
+                    ) + FIRE_CHOICES,
             required=False,
+            initial='',
             widget = forms.Select(attrs={
                 'data-type': 'simple',
             })

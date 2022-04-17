@@ -5,6 +5,7 @@ from django.utils.html import strip_spaces_between_tags
 from easy_news.models import News
 from django.contrib.contenttypes.models import ContentType
 from tordoors_new.custom_catalog.models import DocType
+import random
 
 try:
     NEWS_CT = ContentType.objects.get_for_model(News)
@@ -31,7 +32,7 @@ def get_ranged_pagination_pages(current, pages, count):
     if len(pages):
         first_page, last_page = pages[0], pages[-1]
         if count < last_page:
-            step = count / 2
+            step = count // 2
             left_page = current - step + 1
             right_page = current + step
             if left_page < first_page and right_page > last_page:
@@ -46,7 +47,6 @@ def get_ranged_pagination_pages(current, pages, count):
                 if left_page < first_page:
                     left_page = first_page
                 right_page = last_page
-
             result = [i for i in range(left_page, right_page + 1)]
     return result
 
@@ -137,3 +137,10 @@ def price_format(val):
     if len(buf):
         result = buf + ' ' + result
     return result
+
+
+@register.filter
+def shuffle(objects):
+    objects = list(objects)
+    random.shuffle(objects)
+    return objects

@@ -49,7 +49,7 @@ class PageCoopSelect(Select):
 
     def __init__(self, language=None, attrs=None, **kwargs):
         super().__init__(attrs)
-        groups = Page.objects.filter(status=Page.PUBLISHED, template='pages/coop.html')
+        groups = Page.objects.filter(template='pages/coop.html')
         choices = [('', u'-----------')] + [(group.id, group.title()) for group in groups]
         self.choices = list(choices)
 

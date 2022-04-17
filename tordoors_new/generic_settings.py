@@ -13,7 +13,7 @@ FILE_UPLOAD_PERMISSIONS = 0o644  # права для записи файлов, 
 
 APPEND_SLASH = True
 DEBUG = True
-SITE_ID = 1
+SITE_ID = 2
 SECRET_KEY = ''
 WSGI_APPLICATION = 'tordoors_new.wsgi.application'
 TIME_ZONE = 'UTC'
@@ -161,14 +161,15 @@ FILEBROWSER_CONVERT_FILENAME = False
 FILEBROWSER_MAX_UPLOAD_SIZE = 20485760
 FILEBROWSER_VERSION_QUALITY = 90
 FILEBROWSER_VERSION_NAMER = 'tordoors_new.custom_attachment.namers.VersionNamer'
-FILEBROWSER_VERSION_PROCESSORS = ['tordoors_new.custom_attachment.processors.filebrowser_processor']
+FILEBROWSER_VERSION_PROCESSORS = ['tordoors_new.custom_attachment.filebrowser.filebrowser_processor']
 FILEBROWSER_ADMIN_THUMBNAIL = 'Thumb'
-FILEBROWSER_ADMIN_VERSIONS = ['Thumb300', 'Thumb500', 'Display']
+FILEBROWSER_ADMIN_VERSIONS = ['Thumb300', 'Thumb500', 'Display', 'watermarkpicture']
 FILEBROWSER_VERSIONS = {
     'Thumb': {'verbose_name': 'Thumb'},
     'Thumb300': {'verbose_name': 'Thumb300'},
     'Thumb500': {'verbose_name': 'Thumb500'},
     'Display': {'verbose_name': 'Display'},
+    'watermarkpicture': {'verbose_name': 'WatermarkPicture'},
 }
 
 FILEBROWSER_EXTENSIONS = {
@@ -211,6 +212,10 @@ PAGE_TEMPLATES = (
 # ~======== DJANGO TINYMCE ========~
 INSTALLED_APPS += ['tinymce']
 PAGE_TINYMCE = True
+
+# Для работы через прокси
+USE_X_FORWARDED_HOST = True
+
 TINYMCE_DEFAULT_CONFIG = {
     'mode': 'exact',
     'theme': 'advanced',
@@ -327,16 +332,12 @@ ATTACHMENT_FOR_MODELS = [
 ]
 ATTACHMENT_LINK_MODELS = [
     'pages.Page',
-    'chunks.Chunk'
     'custom_news.NewsRoot',
-    'service.ErrorPage',
     'custom_catalog.Root',
     'custom_catalog.Section',
     'custom_catalog.Category',
     'custom_catalog.Product',
     'custom_news.CustomNews',
-    'custom_catalog.Facing',
-    'custom_catalog.Value',
 ]
 
 # ~======== SEO =================~
@@ -344,6 +345,10 @@ INSTALLED_APPS += ['seo']
 SEO_FOR_MODELS = [
     'pages.Page',
     'custom_news.NewsRoot',
+    'custom_news.CustomNews',
     'service.ErrorPage',
     'custom_catalog.Product',
+    'custom_catalog.Section',
+    'custom_catalog.Category',
+    'custom_catalog.Root',
 ]

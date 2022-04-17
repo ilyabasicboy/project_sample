@@ -11,7 +11,7 @@
                 {% for image in images %}
                 <div class="gallery__item swiper-slide">
                     <a href="{{ image.watermarkpicture.url }}" class="gallery__item-link">
-                        <img src="{{ image.gallery.url }}" alt="{{ image.title }}">
+                        <img src="{{ image.gallery.url }}" alt="{{ image.title }}" title="{{ image.title }}">
                     </a>
                 </div>
                 {% endfor %}

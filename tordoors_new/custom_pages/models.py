@@ -20,7 +20,7 @@ class Logo(models.Model):
     content_object = GenericForeignKey("content_type", "object_id")
 
     def __str__(self):
-        return self.title
+        return self.title if self.title else ''
 
 
 class Advantage(models.Model):

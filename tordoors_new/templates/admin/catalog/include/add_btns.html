@@ -1,0 +1,16 @@
+{% load i18n %}
+{% if models_info %}
+
+<!--Catalog models fix to correctly closing popup and returning to parent window-->
+<ul class="object-tools">
+    {% block object-tools-items %}
+        {% for add_model_info in models_info %}
+        <li>
+        <a href="{{ add_model_info.0 }}?_popup=1" class="addlink" target="_blank" onclick="window.open('{{ add_model_info.0 }}?_popup=1')">
+          {% trans 'Add' %} {{ add_model_info.1 }}
+        </a>
+        </li>
+        {% endfor %}
+    {% endblock %}
+</ul>
+{% endif %}

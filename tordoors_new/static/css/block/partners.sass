@@ -18,9 +18,10 @@
 
 
 	&-review__slider
-		min-height: 500px
-		@media screen and (max-width: $md-min)
-		    min-height: 255px
+		&:not(.slick-initialized)
+		    min-height: 500px
+		    @media screen and (max-width: $md-min)
+		        min-height: 255px
 		&:not(.slick-initialized) .partners-review__item
 			display: none
 
@@ -83,6 +84,7 @@
 		max-width: 622px
 		width: calc(100% - 92px)
 		margin-left: 60px
+		min-height: 220px
 		@media screen and (max-width: $md-min)
 		    margin-left: 45px
 		    padding: 26px 36px
@@ -130,6 +132,7 @@
 		line-height: 36px
 		font-weight: 700
 		text-transform: uppercase
+		display: block
 		@media screen and (max-width: $md-min)
 		    font-size: 16px
 		    line-height: 22px

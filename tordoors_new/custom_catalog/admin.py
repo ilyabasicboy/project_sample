@@ -8,10 +8,17 @@ from tordoors_new.custom_catalog.forms import RootAdminForm, ParameterAdminForm,
     ProductImageForm, ProductAdminForm, SectionAdminForm, CategoryAdminForm, DocAdminForm, FacingPrintAdminForm, \
     FacingColorAdminForm
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
+from django.urls import reverse
+
+
+class CustomCatalogItemBaseAdmin(CatalogItemBaseAdmin):
+
+    def view_on_site(self, obj):
+        return obj.get_absolute_url()
 
 
 @admin.register(Root)
-class RootAdmin(CatalogItemBaseAdmin):
+class RootAdmin(CustomCatalogItemBaseAdmin):
 
     def has_add_permission(self, request):
         return not bool(Root.objects.exists())
@@ -50,7 +57,7 @@ class AddParameterInline(admin.TabularInline):
         return False
 
 
-class ProductImageInlines(admin.TabularInline):
+class ProductImageInlines(SortableInlineAdminMixin, admin.TabularInline):
     class Meta:
         ordering = ('order_key',)
 
@@ -71,7 +78,7 @@ class SectionImageInlines(admin.TabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(CatalogItemBaseAdmin):
+class ProductAdmin(CustomCatalogItemBaseAdmin):
 
     model = Product
     form = ProductAdminForm
@@ -81,13 +88,13 @@ class ProductAdmin(CatalogItemBaseAdmin):
         AddParameterInline,
     ]
     prepopulated_fields = {'slug': ('title',)}
-    search_fields = ("title", )
-    list_display = ['title', 'item_type']
-    list_editable = ['item_type']
+    search_fields = ("title", 'long_title')
+    list_display = ['title', 'item_type', 'price', 'show']
+    list_editable = ['item_type',]
 
 
 @admin.register(Section)
-class SectionAdmin(CatalogItemBaseAdmin):
+class SectionAdmin(CustomCatalogItemBaseAdmin):
 
     model = Section
     form = SectionAdminForm
@@ -97,11 +104,11 @@ class SectionAdmin(CatalogItemBaseAdmin):
         AddParameterInline,
     ]
     prepopulated_fields = {'slug': ('title',)}
-    search_fields = ("title", )
+    search_fields = ("title", 'long_title',)
 
 
 @admin.register(Category)
-class CategoryAdmin(CatalogItemBaseAdmin):
+class CategoryAdmin(CustomCatalogItemBaseAdmin):
 
     model = Category
     form = CategoryAdminForm
@@ -150,8 +157,8 @@ admin.site.register(Doc, DocAdmin)
 class PropertyAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Property
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'optional',)
-    list_editable = ('optional',)
+    list_display = ('name', 'optional', 'show_on_item_desc')
+    list_editable = ('optional', 'show_on_item_desc')
 
 admin.site.register(Property, PropertyAdmin)
 
@@ -177,6 +184,8 @@ class FacingPrintAdmin(admin.ModelAdmin):
 class FacingColorAdmin(admin.ModelAdmin):
     model = FacingColor
     form = FacingColorAdminForm
+    # list_display = ('name', 'order_key')
+    # list_editable = ('order_key',)
 
 
 admin.site.register(Facing)

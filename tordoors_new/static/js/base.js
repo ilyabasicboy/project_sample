@@ -11,10 +11,23 @@ $(function () {
     //Wrap for Table
     $(".placeholder table").wrap('<div class="table-wrap scroll-custom-x"></div>');
 
+    //Wrap for Iframe
+    let placeholderVideo = $('.placeholder iframe');
+    placeholderVideo.each(function (index, item) {
+        let videoMaxWidth = $(item).attr('width');
+        $(item).wrap('<div class="iframe-wrap" style="max-width: ' + videoMaxWidth + 'px;"></div>');
+    });
+
     //Add preview for Video
-    $(".video-custom").each(function(){
-        var video_id = $(this).data("bg-video");
-        $(this).css('background-image', 'url(https://i.ytimg.com/vi/' + video_id + '/hqdefault.jpg)');
+    $(".video-custom").each(function() {
+        let vimeoId = $(this).data("bg-video");
+        $.getJSON('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + vimeoId, {
+            format: "json",
+            width: "640"
+        },
+        function(data) {
+            $(".video-custom[data-bg-video=" + vimeoId + "]").css('background-image', 'url(' + data.thumbnail_url + ')');
+        });
     });
 
 	//Mobile Menu
@@ -96,9 +109,8 @@ $(function () {
         let destination = $(elementClick).offset().top - headerHeight - anchorMargin;
         $('html, body').animate( { scrollTop: destination }, 1500, 'swing');
     });
-
     $(".anchor-link-next").on('click', function() {
-        let parent = $(this).parent().height();
+        let parent = $(this).parent().outerHeight();
         $("body,html").animate({ scrollTop: parent }, 1500, 'swing');
     });
 
@@ -184,49 +196,115 @@ $(function () {
 
     //Product View Change with Color
     let colorTarget;
-    $(document).on('click', '.product-change-color', function(){
+    $(document).on('click', '.product-change-color', function() {
         colorTarget = $(this).data('product-color');
         let colorTargetTitle = $(this).data('product-color-title');
         if (!$(this).hasClass('active')) {
             $('.product-change-color').removeClass('active');
             $(this).addClass('active');
+
+            //Change Img Preview
             $(".product__view-img").find('.product-change-img').fadeOut(600);
-            $(".product__view-img").find('.product-change-img[data-product-color="'+ colorTarget +'"]').fadeIn(600);
+            let imgPreviewTarget = $(".product__view-img").find('.product-change-img[data-product-color="'+ colorTarget +'"]');
+            imgPreviewTarget.fadeIn(600);
+
+            //Change Img Interior
             $(".product__interior-preview").find('.product__interior-preview__img').fadeOut(600);
             $(".product__interior-preview").find('.product__interior-preview__img[data-product-color="'+ colorTarget +'"]').fadeIn(600);
             $('.view-color__title span').text(colorTargetTitle);
+
+            //Change Drawing Title
+            imgPreviewTarget.each(function(index, item) {
+                let drawingTargetTitle = $(item).data('product-drawing-title');
+                if($(item).parent().parent().hasClass('view-dimensions')) {
+                    $(item).parent().parent().parent().find('.product__view-drawing span').text(drawingTargetTitle);
+                } else {
+                    $(item).parent().parent().find('.product__view-drawing span').text(drawingTargetTitle);
+                }
+            });
         }
     });
-    $('.product-change-color-list').find('.product-change-color').each(function(){
+    $('.product-change-color-list').find('.product-change-color').each(function() {
         if ($(this).hasClass('active')) {
             colorTarget = $(this).data('product-color');
         }
     });
 
-    //Change Product Img with Color
-    function productCardChange() {
-        let productCard = $('.product-card');
-        productCard.each(function (index, item) {
-            $(item).find('.product-card__color-item').on('click', function() {
-                if (!$(this).hasClass('active')) {
-                    let productTargetImg = $(this).data('target-card');
-                    $(this).parent().find('.product-card__color-item').removeClass('active');
-                    $(this).addClass('active');
-                    $(this).parent().parent().find(".product-card__img-item").fadeOut(600);
-                    $(this).parent().parent().find('.product-card__img-item[data-card="'+ productTargetImg +'"]').fadeIn(600);
+    //Change Product Img with Swipe
+    function productCardChangeSwipe() {
+        let swipeImg = $('.product-card__img-item');
+        swipeImg.each(function (index, item) {
+            $(item).swipe({
+                left: function() {
+                    if ($(item).next('.product-card__img-item').length > 0) {
+                        let productTargetColor = $(item).next().data('card');
+
+                        $(item).fadeOut(600).removeClass('active');
+                        $(item).next().fadeIn(600).addClass('active');
+
+                        $(item).parent().parent().find('.product-card__color-item').removeClass('active');
+                        $(item).parent().parent().find('.product-card__color-item[data-target-card="'+ productTargetColor +'"]').addClass('active');
+                    } else {
+                        $(item).fadeOut(600).removeClass('active');
+                        $(item).parent().find('.product-card__img-item').first().fadeIn(600).addClass('active');
+
+                        $(item).parent().parent().find('.product-card__color-item').removeClass('active');
+                        $(item).parent().parent().find('.product-card__color-item').first().addClass('active');
+                    }
+                },
+                right: function() {
+                    if ($(item).prev('.product-card__img-item').length > 0) {
+                        let productTargetColor = $(item).prev().data('card');
+
+                        $(item).fadeOut(600).removeClass('active');
+                        $(item).prev().fadeIn(600).addClass('active');
+
+                        $(item).parent().parent().find('.product-card__color-item').removeClass('active');
+                        $(item).parent().parent().find('.product-card__color-item[data-target-card="'+ productTargetColor +'"]').addClass('active');
+                    } else {
+                        $(item).fadeOut(600).removeClass('active');
+                        $(item).parent().find('.product-card__img-item').last().fadeIn(600).addClass('active');
+
+                        $(item).parent().parent().find('.product-card__color-item').removeClass('active');
+                        $(item).parent().parent().find('.product-card__color-item').last().addClass('active');
+                    }
+                },
+                threshold: {
+                    x: 30,
+                    y: 2000
                 }
             });
         });
     }
-    productCardChange();
+    productCardChangeSwipe();
+
+    //Change Product Img with Color
+    function productCardChangeClick() {
+        let productCard = $('.product-card');
+        productCard.each(function (index, item) {
+            $(item).find('.product-card__color-item').on('click mouseover', function() {
+                if (!$(this).hasClass('active')) {
+                    let productTargetImg = $(this).data('target-card');
+
+                    $(this).parent().find('.product-card__color-item').removeClass('active');
+                    $(this).addClass('active');
+
+                    $(this).parent().parent().find(".product-card__img-item").fadeOut(600).removeClass('active');
+                    $(this).parent().parent().find('.product-card__img-item[data-card="'+ productTargetImg +'"]').fadeIn(600).addClass('active');
+                }
+            });
+        });
+    }
+    productCardChangeClick();
 
     //Init Change Product Img With Load Card
     let target = document.querySelector('.product_list_ajax');
     if (target) {
         let observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            productCardChange();
-          });
+            mutations.forEach(function(mutation) {
+                productCardChangeClick();
+                productCardChangeSwipe();
+            });
         });
         let config = { childList: true, characterData: true };
         observer.observe(target, config);

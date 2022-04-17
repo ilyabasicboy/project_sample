@@ -25,6 +25,10 @@ TYPE_CHOICES = (
     ('прочие изделия', 'Прочие изделия'),
 )
 
+SIDE_CHOICES = (
+    ('inside', 'Внутренняя'),
+    ('outside', 'Внешняя')
+)
 
 class Root(CatalogBase):
     class Meta:
@@ -87,7 +91,7 @@ class Product(CatalogBase):
         max_length=400
     )
     long_title = models.CharField(
-        verbose_name=u'название',
+        verbose_name=u'Длинное название',
         max_length=400,
         blank=True, null=True
     )
@@ -100,6 +104,13 @@ class Product(CatalogBase):
     )
     guarantee = models.IntegerField(
         verbose_name=u'Гарантия на дверь', default=5, help_text='лет'
+    )
+    show_one_side = models.CharField(
+        verbose_name=u'показывать только одну сторону',
+        choices=SIDE_CHOICES,
+        null=True,
+        blank=True,
+        max_length=255,
     )
     price = models.PositiveIntegerField(
         verbose_name=u'цена',
@@ -123,7 +134,7 @@ class Product(CatalogBase):
 
     @property
     def images(self):
-        " Возвращает писок изображений сгруппированный по цветам и сторонам "
+        " Возвращает список изображений сгруппированный по цветам и сторонам "
         images_list = []
         """
         Если есть инлайны без подгруженного изображения,
@@ -132,7 +143,15 @@ class Product(CatalogBase):
         empty_images = self.get_side_images()
         images = ProductImage.objects.filter(product=self.id).exclude(image='') \
                  | ProductImage.objects.filter(id__in=empty_images)
-        colors = FacingColor.objects.filter(id__in=images.values_list('color', flat=True))
+
+        #Colors order must be kept as defined in admin site
+        color_ids_all = images.values_list('color', flat=True)
+        color_ids = []
+        for id in color_ids_all:
+            if id not in color_ids:
+                color_ids.append(id)
+
+        colors = [FacingColor.objects.get(id=id) for id in color_ids]
 
         for color in colors:
             images_list.append({
@@ -141,6 +160,17 @@ class Product(CatalogBase):
                 'outside': images.filter(color=color.id, side='outside').first(),
             })
         return images_list
+
+    def get_show_one_side(self):
+        result = None
+        if self.show_one_side:
+            result = self.show_one_side
+        else:
+            try:
+                result = self.tree.get().parent.content_object.get_show_one_side()
+            except:
+                pass
+        return result
 
     def get_parameters(self):
         """ Возвращает список параметров наследуемых от родительских разделов """
@@ -173,6 +203,7 @@ class Product(CatalogBase):
         return parameters
 
     def get_product_type(self):
+        """ Найти тип изделия рекурсией(у родительских разделов) """
         rslt = ''
         try:
             rslt = self.tree.get().parent.content_object.get_product_type()
@@ -181,6 +212,7 @@ class Product(CatalogBase):
         return rslt
 
     def get_side_images(self):
+        """ Найти изображения сторон рекурсией(у родительских разделов) """
         result = []
         empty_images = ProductImage.objects.filter(product=self.id, image='')
         if empty_images:
@@ -195,6 +227,7 @@ class Product(CatalogBase):
         return result
 
     def get_item_type(self):
+        """ Найти вид изделия рекурсией(у родительских разделов) """
         result = None
         if self.item_type:
             result = self.item_type
@@ -240,6 +273,18 @@ class Product(CatalogBase):
     def __str__(self):
         return self.title if self.title else self.slug
 
+    def full_path(self):
+        """
+        Get url path ancestors
+        """
+        path = []
+        for ancestor in self.tree.get().get_ancestors(ascending=False):
+            if ancestor.content_object.slug:
+                path.append(ancestor.content_object.slug)
+        if self.slug:
+            path.append(self.slug)
+        return '/'.join(path)
+
     def save(self, *args, **kwargs):
         super(Product, self).save(*args, **kwargs)
         object_saved.send(sender=self.__class__, object=self)
@@ -280,7 +325,7 @@ class ProductImage(ImageModel):
     )
     side = models.CharField(
         verbose_name=u'Сторона двери',
-        choices=(('inside', 'Внутренняя'), ('outside', 'Внешняя')),
+        choices=SIDE_CHOICES,
         max_length=255,
         default='inside',
     )
@@ -338,6 +383,13 @@ class Section(CatalogBase):
         blank=True,
         null=True
     )
+    show_one_side = models.CharField(
+        verbose_name=u'показывать только одну сторону',
+        choices=SIDE_CHOICES,
+        null=True,
+        blank=True,
+        max_length=255,
+    )
     item_type = models.ForeignKey(
         'ItemType',
         verbose_name=u'вид изделия',
@@ -372,6 +424,17 @@ class Section(CatalogBase):
     )
     fireproof_types = HTMLField(verbose_name=u'Пределы огнестойкости', max_length=400, blank=True, null=True, )
     comment = HTMLField(verbose_name=u'Комментарий', max_length=400, blank=True, null=True, )
+
+    def get_show_one_side(self):
+        result = None
+        if self.show_one_side:
+            result = self.show_one_side
+        else:
+            try:
+                result = self.tree.get().parent.content_object.get_show_one_side()
+            except:
+                pass
+        return result
 
     def get_item_type(self):
         result = None
@@ -533,6 +596,18 @@ class Section(CatalogBase):
         super(Section, self).save(*args, **kwargs)
         object_saved.send(sender=self.__class__, object=self)
 
+    def full_path(self):
+        """
+        Get url path ancestors
+        """
+        path = []
+        for ancestor in self.tree.get().get_ancestors(ascending=False):
+            if ancestor.content_object.slug:
+                path.append(ancestor.content_object.slug)
+        if self.slug:
+            path.append(self.slug)
+        return '/'.join(path)
+
     def __str__(self):
         return self.title
 
@@ -549,7 +624,14 @@ class Category(CatalogBase):
     products = models.ManyToManyField(
         Product,
         verbose_name='товары',
-        related_name='category',
+        related_name='categories',
+        blank=True,
+    )
+    products_by_parameters = models.ManyToManyField(
+        Product,
+        help_text=u'Скрытый список',
+        verbose_name='товары по параметрам',
+        related_name='categories_by_parameters',
         blank=True,
     )
     product_type = models.CharField(
@@ -584,8 +666,8 @@ class Category(CatalogBase):
 
     def get_min_price(self):
         rslt = 0
-        if self.products.all():
-            prices = self.products.all().values_list('price', flat=True)
+        if self.get_products():
+            prices = self.get_products().values_list('price', flat=True)
         try:
             rslt = min(prices)
         except:
@@ -594,8 +676,8 @@ class Category(CatalogBase):
 
     def get_max_price(self):
         rslt = 0
-        if self.products.all():
-            prices = self.products.all().values_list('price', flat=True)
+        if self.get_products():
+            prices = self.get_products().values_list('price', flat=True)
         try:
             rslt = max(prices)
         except:
@@ -603,7 +685,24 @@ class Category(CatalogBase):
         return rslt
 
     def get_products(self):
-        return get_category_products(self)
+        """
+        Для категорий список товаров формируется из добавленных товаров
+        и товаров, подходящих под параметры категории
+        """
+
+        return self.products.filter(show=True)
+
+    def full_path(self):
+        """
+        Get url path ancestors
+        """
+        path = []
+        for ancestor in self.tree.get().get_ancestors(ascending=False):
+            if ancestor.content_object.slug:
+                path.append(ancestor.content_object.slug)
+        if self.slug:
+            path.append(self.slug)
+        return '/'.join(path)
 
     def __str__(self):
         return self.title
@@ -645,7 +744,8 @@ class ItemType(models.Model):
         FireResistance,
         verbose_name=u'Огнестойкость',
         null=True,
-        on_delete=models.CASCADE)
+        blank=True,
+        on_delete=models.SET_NULL)
     show_in_filter = models.BooleanField(verbose_name=u'Отображать в фильтре', default=False)
 
     def __str__(self):
@@ -701,7 +801,13 @@ class Doc(models.Model):
     order_key = models.PositiveIntegerField(default=0, blank=False, null=False)
     show = models.BooleanField(verbose_name=u'Отображать', default=True)
     name = models.CharField(verbose_name=u'наименование', max_length=255)
-    doc_type = models.ForeignKey(DocType, verbose_name=u'вид документа', max_length=255, on_delete=models.CASCADE)
+    doc_type = models.ForeignKey(
+        DocType,
+        verbose_name=u'вид документа',
+        max_length=255,
+        on_delete=models.SET_NULL,
+        blank=True, null=True
+    )
     type = models.CharField(verbose_name=u'тип документа', choices=IMG_TYPES, max_length=255, null=True)
     cert_number = models.CharField(verbose_name=u'номер документа', max_length=255, blank=True, null=True)
     cert_series = models.CharField(verbose_name=u'серия документа', max_length=255, blank=True, null=True)
@@ -758,7 +864,7 @@ class Property(models.Model):
         default=True,
     )
     show_on_item_desc = models.BooleanField(
-        verbose_name=u'отображать в описании товара',
+        verbose_name=u'отображать в списке кратких характеристик',
         default=False,
     )
     optional = models.BooleanField(
@@ -776,8 +882,8 @@ class Property(models.Model):
 
 class Value(models.Model):
     class Meta:
-        verbose_name = u'Значение'
-        verbose_name_plural = u'Значения'
+        verbose_name = u'Значение параметра'
+        verbose_name_plural = u'Значения параметров'
         ordering = ['order_key']
 
     order_key = models.PositiveIntegerField(default=0, blank=False, null=False)
@@ -907,7 +1013,7 @@ class FacingColor(models.Model):
         cache_filename_format = "%(filename)s-%(specname)s.%(extension)s"
         image_field = 'image'
 
-    order_key = models.PositiveIntegerField(default=0, blank=False, null=False)
+    order_key = models.PositiveIntegerField(verbose_name="Порядковый номер", default=0, blank=False, null=False)
     name = models.CharField(verbose_name="наименование", max_length=255)
     color = models.CharField(
         verbose_name="цвет",
@@ -960,59 +1066,3 @@ class FacingPrint(models.Model):
 
     def __str__(self):
         return self.name
-
-
-def get_child_sections(sections_ids, parameter):
-    """
-    Поиск подразделов с незаполненным параметром.
-    Данные разделы наследую параметры от родительского
-    раздела с заполненным параметром.
-    """
-    rslt = Section.objects.filter(
-        tree__parent__in=sections_ids,
-        section_parameters__property=parameter,
-        section_parameters__value=None
-    ).values_list('tree__id')
-    child_sections = Section.objects.filter(tree__parent__in=rslt,
-                                            section_parameters__property=parameter,
-                                            section_parameters__value=None)
-    if child_sections:
-        rslt = rslt | get_child_sections(child_sections, parameter)
-
-    return rslt
-
-
-def get_sections_with_parameters(parameter, value):
-    " Поиск разделов и подразделов по наследуемым параметрам "
-
-    sections_ids = Section.objects.filter(
-        section_parameters__property=parameter,
-        section_parameters__value=value
-    ).values_list('tree__id', flat=True)
-    return sections_ids | get_child_sections(sections_ids, parameter)
-
-
-def get_category_products(object):
-    """
-    Для категорий список товаров формируется из добавленных товаров
-    и товаров, подходящих под параметры категории
-    """
-
-    products = object.products.all()
-    parameters = object.category_parameters.exclude(value=None)
-
-    if parameters:
-        products_all = Product.objects.filter(show=True)
-        products_by_parameter = products_all
-        for parameter in parameters:
-            sections = get_sections_with_parameters(parameter.property, parameter.value)
-            products_by_parameter = products_by_parameter.filter(
-                product_parameters__property=parameter.property,
-                product_parameters__value=parameter.value
-            ).values_list('id', flat=True) | products_by_parameter.filter(
-                tree__parent__id__in=sections,
-                product_parameters__property=parameter.property,
-                product_parameters__value=None
-            ).values_list('id', flat=True) | products.values_list('id', flat=True)
-        products = products_all.filter(id__in=products_by_parameter).order_by('tree__id')
-    return products.filter(item_type__show_in_filter=True)

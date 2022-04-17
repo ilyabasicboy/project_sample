@@ -3,7 +3,7 @@
 <a href="{{ obj.get_absolute_url }}" class="news__item">
     {% if obj.main_image %}
         <div class="news__item-overlay">
-            <img src="{{ obj.main_image.image.url }}" title="{{ obj.main_image.title }}" alt="{{ obj.main_image.title }}">
+            <img src="{{ obj.main_image.image.url }}" title="{{ obj.title }}" alt="{{ obj.title }}">
         </div>
     {% endif %}
     <div class="news__item-content">

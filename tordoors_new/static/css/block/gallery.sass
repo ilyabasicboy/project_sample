@@ -6,14 +6,14 @@
 
 .gallery__slider
 	width: 100%
-	display: flex
-	flex-wrap: wrap
 	min-height: 514px
 	@media screen and (max-width: $md-min)
 	    min-height: 316px
 	@media screen and (max-width: $xs-max)
 	    min-height: 280px
 	&:not(.slick-initialized)
+	    display: flex
+	    flex-wrap: wrap
 	    .gallery__slider-item
 	        display: none
 
@@ -68,6 +68,7 @@
 	flex-wrap: wrap
 	margin-right: -32px
 	margin-bottom: -32px
+	width: initial
 	@media screen and (max-width: $md-min)
 	    margin-right: -12px
 	    margin-bottom: -12px
@@ -75,6 +76,7 @@
 	    margin-right: 0
 	    margin-bottom: 0
 	    flex-wrap: nowrap
+	    width: 100%
 	&__item
 	    height: 380px
 	    width: auto
@@ -145,6 +147,9 @@
 		color: #626262
 		line-height: 41px
 		font-size: 30px
+		@media screen and (max-width: $md-max)
+		    font-size: 24px
+		    line-height: 33px
 		@media screen and (max-width: $md-min)
 		    font-size: 24px
 		    line-height: 33px
@@ -159,8 +164,13 @@
 		color: #626262
 		font-size: 16px
 		line-height: 24px
+		overflow: hidden
+		display: -webkit-box
+		-webkit-line-clamp: 3
+		-webkit-box-orient: vertical
 		@media screen and (max-width: $md-min)
 		    margin-top: 12px
+		    display: block
 		@media screen and (max-width: $xs-max)
 		    margin-top: 6px
 		    font-size: 12px

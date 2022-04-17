@@ -9,7 +9,7 @@
 <section class="section-title section-title--full">
     <div class="container">
         <div class="title-content title-content--full">
-            <h1 class="title title--nodots title--full">
+            <div class="title title--nodots title--full">
                 <span class="title--full-text">
                     {% block content_title %}
                         {% if object.get_item_type.fire_resistance.name %}
@@ -18,13 +18,13 @@
                     {% endblock %}
                 </span>
 
-                <div class="logos__fulltitle">
-                    {% get_doc_types as doc_types %}
-                    {% if doc_types %}
+                {% get_doc_types as doc_types %}
+                {% if doc_types %}
+                    <div class="logos__fulltitle">
                         {% include 'parts/logos.html' %}
-                    {% endif %}
-                </div>
-            </h1>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </section>
@@ -35,59 +35,67 @@
 
         <div class="container product-sections product-grid">
             <section class="section-default section-default--top product__section product__section-view product-grid-8 product-grid-12--xs">
-                <div class="product__top scroll-custom-hidden-x">
+                <div class="product__top scroll-custom-x-hidden--xs">
                     {% if side_images %}
                         <div class="product__item product-grid">
-                            <div class="product__view product-view-change product-grid-6">
-                                <div class="product__view-dimensions view-dimensions">
-                                    {% if object.get_item_type %}
-                                        <div class="view-dimensions__item view-dimensions__item--top">
-                                            b= {{ object.get_item_type.width }} мм
-                                        </div>
-                                        <div class="view-dimensions__item view-dimensions__item--left">
-                                            h= {{ object.get_item_type.height }} мм
-                                        </div>
-                                    {% endif %}
+                            {% if object.get_show_one_side != 'inside' %}
+                                <div class="product__view product-view-change product-grid-6">
+                                    <div class="product__view-dimensions view-dimensions">
+                                        {% if object.get_item_type %}
+                                            <div class="view-dimensions__item view-dimensions__item--top">
+                                                b= {{ object.get_item_type.width|default:'0' }} мм
+                                            </div>
+                                            <div class="view-dimensions__item view-dimensions__item--left">
+                                                h= {{ object.get_item_type.height|default:'0' }} мм
+                                            </div>
+                                        {% endif %}
+                                        <div class="product__view-img mfp-gallery">
+                                        {% for object in side_images %}
+                                            {% if object.outside %}
+                                                <a class="product__view-link product-change-img {% if forloop.first %}active{% endif %}" href="{{ object.outside.watermarkpicture.url }}" data-product-color="{{ forloop.counter }}" data-product-drawing-title="{{ object.outside.print|default:'нет' }}">
+                                                    <div class="product__view-link__img">
+                                                        <img src="{{ object.outside.productview.url }}" alt="{{ object.color.name }}" title="{{ object.color.name }}">
+                                                    </div>
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    </div>
+                                    <a class="product__view-type view-outside">
+                                        вид снаружи
+                                    </a>
+                                    <div class="product__view-drawing">
+                                        Рисунок:
+                                        <span>
+                                            {{ side_images.0.outside.print|default:'нет' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if object.get_show_one_side != 'outside' %}
+                                <div class="product__view product-view-change product-grid-6">
                                     <div class="product__view-img mfp-gallery">
-                                    {% for object in side_images %}
-                                        <a class="product__view-link product-change-img {% if forloop.first %}active{% endif %}" href="{{ object.outside.productview.url }}" data-product-color="{{ forloop.counter }}" data-product-drawing-title="{{ object.outside.print|default:'нет' }}">
-                                            <div class="product__view-link__img">
-                                                <img src="{{ object.outside.productview.url }}" alt="{{ object.color.name }}" title="{{ object.color.name }}">
-                                            </div>
-                                        </a>
-                                    {% endfor %}
+                                        {% for object in side_images %}
+                                            {% if object.inside %}
+                                                <a class="product__view-link product-change-img {% if forloop.first %}active{% endif %}" href="{{ object.inside.watermarkpicture.url }}" data-product-color="{{ forloop.counter }}" data-product-drawing-title="{{ object.inside.print|default:'нет' }}">
+                                                    <div class="product__view-link__img">
+                                                        <img src="{{ object.inside.productview.url }}" alt="{{ object.color.name }}" title="{{ object.color.name }}">
+                                                    </div>
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <a class="product__view-type view-inside">
+                                        вид внутри
+                                    </a>
+                                    <div class="product__view-drawing">
+                                        Рисунок:
+                                        <span>
+                                            {{ side_images.0.inside.print|default:'нет' }}
+                                        </span>
+                                    </div>
                                 </div>
-                                </div>
-                                <a class="product__view-type view-outside">
-                                    вид снаружи
-                                </a>
-                                <div class="product__view-drawing">
-                                    Рисунок:
-                                    <span>
-                                        {{ object.outside.print|default:'нет' }}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="product__view product-view-change product-grid-6">
-                                <div class="product__view-img mfp-gallery">
-                                    {% for object in side_images %}
-                                        <a class="product__view-link product-change-img {% if forloop.first %}active{% endif %}" href="{{ object.inside.productview.url }}" data-product-color="{{ forloop.counter }}" data-product-drawing-title="{{ object.inside.print|default:'нет' }}">
-                                            <div class="product__view-link__img">
-                                                <img src="{{ object.inside.productview.url }}" alt="{{ object.color.name }}" title="{{ object.color.name }}">
-                                            </div>
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                                <a class="product__view-type view-inside">
-                                    вид внутри
-                                </a>
-                                <div class="product__view-drawing">
-                                    Рисунок:
-                                    <span>
-                                        {{ object.outside.print|default:'нет' }}
-                                    </span>
-                                </div>
-                            </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                 </div>
@@ -97,25 +105,24 @@
                 <div class="product__sidebar">
                     <div class="product__sidebar-content">
                         <div class="product__sidebar-header">
-                            {% if object.long_title %}
-                                <h3 class="product__sidebar-title">
-                                    {{ object.long_title }}
-                                </h3>
-                                {% elif object.get_item_type %}
-                                    <h3 class="product__sidebar-title">
-                                        {{ object.get_item_type }},
-                                        {% if object.get_item_type.fire_resistance %}
-                                            {{ object.get_item_type.fire_resistance }},
-                                        {% endif %}
-                                        {# Артикул #}
-                                        {{ object.get_product_type.0|upper }}{{ object.tree.get.parent.content_object.title.0|lower }}-{{ object.id }}
-                                    </h3>
-                            {% endif %}
+                            <h1 class="product__sidebar-title">
+                                {{ object.long_title|default:object.title }},
+                                {% if object.get_item_type.fire_resistance %}
+                                    {{ object.get_item_type.fire_resistance }},
+                                {% endif %}
+                                {# Артикул #}
+                                {{ object.get_product_type.0|upper }}{{ object.tree.get.parent.content_object.title.0|lower }}-{{ object.id }}
+                            </h1>
 
-                            {% if object.get_item_type.docs %}
+                            {% if object.get_item_type.docs.all %}
                                 <div class="product__sidebar-info">
                                     {% for doc in object.get_item_type.docs.all %}
-                                        {{ doc.gost_number }} {{ doc.tu_number }}
+                                    {% if doc.gost_number %}
+                                        {{ doc.gost_number }}
+                                    {% endif %}
+                                    {% if doc.tu_number %}
+                                        {{ doc.tu_number }}
+                                    {% endif %}
                                     {% endfor %}
                                 </div>
                             {% endif %}
@@ -177,11 +184,15 @@
                                 <div class="product__sidebar-footer product__sidebar-footer--sticky">
                                     <div class="product__price" data-original-price="{{ object.price }}">
                                         <div class="product__price-info">
-                                            <span>
-                                                {{ object.price|price_format }}
-                                            </span> руб.
-                                            {% if object.price_per_square %}
-                                                за м2
+                                            {% if object.price %}
+                                                <span>
+                                                    {{ object.price|price_format }}
+                                                </span> руб.
+                                                {% if object.price_per_square %}/м<sup>2</sup>{% endif %}
+                                            {% else %}
+                                                <div class="product__price-info__text">
+                                                    Цена по запросу
+                                                </div>
                                             {% endif %}
                                         </div>
 
@@ -191,7 +202,7 @@
                                                 <button class="tooltip__btn" type="button">
                                                     <img src="{% static 'img/warning.svg' %}" alt="Подсказка">
                                                 </button>
-                                                <div class="tooltip__content tooltip__content--posbottom-xs">
+                                                <div class="tooltip__content tooltip__content--posleft-pc tooltip__content--posbottom-xs">
                                                     <button class="tooltip__close" type="button">
                                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
                                                             <title>Закрыть</title>
@@ -305,7 +316,8 @@
                 </div>
             </aside>
 
-            {% if parameters or add_parameters %}
+            {% get_basic_parameters object as basic_parameters %}
+            {% if basic_parameters or add_parameters %}
                 <section class="section-default section-default--top product__section product-grid-8 product-grid-12--xs" id="product-options">
                     <div class="title-content">
                         <h3 class="title">
@@ -313,7 +325,7 @@
                         </h3>
                     </div>
                     <div class="product__options">
-                        {% if parameters %}
+                        {% if basic_parameters %}
                         <div class="product__option">
                             <h4 class="product__option-title">
                                 Входит в базовую конструкцию:
@@ -351,7 +363,7 @@
                                 </div>
                             </div>
                             <div class="product__option-slider product__option--slider slider__shadow">
-                                {% for param in parameters %}
+                                {% for param in basic_parameters %}
                                     {% if not param.property.show_on_item_desc and param.value != None %}
                                         <div class="product__option-item">
                                             <div class="product__option-item__content">
@@ -494,7 +506,7 @@
                         </h3>
                     </div>
                     <div class="product-description">
-                        <div class="product-description__top placeholder">
+                        <div class="product-description__top placeholder mfp-gallery">
                             {% show_block_content object.description %}
                         </div>
                     </div>
@@ -519,7 +531,7 @@
                                         Доставка по Москве и Московской области
                                     </a>
                                     <div class="product-services__content _slide-target">
-                                        <div class="product-services__content-box scroll-custom-y placeholder">
+                                        <div class="product-services__content-box scroll-custom-y placeholder mfp-gallery">
                                             {{ object.get_delivery_moscow|safe }}
                                         </div>
                                     </div>
@@ -534,7 +546,7 @@
                                         Доставка по России
                                     </a>
                                     <div class="product-services__content _slide-target">
-                                        <div class="product-services__content-box scroll-custom-y placeholder">
+                                        <div class="product-services__content-box scroll-custom-y placeholder mfp-gallery">
                                             {{ object.get_delivery_russia|safe }}
                                         </div>
                                     </div>
@@ -549,7 +561,7 @@
                                         Установка
                                     </a>
                                     <div class="product-services__content _slide-target">
-                                        <div class="product-services__content-box scroll-custom-y placeholder">
+                                        <div class="product-services__content-box scroll-custom-y placeholder mfp-gallery">
                                             {{ object.get_installation|safe }}
                                         </div>
                                     </div>
@@ -564,7 +576,7 @@
                                         Гарантия
                                     </a>
                                     <div class="product-services__content _slide-target">
-                                        <div class="product-services__content-box scroll-custom-y placeholder">
+                                        <div class="product-services__content-box scroll-custom-y placeholder mfp-gallery">
                                             {{ object.get_service|safe }}
                                         </div>
                                     </div>
@@ -614,15 +626,15 @@
                             </button>
                         </div>
                     </div>
-                    <div class="documents__slider documents--slider slider__shadow slider__shadow--active">
+                    <div class="documents__slider documents--slider slider__shadow slider__shadow--active mfp-gallery">
                         {% for doc in object.get_item_type.docs.all %}
                             {% if doc.images.all %}
                                 {% for image in doc.images.all %}
                                     <div class="documents__slider-item documents__item">
                                         <div class="documents__item-content">
-                                            <div class="documents__item-preview">
+                                            <a class="documents__item-preview" href="{{ image.watermarkpicture.url }}">
                                                 <img src="{{ image.documents.url }}" alt="{{ doc.name }}" title="{{ doc.name }}">
-                                            </div>
+                                            </a>
                                             <div class="documents__item-text">
                                                 {{ doc.description|safe }}
                                             </div>
@@ -673,7 +685,9 @@
                     <div class="product__interior-preview">
                         {% for object in side_images %}
                             <div class="product__interior-preview__img {% if forloop.first %}active{% endif %}" data-product-color="{{ forloop.counter }}">
-                                <img src="{{ object.outside.productinterior.url }}" alt="Img" title="Img">
+                                <div class="product__interior-preview__wrapper">
+                                    <img src="{{ object.outside.productinterior.url }}" alt="{{ object.color.name }}" title="{{ object.color.name }}">
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -699,7 +713,7 @@
         {% if object.bottom_content %}
             <section class="section-default section--overflow">
                 <div class="container">
-                    <div class="placeholder">
+                    <div class="placeholder mfp-gallery">
                         {% show_block_content object.bottom_content %}
                     </div>
                 </div>

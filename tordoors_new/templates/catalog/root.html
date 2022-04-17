@@ -5,6 +5,9 @@
     <a class="breadcrumbs__item" href="/">
         <span>Главная</span>
     </a>
+    <span class="breadcrumbs__item">
+        /
+    </span>
 {% endblock %}
 
 {% block content %}
@@ -36,7 +39,7 @@
                 <div class="default-page__content">
                     {% if object.top_content %}
                         <div class="catalog__top">
-                            <div class="placeholder">
+                            <div class="placeholder mfp-gallery">
                                 {% show_block_content object.top_content %}
                             </div>
                         </div>
@@ -59,7 +62,7 @@
     {% if object.bottom_content %}
     <section class="section-default section-default--top">
         <div class="container">
-            <div class="placeholder">
+            <div class="placeholder mfp-gallery">
                 {% show_block_content object.bottom_content %}
             </div>
         </div>

@@ -2,17 +2,17 @@
 {% with side_images=obj.images %}
 <aticle class="product-card">
     {% if side_images %}
-        <div class="product-card__img">
+        <a class="product-card__img" href="{{ obj.get_absolute_url }}">
             {% for object in side_images %}
-            <div class="product-card__img-item {% if forloop.first %}active{% endif %}" data-card="{{ forloop.counter }}">
+            <div class="product-card__img-item {% if forloop.first %}first active{% endif %}" data-card="{{ forloop.counter }}">
                 <div class="product-card__img-content">
                     <img src="{{ object.outside.productcard.url }}" alt="{{ obj.title }}" title="{{ obj.title }}">
                 </div>
             </div>
             {% endfor %}
-        </div>
+        </a>
     {% else %}
-    <div class="product-card__img product-card__img--noimg">
+    <a class="product-card__img product-card__img--noimg" href="{{ obj.get_absolute_url }}">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49px" height="38px" viewBox="0 0 49 38" version="1.1">
             <title>Картинка не найдена</title>
             <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -25,7 +25,7 @@
                 </g>
             </g>
         </svg>
-    </div>
+    </a>
     {% endif %}
 
     {% if side_images %}
@@ -40,7 +40,7 @@
     </ul>
     {% endif %}
 
-    <h4 class="product-card__title">
+    <div class="product-card__title">
         {% if obj.get_item_type.fire_resistance.name %}
         <span class="product-card__tags">
             {{ obj.get_item_type.fire_resistance.name }}
@@ -49,7 +49,7 @@
         <a href="{{ obj.get_absolute_url }}" class="product-card__text">
             {{ obj.title }}
         </a>
-    </h4>
+    </div>
 
     <div class="product-card__time">
         <div class="product-card__time-icon">
@@ -77,8 +77,14 @@
         </span>
     </div>
 
-    <div class="product-card__price">
-        <span>{{ obj.price|price_format }}</span> руб.{% if obj.price_per_square %} за м2{% endif %}
-    </div>
+    <a href="{{ obj.get_absolute_url }}" class="product-card__price">
+        {% if obj.price %}
+            <span>{{ obj.price|price_format }}</span> руб.{% if obj.price_per_square %}/м<sup>2</sup>{% endif %}
+        {% else %}
+            <div class="product-card__price-text">
+                Цена по запросу
+            </div>
+        {% endif %}
+    </a>
 </aticle>
 {% endwith %}

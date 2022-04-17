@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load pages_tags custom_news_tags catalog_tags  %}
+{% load pages_tags custom_news_tags catalog_tags custom_catalog_tags  %}
 
 {% block keywords %}{% endblock %}
 
@@ -23,6 +23,23 @@
 						</span>
 					</a>
 				</li>
+				{% get_root as root %}
+				{% if root %}
+					{% get_catalog_menu_items for root as tree_list %}
+					<li class="sitemap__item">
+						<a class="sitemap__item-link" href="{{ root.get_absolute_url }}">
+							{% if tree_list %}
+								<span class="sitemap__item-icon _slide _slide-parent"></span>
+							{% endif %}
+							<span>
+								Каталог
+							</span>
+						</a>
+							{% if tree_list %}
+								{% include 'catalog/tree_sitemap.html' %}
+							{% endif %}
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 	</section>

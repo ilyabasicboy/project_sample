@@ -81,7 +81,7 @@
 			right: 0
 			&__img
 				display: flex
-				align-items: flex-end
+				align-items: flex-start
 				justify-content: flex-start
 				height: 100%
 				width: 100%
@@ -120,7 +120,7 @@
 		        font-weight: 500
 
 	&__section-sidebar
-	    grid-row: 12 span
+	    grid-row: 4 span
 	    height: 100%
 	    @media screen and (max-width: $xs-max)
 	        height: auto
@@ -163,6 +163,7 @@
 			color: #303030
 			word-wrap: break-word
 			hyphens: auto
+			font-weight: 600
 			@media screen and (max-width: $md-min)
 			    font-size: 14px
 			    line-height: 18px
@@ -297,13 +298,28 @@
 		    margin-right: 28px
 		    margin-bottom: 0
 		span
-			font-size: 30px
-			line-height: 41px
+			font-size: 28px
+			line-height: 38px
 			color: #303030
 			font-weight: 700
 			@media screen and (max-width: $md-min)
 			    font-size: 24px
 			    line-height: 26px
+
+		sup
+		    vertical-align: super
+		    font-size: smaller
+
+		&-info
+            &__text
+                font-size: 17px
+                line-height: 32px
+                color: #303030
+                font-weight: 700
+                padding-right: 2px
+                @media screen and (max-width: $md-min)
+                    font-size: 14px
+                    line-height: 20px
 
 
 	&__btn-configurator

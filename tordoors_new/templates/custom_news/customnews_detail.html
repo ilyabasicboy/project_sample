@@ -7,6 +7,9 @@
     <a class="breadcrumbs__item" href="{% url 'news_root' %}">
         {{ root.title }}
     </a>
+    <span class="breadcrumbs__item">
+        /
+    </span>
 {% endblock %}
 
 {% block title_section %}
@@ -31,10 +34,10 @@
             </span>
 
             <div class="news-post__content">
-                <div class="placeholder {% if object.video %}placeholder--nth2{% endif %}">
+                <div class="placeholder mfp-gallery {% if object.video %}placeholder--nth2{% endif %}">
                     {% if object.video %}
                         <div class="news-post__video">
-                            <a class="video-custom modal-video" href="https://www.youtube.com/watch?v={{ object.video }}" data-bg-video="{{ object.video }}">
+                            <a class="video-custom modal-video" href="https://vimeo.com/{{ video_link }}" data-bg-video="{{ video_link }}">
                                 <div class="video-custom__play">
                                     <img src="{% static 'img/svg/video-play.svg' %}" alt="Открыть видео" title="Открыть видео">
                                 </div>
@@ -45,7 +48,6 @@
                     {% show_block_content object.main_content %}
                 </div>
             </div>
-
 
             {% if object.add_images %}
                 <div class="news-post__gallery">

@@ -5,11 +5,12 @@
 {% block title_section %}{% endblock %}
 
 {% block content %}
-
-    <section class="intro">
-        {% get_chunk 'frontpage_bg' as frontpage_bg %}
-        {% get_files for frontpage_bg as bg_files %}
-        {% get_images for frontpage_bg as bg_images %}
+    {% get_chunk 'frontpage_bg' as frontpage_bg %}
+    {% get_files for frontpage_bg as bg_files %}
+    {% get_images for frontpage_bg as bg_images %}
+    {% get_images for current_page as images %}
+    {% get_image_groups for images as image_groups %}
+    <section class="intro {% if not image_groups|key:'main' %}intro--default{% endif %}">
         <div class="intro__bg content-anim content-anim--zoom">
             {% if bg_files %}
                 <div class="intro__bg-video">
@@ -22,8 +23,6 @@
             {% endif %}
         </div>
         <div class="intro__container">
-            {% get_images for current_page as images %}
-            {% get_image_groups for images as image_groups %}
             <div class="intro__content {% if not image_groups|key:'main' %}intro__content--full{% endif %}">
                 <h1 class="intro__title">
                     {% placeholder main_title label 'Заголовок' %}
@@ -36,6 +35,20 @@
                         Запись на замер
                     </span>
                 </a>
+                {% if chunks.whatsapp.content %}
+                    <a class="intro__qr" href="{{ chunks.whatsapp.content }}" target="_blank">
+                        <span class="intro__qr-title">
+                            WhatsApp-консультация
+                        </span>
+                        <img class="intro__qr-code" src="{% static 'img/qr.png' %}" alt="WhatsApp-консультация" title="WhatsApp-консультация">
+                        <span class="intro__qr-icon">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64C49.6731 64 64 49.6731 64 32Z" fill="#56CF83"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M32.0796 50.6649H32.0717C28.9051 50.6638 25.7936 49.8522 23.0301 48.3126L13 51L15.6842 40.9857C14.0285 38.0549 13.1572 34.7303 13.1586 31.3243C13.1628 20.669 21.6505 12 32.0794 12C37.1408 12.0022 41.8914 14.0148 45.4636 17.6677C49.0358 21.3205 51.002 26.1759 51 31.3395C50.9958 41.9924 42.5114 50.6605 32.0796 50.6649ZM23.4948 44.814L24.069 45.1621C26.4835 46.6256 29.2513 47.4 32.0732 47.4011H32.0796C40.7473 47.4011 47.8019 40.1953 47.8054 31.3384C47.807 27.0464 46.1728 23.0108 43.2037 19.9747C40.2346 16.9385 36.2862 15.2656 32.0857 15.2641C23.4113 15.2641 16.3566 22.4692 16.3532 31.3254C16.3519 34.3605 17.1834 37.3163 18.7576 39.8737L19.1315 40.4814L17.5428 46.4088L23.4948 44.814ZM41.6116 35.9351C41.4934 35.7336 41.1783 35.6128 40.7056 35.371C40.2328 35.1293 37.9085 33.9613 37.4751 33.8C37.0418 33.6389 36.7265 33.5584 36.4114 34.0417C36.0963 34.525 35.1903 35.6128 34.9145 35.9351C34.6387 36.2572 34.3629 36.2977 33.8903 36.0559C33.4176 35.8142 31.8942 35.3044 30.0884 33.6592C28.683 32.3787 27.7342 30.7975 27.4584 30.3141C27.1827 29.8307 27.429 29.5694 27.6657 29.3286C27.8784 29.1122 28.1385 28.7645 28.3749 28.4826C28.6112 28.2007 28.69 27.9992 28.8476 27.6771C29.0052 27.3547 28.9264 27.0728 28.8082 26.8311C28.69 26.5894 27.7446 24.2126 27.3506 23.2457C26.9668 22.3041 26.5771 22.4316 26.2869 22.4168C26.0115 22.4026 25.696 22.3997 25.3808 22.3997C25.0657 22.3997 24.5535 22.5205 24.1201 23.004C23.6868 23.4874 22.4655 24.6556 22.4655 27.0323C22.4655 29.4091 24.1595 31.7053 24.3959 32.0275C24.6323 32.3499 27.7295 37.2272 32.472 39.3188C33.6 39.8163 34.4805 40.1135 35.1672 40.336C36.2996 40.7036 37.3303 40.6517 38.1448 40.5273C39.0532 40.3887 40.9419 39.3593 41.336 38.2314C41.7297 37.1032 41.7297 36.1364 41.6116 35.9351Z" fill="white"/>
+                            </svg>
+                        </span>
+                    </a>
+                {% endif %}
             </div>
 
             {% if image_groups|key:'main' %}
@@ -135,18 +148,18 @@
                                 {% if image_groups|key:'technology' %}
                                 {% with images=image_groups|key:'technology' %}
                                 <div class="technologies__item-preview grid__item-5 grid__item-pc-6 grid__item-xs-12">
-                                    <img src="{{ images.0.display.url }}" alt="Img" title="Img">
+                                    <img src="{{ images.0.display.url }}" alt="{{ images.0.title }}" title="{{ images.0.title }}">
                                 </div>
                                 <div class="technologies__item-info grid__item-7 grid__item-pc-6 grid__item-xs-12">
                                     <div class="technologies__item-box">
-                                        <h4 class="technologies__item-title">
+                                        <div class="technologies__item-title">
                                             <span class="technologies__item-title__text">
                                                 {{ object.title }}
                                             </span>
                                             <span class="technologies__item-text__count">
                                                 {{ object.get_products.count }} шт.
                                             </span>
-                                        </h4>
+                                        </div>
                                         {% if object.comment %}
                                             <div class="technologies__item-text">
                                                 {% show_block_content object.comment %}
@@ -209,28 +222,30 @@
     {% endif %}
 
     {% get_root as object %}
-    <section class="section-default selection content-anim content-anim--opacity" style="background-image: url('{% static 'img/selection-bg.png' %}')">
-        <div class="container">
-            <h3 class="title-min title-min--center-md">
-                Быстрый подбор двери
-            </h3>
-            <span class="subtitle-min subtitle-min--grey subtitle-min--center-md">
-                по параметрам
-            </span>
+    {% if object %}
+        <section class="section-default selection content-anim content-anim--opacity" style="background-image: url('{% static 'img/selection-bg.jpg' %}')">
+            <div class="container">
+                <h3 class="title-min title-min--center-md">
+                    Быстрый подбор двери
+                </h3>
+                <span class="subtitle-min subtitle-min--grey subtitle-min--center-md">
+                    по параметрам
+                </span>
 
-            <div class="selection__btn--mobile">
-                <a class="btn btn--accent btn--full selection__btn" href="/custom_catalog/filter_products/">
-                    <span>
-                        Подобрать
-                    </span>
-                </a>
-            </div>
+                <div class="selection__btn--mobile">
+                    <a class="btn btn--accent btn--full selection__btn" href="/custom_catalog/filter_products/">
+                        <span>
+                            Подобрать
+                        </span>
+                    </a>
+                </div>
 
-            <div class="selection--hidden-xs">
-                {% show_filter_form %}
+                <div class="selection--hidden-xs">
+                    {% show_filter_form %}
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
 
     {% get_popular_products as product_list %}
     {% if product_list %}
@@ -270,9 +285,9 @@
                 {% endif %}
                 {% get_content coop_id 'description' as description %}
                 {% if description %}
-                <span class="subtitle-default subtitle-default--center-md subtitle-default--left-xs">
-                    Предлагаем взаимовыгодные условия для юрлиц
-                </span>
+                    <span class="subtitle-default subtitle-default--center-md subtitle-default--left-xs">
+                        {{ description }}
+                    </span>
                 {% endif %}
 
                 {% get_logos coop_id as logos %}
@@ -301,17 +316,20 @@
 
     <section class="section-default">
         <div class="container">
-            <div class="title-content">
-                <h3 class="title title--decor-right">
-                    Двери «Металл-Групп»
-                </h3>
-            </div>
+            {% placeholder about_title label 'Заголовок "О компании"' as about_title %}
+            {% if about_title %}
+                <div class="title-content">
+                    <h3 class="title title--decor-right">
+                        {{ about_title }}
+                    </h3>
+                </div>
+            {% endif %}
 
             <div class="about about__grid">
                 <div class="about__item about__item-6 about__item-xs-12">
                     {% placeholder about_content label 'Контент "О компании"' with TinyMCE as about_content %}
                     {% if about_content %}
-                    <div class="about__content placeholder">
+                    <div class="about__content placeholder mfp-gallery">
                         {% show_block_content about_content %}
                     </div>
                     {% endif %}
@@ -351,12 +369,12 @@
                     {% endwith %}
                     {% endif %}
 
-                    {% placeholder video_link label 'id видео после https://www.youtube.com/watch?v=' as video_link %}
+                    {% placeholder video_link label 'id видео после https://vimeo.com/' as video_link %}
                     {% placeholder video_link_description label 'Название ссылки на видео' as video_link_description %}
                     {% if video_link %}
                     <div class="about__info-video {% if not image_groups|key:'video' %}about__info-video--noimg{% endif %}">
                         <div class="about__video-container">
-                            <a class="video-custom modal-video" href="https://www.youtube.com/watch?v={{ video_link }}" data-bg-video="{{ video_link }}">
+                            <a class="video-custom modal-video" href="https://vimeo.com/{{ video_link }}" data-bg-video="{{ video_link }}">
                                 <div class="video-custom__play">
                                     <img src="{% static 'img/svg/video-play.svg' %}" alt="Открыть видео" title="Открыть видео">
                                 </div>

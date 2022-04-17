@@ -35,12 +35,12 @@ $(function () {
         };
 
 
-        if ($(window).width() > '1024') {
+        if ($(window).outerWidth() > '1024') {
             reposition();
         }
 
         $(window).on('resize', function() {
-            if ($(window).width() > '1024') {
+            if ($(window).outerWidth() > '1024') {
                 reposition();
             } else {
                 positions.forEach(function (item) {

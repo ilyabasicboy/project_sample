@@ -2,7 +2,7 @@
 
 <a class="article" href="{{ obj.get_absolute_url }}">
     {% get_images for obj as images %}
-    {% with images=images|role:None %}
+    {% with images=images|role:'обложка' %}
         {% if images %}
         <div class="article__preview">
             <img src="{{ images.0.thumb300.url }}" alt="{{ obj.title }}" title="{{ obj.title }}">
@@ -11,9 +11,9 @@
     {% endwith %}
     <div class="article__content">
         {% if obj.title %}
-            <h4 class="article__title">
+            <div class="article__title">
                 {{ obj.title }}
-            </h4>
+            </div>
         {% endif %}
         {% get_content obj 'preview' as preview %}
         {% if preview %}

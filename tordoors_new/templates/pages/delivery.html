@@ -38,7 +38,7 @@
             {% placeholder top_content with TinyMCE label 'Контент вверху страницы' as top_content %}
             {% if top_content %}
             <div class="other-page__top">
-                <div class="placeholder">
+                <div class="placeholder mfp-gallery">
                     {% show_block_content top_content %}
                 </div>
             </div>
@@ -56,34 +56,37 @@
     {% placeholder products_block_title label 'Заголовок для блока товаров' as products_block_title %}
     {% placeholder products_block label 'Выбрать товары для блока' with ProductsMultiSelect as products_block %}
     {% if products_block %}
-        <section class="section-default section-default--top">
-            {% if products_block_title %}
-            <div class="container">
-                <div class="title-content">
-                    <h3 class="title">
-                        {% show_block_content products_block_title %}
-                    </h3>
-                </div>
+        {% get_products_by_id products_block as product_list %}
+    {% else %}
+        {% get_last_products 20 as product_list %}
+    {% endif %}
+    {% if product_list %}
+    <section class="section-default section-default--top">
+        <div class="container">
+            <div class="title-content">
+                <h3 class="title">
+                    {{ products_block_title|default:'Хиты продаж' }}
+                </h3>
             </div>
-            {% endif %}
+        </div>
 
-            {% get_products_by_id products_block as product_list %}
-            {% include 'catalog/parts/slider_cards.html' %}
-        </section>
+
+        {% include 'catalog/parts/slider_cards.html' %}
+    </section>
     {% endif %}
 
     <section class="section-default">
         <div class="container">
             <div class="other-page__content grid">
-                {% placeholder main_content with TinyMCE label 'Контент страницы' as main_content %}
-                {% if main_content %}
-                <div class="other-page__item grid__item-6 grid__item-md-12">
-                    <div class="other-page__text">
-                        <div class="placeholder">
-                            {% show_block_content main_content %}
+
+                {% if chunks.delivery_terms.content %}
+                    <div class="other-page__item grid__item-6 grid__item-md-12">
+                        <div class="other-page__text">
+                            <div class="placeholder mfp-gallery">
+                                {{ chunks.delivery_terms.content|safe }}
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
 
                 {% placeholder feedback_title label 'Заголовок для формы обратной связи' as feedback_title %}
@@ -123,7 +126,7 @@
     {% if bottom_content %}
         <div class="section-default">
             <div class="container">
-                <div class="placeholder">
+                <div class="placeholder mfp-gallery">
                     {% show_block_content bottom_content %}
                 </div>
             </div>
@@ -131,7 +134,7 @@
     {% endif %}
 
     {% placeholder show_we_product label 'Отображать блок "Мы производим"' with Checkbox as show_we_product %}
-    {% if show_add_menu == 'True' %}
+    {% if show_we_product == 'True' %}
         {% include 'parts/we_produce.html' %}
     {% endif %}
 

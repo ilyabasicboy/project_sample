@@ -53,7 +53,7 @@
                                 </g>
                             </svg>
                         </button>
-                        <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js">
+                        <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js scroll-custom-y scroll-custom-y--dark scroll-custom-y--nopadding">
                             {% for option in form.dir %}
                                 <li class="dropdown__item dropdown__item-white dropdown__item--catalog-js" data-text="{{ option.data.label }}" data-value="{{ option.data.value }}">
                                     {{ option.data.label }}
@@ -99,7 +99,7 @@
                         </svg>
                     </button>
                     {# Элементы select #}
-                    <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js">
+                    <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js scroll-custom-y scroll-custom-y--dark scroll-custom-y--nopadding">
                         {% for option in field %}
                             <li class="dropdown__item dropdown__item-white dropdown__item--catalog-js" data-text="{{ option.data.label }}" data-value="{{ option.data.value }}">
                                 {{ option.data.label }}
@@ -145,7 +145,7 @@
                         </svg>
                     </button>
                     {# Элементы select #}
-                    <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js">
+                    <ul class="dropdown__list dropdown__list-white dropdown__list--catalog-js scroll-custom-y scroll-custom-y--dark scroll-custom-y--nopadding">
                         {% for option in field %}
                             <li class="dropdown__item dropdown__item-white dropdown__item--catalog-js" data-text="{{ option.data.label }}" data-value="{{ option.data.value }}">
                                 {{ option.data.label }}
