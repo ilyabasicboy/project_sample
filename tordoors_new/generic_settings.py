@@ -28,7 +28,7 @@ MANAGERS = ADMINS = [
     ('websupport', 'websupport+tordoors_new@redsolution.ru'),
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_SUBJECT_PREFIX = '[tordoors_new]'
 DEFAULT_FROM_EMAIL = 'no-reply@tordoors_new.ru'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
@@ -324,7 +324,6 @@ ATTACHMENT_FOR_MODELS = [
     'custom_catalog.Root',
     'custom_catalog.Section',
     'custom_catalog.Category',
-    'custom_catalog.Product',
     'custom_news.CustomNews',
     'chunks.Chunk',
     'custom_catalog.Facing',

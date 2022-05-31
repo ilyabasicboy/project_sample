@@ -15,7 +15,10 @@
             </g>
         </svg>
     </div>
-    <span class="catalog__notfound-title">
+    <div class="catalog__notfound-title">
         По заданным параметрам товары не найдены.
-    </span>
+        <a class="catalog__notfound-link {% if fast_filter %}filter-reset-js-fast{% else %}filter-reset-js-default{% endif %}">
+            Сбросить настройки фильтрации.
+        </a>
+    </div>
 </div>

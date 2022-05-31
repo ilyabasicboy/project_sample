@@ -3,8 +3,7 @@ from mptt.signals import node_moved
 from django.db.models.signals import post_save, pre_delete
 from django.core.cache import cache
 from catalog.models import TreeItem
-from tordoors_new.custom_catalog.models import Product, Value, Section, Category, Parameter,\
-    AddParameter, Property, value_saved, object_saved, parameter_saved
+from tordoors_new.custom_catalog.models import Product, Value, Section, Category, Parameter, Property
 
 
 def catalog_changed_handler(sender, instance, **kwargs):
@@ -21,119 +20,146 @@ pre_delete.connect(catalog_changed_handler, sender=Product)
 node_moved.connect(catalog_changed_handler, sender=TreeItem)
 
 
-def create_parameter(sender, **kwargs):
-    if isinstance(kwargs['object'], Property):
-        """
-        Добавление параметра при его сохранении
-        если у товара/раздела/категории еще нет такого параметра.
-        """
+def create_parameter(sender, instance, **kwargs):
 
-        default_values = kwargs['object'].values.filter(default=True)
-        value = default_values[0] if default_values and not kwargs['object'].optional else None
+    " Обновление параметров товаров/разделов/категорий при сохранении свойства "
 
-        items = Product.objects.exclude(product_parameters__property=kwargs['object'])
-        for item in items:
-            item.product_parameters.create(
-                property=kwargs['object'],
-                value=value,
-            )
-        " Создать доп. параметры для товара "
-        items = Product.objects.exclude(product_add_parameters__property=kwargs['object'])
-        for item in items:
-            item.product_add_parameters.create(
-                property=kwargs['object']
-            )
+    default_values = instance.values.filter(default=True)
 
-        sections = Section.objects.exclude(section_parameters__property=kwargs['object'])
-        for section in sections:
-            section.section_parameters.create(
-                property=kwargs['object'],
-                value=value,
-            )
-        " Создать доп. параметры для разделов "
-        sections = Section.objects.exclude(section_add_parameters__property=kwargs['object'])
-        for section in sections:
-            section.section_add_parameters.create(
-                property=kwargs['object'],
-            )
+    # Дефолтное значение свойства, если такое есть
+    value = default_values[0] if default_values.exists() and not instance.optional else None
 
-        categories = Category.objects.exclude(category_parameters__property=kwargs['object'])
-        for category in categories:
-            category.category_parameters.create(
-                property=kwargs['object'],
-                value=value,
-            )
-
-    if isinstance(kwargs['object'], Value):
-        """
-        Заполнение пустых значений параметра 
-        при создании значения по умолчанию,
-        если параметр обязательный 
-        """
-        if kwargs['default'] and not kwargs['property'].optional:
-            parameters = Parameter.objects.filter(property=kwargs['property'], value=None)
-            for parameter in parameters:
-                parameter.value = kwargs['object']
-                parameter.save()
-            items = Product.objects.exclude(product_parameters__property=kwargs['property'])
-            for item in items:
-                item.product_parameters.create(property=kwargs['property'], value=kwargs['object'])
-    elif isinstance(kwargs['object'], Product):
-        " Создание существующих параметров у товара "
-        for property in Property.objects.all():
-            value = property.values.filter(default=True)[0] \
-                if property.values.filter(default=True) and not property.optional else None
-            if not kwargs['object'].product_parameters.filter(property=property):
-                kwargs['object'].product_parameters.create(
-                    property=property,
-                    value=value
-                )
-            if not kwargs['object'].product_add_parameters.filter(property=property):
-                " Создать доп параметры товара "
-                kwargs['object'].product_add_parameters.create(
-                    property=property
-                )
-    elif isinstance(kwargs['object'], Section):
-        " Создание существующих параметров у раздела "
-        for property in Property.objects.all():
-            value = property.values.filter(default=True)[0] \
-                if property.values.filter(default=True) and not property.optional else None
-            if not kwargs['object'].section_parameters.filter(property=property):
-                kwargs['object'].section_parameters.create(
-                    property=property,
-                    value=value
-                )
-            if not kwargs['object'].section_add_parameters.filter(property=property):
-                " Создать доп параметры Раздела "
-                kwargs['object'].section_add_parameters.create(
-                    property=property
-                )
-    elif isinstance(kwargs['object'], Category):
-        " Создание существующих параметров у категории "
-        for property in Property.objects.all():
-            if not kwargs['object'].category_parameters.filter(property=property):
-                value = property.values.filter(default=True)[0]\
-                    if property.values.filter(default=True) and not property.optional else None
-                kwargs['object'].category_parameters.create(
-                    property=property,
-                    value=value
-                )
-
-value_saved.connect(create_parameter)
-object_saved.connect(create_parameter)
-parameter_saved.connect(create_parameter)
-
-
-def set_products_by_parameters(sender, instance, **kwargs):
-    """ При изменении параметров, назначить товары по параметрам для категорий """
-    for category in Category.objects.all():
-        parameters = list(
-            category.category_parameters.exclude(value=None).values_list('value', flat=True).order_by('value')
+    """ Товары """
+    items = Product.objects.exclude(product_parameters__property=instance)
+    for item in items:
+        item.product_parameters.create(
+            property=instance,
+            value=value,
         )
-        product_ids = [
-            product.id for product in Product.objects.all() if
-            all(val in parameters for val in list(product.get_parameters().values_list('value', flat=True)))
-        ]
-        category.products_by_parameters.set(Product.objects.filter(id__in=product_ids))
-        category.save()
-# post_save.connect(set_products_by_parameters, sender=Parameter)
+    # То же самое с доп. параметрами
+    items = Product.objects.exclude(product_add_parameters__property=instance)
+    for item in items:
+        item.product_add_parameters.create(
+            property=instance
+        )
+
+    """ Разделы """
+    sections = Section.objects.exclude(section_parameters__property=instance)
+    for section in sections:
+        section.section_parameters.create(
+            property=instance,
+            value=value,
+        )
+    # То же самое с доп. параметрами
+    sections = Section.objects.exclude(section_add_parameters__property=instance)
+    for section in sections:
+        section.section_add_parameters.create(
+            property=instance,
+        )
+
+    """ Категории """
+    categories = Category.objects.exclude(category_parameters__property=instance)
+    for category in categories:
+        category.category_parameters.create(
+            property=instance,
+            value=value,
+        )
+
+post_save.connect(create_parameter, sender=Property)
+
+
+def create_product_parameters(sender, instance, **kwargs):
+    " Создание параметров при сохранении товара "
+    for property in Property.objects.all():
+        value = property.values.filter(default=True)[0] \
+            if property.values.filter(default=True).exists() and not property.optional else None
+        if not instance.product_parameters.filter(property=property).exists():
+            instance.product_parameters.create(
+                property=property,
+                value=value
+            )
+        if not instance.product_add_parameters.filter(property=property).exists():
+            # Создать доп параметры товара
+            instance.product_add_parameters.create(
+                property=property
+            )
+
+post_save.connect(create_product_parameters, sender=Product)
+
+
+def create_section_parameters(sender, instance, **kwargs):
+
+    " Создание параметров при сохранении раздела "
+
+    for property in Property.objects.all():
+        value = property.values.filter(default=True)[0] \
+            if property.values.filter(default=True) and not property.optional else None
+        if not instance.section_parameters.filter(property=property).exists():
+            instance.section_parameters.create(
+                property=property,
+                value=value
+            )
+        if not instance.section_add_parameters.filter(property=property).exists():
+            #Создать доп параметры Раздела
+            instance.section_add_parameters.create(
+                property=property
+            )
+
+post_save.connect(create_section_parameters, sender=Section)
+
+
+def create_category_parameters(sender, instance, **kwargs):
+
+    " Создание параметров при сохранении категории "
+
+    for property in Property.objects.all():
+        if not instance.category_parameters.filter(property=property):
+            value = property.values.filter(default=True)[0] \
+                if property.values.filter(default=True) and not property.optional else None
+            instance.category_parameters.create(
+                property=property,
+                value=value
+            )
+
+post_save.connect(create_category_parameters, sender=Category)
+
+
+def set_default_value(sender, instance, **kwargs):
+    """
+    Заполнение пустых значений параметра
+    при создании значения по умолчанию,
+    если параметр обязательный
+    """
+    if instance.default and not instance.property.optional:
+        parameters = Parameter.objects.filter(property=instance.property, value=None)
+        for parameter in parameters:
+            parameter.value = instance
+            parameter.save()
+        items = Product.objects.exclude(product_parameters__property=instance.property)
+        for item in items:
+            item.product_parameters.create(property=instance.property, value=instance)
+
+post_save.connect(set_default_value, sender=Value)
+
+
+def set_product_parameters(sender, instance, **kwargs):
+
+    """
+    Обновить суммарный список значений параметров у товаров
+    (поле Product.parameters)
+    """
+
+    if instance.section:
+        descendant_ids = instance.section.tree.get().get_descendants().filter(content_type__model='product').values_list('object_id')
+        descendants = Product.objects.filter(id__in=descendant_ids)
+        for product in descendants:
+            values = Value.objects.filter(id__in=product.get_parameters().values_list('value', flat=True))
+            product.parameters.set(values)
+            product.save()
+
+    elif instance.product:
+        values = Value.objects.filter(id__in=instance.product.get_parameters().values_list('value', flat=True))
+        instance.product.parameters.set(values)
+        instance.product.save()
+
+post_save.connect(set_product_parameters, sender=Parameter)

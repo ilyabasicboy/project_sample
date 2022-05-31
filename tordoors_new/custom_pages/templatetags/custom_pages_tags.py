@@ -121,3 +121,8 @@ def get_advantages(page):
 def get_more_articles(page, num_pages=4):
     siblings = page.get_siblings().filter(template='pages/article.html').order_by('?')[:num_pages]
     return siblings
+
+
+@register.simple_tag()
+def get_page_by_id(id):
+    return Page.objects.filter(id=id).first()

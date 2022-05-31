@@ -37,7 +37,7 @@
                 <div class="placeholder mfp-gallery {% if object.video %}placeholder--nth2{% endif %}">
                     {% if object.video %}
                         <div class="news-post__video">
-                            <a class="video-custom modal-video" href="https://vimeo.com/{{ video_link }}" data-bg-video="{{ video_link }}">
+                            <a class="video-custom modal-video" href="https://vimeo.com/{{ object.video }}" data-bg-video="{{ object.video }}">
                                 <div class="video-custom__play">
                                     <img src="{% static 'img/svg/video-play.svg' %}" alt="Открыть видео" title="Открыть видео">
                                 </div>

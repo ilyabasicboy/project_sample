@@ -3,6 +3,7 @@ from django.db import models
 import datetime
 from attachment.settings import ATTACHMENT_UPLOAD_DIR
 from os.path import join
+from django.utils.timezone import now
 
 
 REVIEW_IMG_UPLOAD = join(ATTACHMENT_UPLOAD_DIR, 'reviews')
@@ -39,7 +40,7 @@ class Review(models.Model):
     )
     date = models.DateField(
         verbose_name=u'Дата отправки отзыва',
-        default=datetime.date.today()
+        default=now
     )
     content = models.TextField(
         max_length=2000,

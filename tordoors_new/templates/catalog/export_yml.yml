@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="{% now "Y-m-d H:i" %}">
+    <shop>
+        <name>Двери Тор</name>
+        <company>Двери Тор</company>
+        <url>https://tordoors-ei60.ru/</url>
+        <currencies>
+        <currency id="RUR" rate="1"/>
+        </currencies>
+        <categories>
+            {% for category in categories %}
+                <category id="{{ category.id }}">{{ category.long_title|default:category.title }}</category>
+            {% endfor %}
+        </categories>
+        <offers>
+            {% for item in items %}
+                <offer id="{{ item.id|cut:' ' }}" available="true">
+                    <url>{{ item.url }}</url>
+                    {% for picture in item.pictures %}
+                      <picture>https://{{ item.domain }}{{ picture.display.url }}</picture>
+                    {% endfor %}
+                    <name>{{ item.name }}</name>
+                    <categoryId>{{ item.categoryId }}</categoryId>
+                    {% if item.description %}
+                      <description>{{ item.description }}</description>
+                    {% endif %}
+                    <price>{{ item.price|cut:" "}}</price>
+                    <currencyId>RUR</currencyId>
+                    {% if item.square_price %}
+                      <sales_notes>Цена за 1 кв.м.</sales_notes>
+                    {% endif %}
+                    <delivery>true</delivery>
+                    <vendor>Двери Тор</vendor>
+                    <manufacturer_warranty>true</manufacturer_warranty>
+                    <country_of_origin>Россия</country_of_origin>
+                    <param name="Размер коробки">{{ item.box_size|default:'950 x 2050' }}</param>
+                    {% if item.production_time %}
+                      <param name="Срок изготовления">{{ item.production_time }} часов</param>
+                    {% endif %}
+                    {% if item.guarantee %}
+                      <param name="Гарантия на дверь">{{ item.guarantee }} лет</param>
+                    {% endif %}
+                    {% if item.facing %}
+                      <param name="Отделка">{{ item.facing }}</param>
+                    {% endif %}
+                    <param name="Цена">{{ item.price|cut:" "}}</param>
+                    {% for param in item.parameters %}
+                      <param name="{{ param.property.name }}">{{ param.value.name }}</param>
+                    {% endfor %}
+                </offer>
+            {% endfor %}
+        </offers>
+    </shop>
+</yml_catalog>

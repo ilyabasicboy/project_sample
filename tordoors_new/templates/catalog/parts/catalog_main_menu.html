@@ -42,11 +42,14 @@
                                     <li class="header__bigmenu-item">
                                         {# Изображение раздела 1-го уровня #}
                                         {% get_images for object as images %}
-                                        {% if images %}
-                                            <div class="header__bigmenu-preview">
-                                                <img class="header__bigmenu-img" src="{{ images.0.display.url }}" alt="object.title" title="object.title">
-                                            </div>
-                                        {% endif %}
+                                        {% get_image_groups for images as images %}
+                                        {% with images=images|key:'main' %}
+                                            {% if images %}
+                                                <div class="header__bigmenu-preview">
+                                                    <img class="header__bigmenu-img" src="{{ images.0.display.url }}" alt="{{ object.title }}" title="{{ object.title }}">
+                                                </div>
+                                            {% endif %}
+                                        {% endwith %}
 
                                             <div class="header__bigmenu-links">
                                                 <a class="header__bigmenu-link" href="{{ object.get_absolute_url }}">

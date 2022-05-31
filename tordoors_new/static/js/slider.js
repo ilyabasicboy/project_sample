@@ -27,7 +27,7 @@ $(function () {
             prevArrow: slickProduce.parent().parent().find('.slider__nav .slider__nav-prev'),
             nextArrow: slickProduce.parent().parent().find('.slider__nav .slider__nav-next'),
             useTransform: true,
-            speed: 1000,
+            speed: 600,
             asNavFor: '.produce-menu--slider',
             responsive: [
                 {
@@ -53,7 +53,7 @@ $(function () {
             arrows: false,
             useTransform: true,
             focusOnSelect: true,
-            speed: 1000,
+            speed: 600,
             asNavFor: '.produce--slider',
         });
     };
@@ -75,7 +75,7 @@ $(function () {
             prevArrow: slickTechnologies.parent().parent().find('.slider__nav .slider__nav-prev'),
             nextArrow: slickTechnologies.parent().parent().find('.slider__nav .slider__nav-next'),
             useTransform: true,
-            speed: 1000,
+            speed: 600,
             asNavFor: '.technologies-menu--slider',
             responsive: [
                 {
@@ -101,7 +101,7 @@ $(function () {
             arrows: false,
             useTransform: true,
             focusOnSelect: true,
-            speed: 1000,
+            speed: 600,
             asNavFor: '.technologies--slider',
         });
     };
@@ -113,24 +113,26 @@ $(function () {
         slickGoods.slick({
             infinite: true,
             slidesToShow: 4,
-            slidesToScroll: 1,
+            slidesToScroll: 2,
             touchThreshold: 100,
             arrows: true,
             prevArrow: slickGoods.parent().parent().find('.slider__nav .slider__nav-prev'),
             nextArrow: slickGoods.parent().parent().find('.slider__nav .slider__nav-next'),
             useTransform: true,
-            speed: 1000,
+            speed: 600,
             responsive: [
                 {
                   breakpoint: 1025,
                   settings: {
                     slidesToShow: 3,
+                    slidesToScroll: 2,
                   }
                 },
                 {
                   breakpoint: 768,
                   settings: {
                     slidesToShow: 1,
+                    slidesToScroll: 1,
                     variableWidth: true,
                   }
                 },
@@ -145,18 +147,19 @@ $(function () {
         slickGallery.slick({
             infinite: true,
             slidesToShow: 3,
-            slidesToScroll: 1,
+            slidesToScroll: 2,
             touchThreshold: 100,
             arrows: true,
             prevArrow: slickGallery.parent().find('.slider__fullnav-prev'),
             nextArrow: slickGallery.parent().find('.slider__fullnav-next'),
             useTransform: true,
-            speed: 1000,
+            speed: 600,
             responsive: [
                 {
                     breakpoint: 768,
                     settings: {
                         slidesToShow: 1,
+                        slidesToScroll: 1,
                         variableWidth: true,
                     }
                 },

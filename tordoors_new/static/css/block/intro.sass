@@ -21,14 +21,14 @@
 	    justify-content: center
 	    padding: 80px 0
 	    padding-bottom: 120px
-	@media screen and (max-width: $md-min)
-	    height: calc(100vh - 80px)
-	    min-height: 820px
-	@media screen and (max-width: $xs-max)
-	    height: calc(100vh - 60px - 60px)
-	    min-height: 600px
-	    padding: 60px 0
-	    padding-bottom: 100px
+	    @media screen and (max-width: $md-min)
+	        height: calc(100vh - 80px)
+	        min-height: 820px
+	    @media screen and (max-width: $xs-max)
+	        height: calc(100vh - 60px - 60px)
+	        min-height: 600px
+	        padding: 60px 0
+	        padding-bottom: 100px
 
 	&__container
 		height: 100%
@@ -81,7 +81,7 @@
 		    justify-content: center
 		    text-align: center
 
-		.intro__title, h1
+		.intro__title
 			margin-bottom: 16px
 			font-size: 60px
 			line-height: 82px
@@ -89,9 +89,10 @@
 			color: rgba(255, 255, 255, 0.9)
 			text-transform: uppercase
 			width: 100%
-			overflow-wrap: break-word
-			word-wrap: break-word
-			hyphens: auto
+			&--break
+                overflow-wrap: break-word
+                word-wrap: break-word
+                hyphens: auto
 			@media screen and (max-width: $md-min)
 			    font-size: 48px
 			    line-height: 64px
@@ -131,9 +132,7 @@
 	    @media screen and (max-width: $md-min)
 	        margin-top: 32px
 	    @media screen and (max-width: $xs-max)
-	        margin-top: 24px
-	        height: 64px
-	        width: 64px
+	        display: none
 	    &:hover
 	        color: #fff
 	    &-title
@@ -143,8 +142,6 @@
 	        font-size: 13px
 	        line-height: 18px
 	        font-weight: 500
-	        @media screen and (max-width: $xs-max)
-	            display: none
 	    &-code
 	        width: 160px
 	        height: 160px
@@ -152,19 +149,6 @@
 	        @media screen and (max-width: $md-min)
 	            width: 140px
 	            height: 140px
-	        @media screen and (max-width: $xs-max)
-	            display: none
-	    &-icon
-	        display: none
-	        @media screen and (max-width: $xs-max)
-	            display: flex
-	            width: 64px
-	            height: 64px
-	            svg
-	                height: 100%
-	                width: 100%
-	                object-fit: contain
-
 
 	&__preview
 		width: 50%

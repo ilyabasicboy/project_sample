@@ -5,6 +5,9 @@
     <a class="breadcrumbs__item" href="/">
         <span>Главная</span>
     </a>
+    <span class="breadcrumbs__item">
+        /
+    </span>
 {% endblock %}
 
 {% block content_title %}
@@ -41,10 +44,9 @@
                 </div>
 
                 <div class="default-page__content">
-
                     <div class="catalog__panel filter__panel">
                         <div class="filter__panel-sticky">
-                            {% show_short_filter_form fast_filter=True %}
+                            {% include 'catalog/parts/short_fast_filter_panel.html' %}
                         </div>
                     </div>
 

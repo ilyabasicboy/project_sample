@@ -11,12 +11,9 @@ from imagekit.models import ImageModel
 from attachment.fields import ImagePreviewField
 from attachment.settings import ATTACHMENT_CACHE_DIR, ATTACHMENT_IKSPECS, ATTACHMENT_UPLOAD_DIR
 import os
-import django.dispatch
 from pages.models import Page
+from tordoors_new.custom_catalog.utils import get_model_field
 
-value_saved = django.dispatch.Signal()
-object_saved = django.dispatch.Signal()
-parameter_saved = django.dispatch.Signal()
 
 TYPE_CHOICES = (
     ('двери', 'Двери'),
@@ -29,6 +26,39 @@ SIDE_CHOICES = (
     ('inside', 'Внутренняя'),
     ('outside', 'Внешняя')
 )
+
+
+class CustomCatalogBase(CatalogBase):
+    class Meta:
+        abstract = True
+
+    """ common fields and methods """
+
+    title = models.CharField(
+        verbose_name=u'название',
+        max_length=400
+    )
+    long_title = models.CharField(
+        verbose_name=u'Длинное название',
+        max_length=400,
+        blank=True, null=True
+    )
+
+    def full_path(self):
+        """
+        Get url path ancestors
+        """
+        path = []
+        for ancestor in self.tree.get().get_ancestors(ascending=False):
+            if ancestor.content_object.slug:
+                path.append(ancestor.content_object.slug)
+        if self.slug:
+            path.append(self.slug)
+        return '/'.join(path)
+
+    def __str__(self):
+        return self.title
+
 
 class Root(CatalogBase):
     class Meta:
@@ -51,20 +81,18 @@ class Root(CatalogBase):
 
     def get_min_price(self):
         rslt = 0
-        prices = Product.objects.filter(show=True).values_list('price', flat=True)
-        try:
+        products = self.get_products()
+        if products.exists():
+            prices = products.values_list('price', flat=True)
             rslt = min(prices)
-        except:
-            pass
         return rslt
 
     def get_max_price(self):
-        prices = Product.objects.filter(show=True).values_list('price', flat=True)
         rslt = 0
-        try:
+        products = self.get_products()
+        if products.exists():
+            prices = products.values_list('price', flat=True)
             rslt = max(prices)
-        except:
-            pass
         return rslt
 
     def get_products(self):
@@ -73,32 +101,33 @@ class Root(CatalogBase):
     @property
     def root_sections(self):
 
-        """ Возвращает список разделов верхнего уровня"""
+        """ Возвращает список разделов верхнего уровня """
 
         return get_sorted_content_objects(
             get_content_objects(self.tree.get().get_children(), allowed_models=(Section,))
         )
 
 
-class Product(CatalogBase):
+class Product(CustomCatalogBase):
     class Meta:
         verbose_name = u'товар'
         verbose_name_plural = u'товары'
 
     leaf = True
-    title = models.CharField(
-        verbose_name=u'название',
-        max_length=400
-    )
-    long_title = models.CharField(
-        verbose_name=u'Длинное название',
-        max_length=400,
-        blank=True, null=True
-    )
     popular = models.BooleanField(verbose_name='Популярный товар', default=False)
+    show_interior_sample = models.CharField(
+        verbose_name='блок "пример в интерьере"',
+        choices=(
+            ('show', 'Отображать'),
+            ('hide', 'Скрыть'),
+            ('inherit', 'Наследовать'),
+        ),
+        default = 'inherit',
+        max_length=255,
+    )
     item_type = models.ForeignKey('ItemType', verbose_name=u'вид изделия', on_delete=models.CASCADE, blank=True,
                                   null=True)
-    box_size = models.CharField(verbose_name=u'размер коробки', max_length=400, default='950 x 2050')
+    box_size = models.CharField(verbose_name=u'размер коробки', max_length=400, null=True, blank=True)
     production_time = models.IntegerField(
         verbose_name=u'Срок изготовления', default=12, help_text='часов'
     )
@@ -112,9 +141,14 @@ class Product(CatalogBase):
         blank=True,
         max_length=255,
     )
+    cover_side = models.CharField(
+        verbose_name=u'Обложка товара, сторона',
+        choices=SIDE_CHOICES,
+        default='outside',
+        max_length=255,
+    )
     price = models.PositiveIntegerField(
         verbose_name=u'цена',
-        blank=True,
         null=True,
         default=0
     )
@@ -129,8 +163,28 @@ class Product(CatalogBase):
         blank=True,
         null=True,
     )
+    show_block_door_samples = models.BooleanField(
+        verbose_name='отображать блок "Примеры изделий"',
+        default=True
+    )
+    door_samples = models.ForeignKey(
+        Page,
+        limit_choices_to={'template': 'pages/gallery.html'},
+        verbose_name='примеры изделий',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     description = HTMLField(verbose_name=u'описание', default='', blank=True)
     bottom_content = HTMLField(verbose_name=u'контент внизу страницы', default='', blank=True)
+
+    # Нужен для упрощения queryset в фильтре
+    # Должен быть скрыт в админке
+    parameters = models.ManyToManyField(
+        'Value',
+        verbose_name='список values',
+        blank=True
+    )
 
     @property
     def images(self):
@@ -140,18 +194,12 @@ class Product(CatalogBase):
         Если есть инлайны без подгруженного изображения,
         искать такие же записи с изображением в родительских разделах
         """
-        empty_images = self.get_side_images()
-        images = ProductImage.objects.filter(product=self.id).exclude(image='') \
-                 | ProductImage.objects.filter(id__in=empty_images)
+        # empty_images = self.get_side_images()
+        images = self.product_attachment_image_id.exclude(image='').order_by('order_key')
+        colors = [image.color for image in images]
 
-        #Colors order must be kept as defined in admin site
-        color_ids_all = images.values_list('color', flat=True)
-        color_ids = []
-        for id in color_ids_all:
-            if id not in color_ids:
-                color_ids.append(id)
-
-        colors = [FacingColor.objects.get(id=id) for id in color_ids]
+        # distinct colors with keeping order
+        colors = sorted(set(colors), key=colors.index)
 
         for color in colors:
             images_list.append({
@@ -161,23 +209,12 @@ class Product(CatalogBase):
             })
         return images_list
 
-    def get_show_one_side(self):
-        result = None
-        if self.show_one_side:
-            result = self.show_one_side
-        else:
-            try:
-                result = self.tree.get().parent.content_object.get_show_one_side()
-            except:
-                pass
-        return result
-
     def get_parameters(self):
         """ Возвращает список параметров наследуемых от родительских разделов """
         all_parameters = self.product_parameters.all()
         empty_parameters = all_parameters.filter(value=None)
         parameters = all_parameters.exclude(id__in=empty_parameters.values_list('id', flat=True))
-        if empty_parameters:
+        if empty_parameters.exists():
             try:
                 parent_parameters = self.tree.get().parent.content_object.get_parameters(
                     empty_parameters.values_list('property', flat=True))
@@ -192,30 +229,21 @@ class Product(CatalogBase):
         all_parameters = self.product_add_parameters.all()
         empty_parameters = all_parameters.filter(values=None)
         parameters = all_parameters.exclude(id__in=empty_parameters.values_list('id', flat=True))
-        if empty_parameters and self.tree.get().parent:
+        if empty_parameters.exists() and self.tree.get().parent:
             try:
                 parent_parameters = self.tree.get().parent.content_object.get_add_parameters(
                     empty_parameters.values_list('property', flat=True))
             except:
                 parent_parameters = None
-            if parent_parameters:
+            if parent_parameters.exists():
                 parameters = parameters | parent_parameters
         return parameters
-
-    def get_product_type(self):
-        """ Найти тип изделия рекурсией(у родительских разделов) """
-        rslt = ''
-        try:
-            rslt = self.tree.get().parent.content_object.get_product_type()
-        except:
-            pass
-        return rslt
 
     def get_side_images(self):
         """ Найти изображения сторон рекурсией(у родительских разделов) """
         result = []
         empty_images = ProductImage.objects.filter(product=self.id, image='')
-        if empty_images:
+        if empty_images.exists():
             for image in empty_images:
                 try:
                     parent = self.tree.get().parent.content_object
@@ -226,68 +254,14 @@ class Product(CatalogBase):
                     pass
         return result
 
-    def get_item_type(self):
-        """ Найти вид изделия рекурсией(у родительских разделов) """
-        result = None
-        if self.item_type:
-            result = self.item_type
-        else:
-            try:
-                result = self.tree.get().parent.content_object.get_item_type()
-            except:
-                pass
-        return result
-
-    def get_delivery_moscow(self):
-        result = None
-        try:
-            result = self.tree.get().parent.content_object.get_delivery_moscow()
-        except:
-            pass
-        return result
-
-    def get_delivery_russia(self):
-        result = None
-        try:
-            result = self.tree.get().parent.content_object.get_delivery_russia()
-        except:
-            pass
-        return result
-
-    def get_installation(self):
-        result = None
-        try:
-            result = self.tree.get().parent.content_object.get_installation()
-        except:
-            pass
-        return result
-
-    def get_service(self):
-        result = None
-        try:
-            result = self.tree.get().parent.content_object.get_service()
-        except:
-            pass
-        return result
-
     def __str__(self):
         return self.title if self.title else self.slug
 
-    def full_path(self):
-        """
-        Get url path ancestors
-        """
-        path = []
-        for ancestor in self.tree.get().get_ancestors(ascending=False):
-            if ancestor.content_object.slug:
-                path.append(ancestor.content_object.slug)
-        if self.slug:
-            path.append(self.slug)
-        return '/'.join(path)
+    def get_vendor_code(self):
 
-    def save(self, *args, **kwargs):
-        super(Product, self).save(*args, **kwargs)
-        object_saved.send(sender=self.__class__, object=self)
+        # Получить наследуемый
+        product_type = get_model_field(self, 'product_type')
+        return '{}{}-{:05}'.format(product_type[0].upper(), self.tree.get().parent.content_object.title[0].lower(), self.id)
 
 
 class ProductImage(ImageModel):
@@ -355,23 +329,28 @@ class ProductImage(ImageModel):
             return u''
 
 
-class Section(CatalogBase):
+class Section(CustomCatalogBase):
     class Meta:
         verbose_name = u'раздел'
         verbose_name_plural = u'разделы'
 
-    title = models.CharField(verbose_name=u'название', max_length=400)
-    long_title = models.CharField(
-        verbose_name=u'длинное название',
-        max_length=400,
-        blank=True, null=True
-    )
     show_in_we_produce = models.BooleanField(
         verbose_name=u'отображать в "Мы производим"',
         default=False
     )
+    show_interior_sample = models.CharField(
+        verbose_name='блок "пример в интерьере"',
+        choices=(
+            ('show', 'Отображать'),
+            ('hide', 'Скрыть'),
+            ('inherit', 'Наследовать'),
+        ),
+        default='show',
+        max_length=255,
+    )
     show_in_our_technologies = models.BooleanField(verbose_name=u'отображать в "Наши технологии"', default=False)
     bottom_content = HTMLField(verbose_name=u'контент после списка товаров', blank=True, null=True)
+    box_size = models.CharField(verbose_name=u'размер коробки', max_length=400, null=True, blank=True)
     door_samples = models.ForeignKey(
         Page,
         limit_choices_to={
@@ -379,7 +358,7 @@ class Section(CatalogBase):
         },
         on_delete=models.CASCADE,
         related_name='section_door_samples',
-        verbose_name=u'примеры дверей',
+        verbose_name=u'примеры изделий',
         blank=True,
         null=True
     )
@@ -417,35 +396,13 @@ class Section(CatalogBase):
     installation = HTMLField(verbose_name=u'установка', blank=True, null=True)
     service = HTMLField(verbose_name=u'гарантийное обслуживание', blank=True, null=True)
     production_time = models.IntegerField(
-        verbose_name=u'Срок изготовления', default=12, help_text='часов'
+        verbose_name=u'Изготовление', default=12, help_text='часов'
     )
     guarantee = models.IntegerField(
         verbose_name=u'Гарантия на дверь', default=5, help_text='лет'
     )
     fireproof_types = HTMLField(verbose_name=u'Пределы огнестойкости', max_length=400, blank=True, null=True, )
     comment = HTMLField(verbose_name=u'Комментарий', max_length=400, blank=True, null=True, )
-
-    def get_show_one_side(self):
-        result = None
-        if self.show_one_side:
-            result = self.show_one_side
-        else:
-            try:
-                result = self.tree.get().parent.content_object.get_show_one_side()
-            except:
-                pass
-        return result
-
-    def get_item_type(self):
-        result = None
-        if self.item_type:
-            result = self.item_type
-        else:
-            try:
-                result = self.tree.get().parent.content_object.get_item_type()
-            except:
-                pass
-        return result
 
     def get_side_images(self, side, facing, color, image_print):
         rslt = None
@@ -464,50 +421,10 @@ class Section(CatalogBase):
                 pass
         return rslt
 
-    def get_delivery_moscow(self):
-        result = None
-        if self.delivery_moscow:
-            result = self.delivery_moscow
-        try:
-            result = self.tree.get().parent.content_object.get_delivery_moscow()
-        except:
-            pass
-        return result
-
-    def get_delivery_russia(self):
-        result = None
-        if self.delivery_russia:
-            result = self.delivery_russia
-        try:
-            result = self.tree.get().parent.content_object.get_delivery_russia()
-        except:
-            pass
-        return result
-
-    def get_installation(self):
-        result = None
-        if self.installation:
-            result = self.installation
-        try:
-            result = self.tree.get().parent.content_object.get_installation()
-        except:
-            pass
-        return result
-
-    def get_service(self):
-        result = None
-        if self.service:
-            result = self.service
-        try:
-            result = self.tree.get().parent.content_object.get_service()
-        except:
-            pass
-        return result
-
     def get_parameters(self, empty_parameters):
         parameters = self.section_parameters.filter(property__in=empty_parameters).exclude(value=None)
         empty_parameters = empty_parameters.exclude(property__in=parameters.values_list('property', flat=True))
-        if empty_parameters:
+        if empty_parameters.exists():
             try:
                 parent_parameters = self.tree.get().parent.content_object.get_parameters(
                     empty_parameters.values_list('property', flat=True))
@@ -532,94 +449,48 @@ class Section(CatalogBase):
                 parameters = parameters | parent_parameters
         return parameters
 
-    def get_product_type(self):
-        rslt = ''
-        if self.product_type:
-            rslt = self.product_type
-        else:
-            try:
-                rslt = self.tree.get().parent.content_object.get_product_type()
-            except:
-                pass
+    def get_min_price(self):
+        products = self.get_products()
+        rslt = 0
+        if products.exists():
+            prices = products.values_list('price', flat=True)
+            rslt = min(prices)
         return rslt
 
-    def get_min_price(self):
-        treeitem = self.tree.get()
-        children = treeitem.get_descendants().filter(content_type__model='product')
-        prices = []
+    def get_card_min_price(self):
+        products = self.get_products().filter(price__gt=0)
         rslt = 0
-        if children:
-            for child in children:
-                if isinstance(child.content_object, Product):
-                    prices.append(child.content_object.price)
-        try:
+        if products.exists():
+            prices = products.values_list('price', flat=True)
             rslt = min(prices)
-        except:
-            pass
         return rslt
+
 
     def get_max_price(self):
-        treeitem = self.tree.get()
-        children = treeitem.get_descendants().filter(content_type__model='product')
-        prices = []
+        products = self.get_products()
         rslt = 0
-        if children:
-            for child in children:
-                if isinstance(child.content_object, Product):
-                    prices.append(child.content_object.price)
-        try:
+        if products.exists():
+            prices = products.values_list('price', flat=True)
             rslt = max(prices)
-        except:
-            pass
         return rslt
 
     def get_products(self):
         product_ids = self.tree.get().get_descendants().filter(
                 content_type__model='product',
             ).order_by('id').values_list('object_id')
-        return Product.objects.filter(id__in=product_ids, show=True)
+        products = Product.objects.filter(id__in=product_ids, show=True)
+        return products
 
     def get_products_count(self):
         return self.get_products().count()
 
-    def get_fireproof_types(self):
-        products = self.get_products()
-        item_types = list(set(
-                [
-                prod.get_item_type().fire_resistance.name for prod in products\
-                if prod.get_item_type() and prod.get_item_type().fire_resistance
-            ]
-        ))
-        return item_types
 
-    def save(self, *args, **kwargs):
-        super(Section, self).save(*args, **kwargs)
-        object_saved.send(sender=self.__class__, object=self)
-
-    def full_path(self):
-        """
-        Get url path ancestors
-        """
-        path = []
-        for ancestor in self.tree.get().get_ancestors(ascending=False):
-            if ancestor.content_object.slug:
-                path.append(ancestor.content_object.slug)
-        if self.slug:
-            path.append(self.slug)
-        return '/'.join(path)
-
-    def __str__(self):
-        return self.title
-
-
-class Category(CatalogBase):
+class Category(CustomCatalogBase):
     class Meta:
         verbose_name = u'категория'
         verbose_name_plural = u'категории'
 
     leaf = True
-    title = models.CharField(verbose_name=u'название', max_length=400)
-    long_title = models.CharField(verbose_name=u'длинное название', max_length=400, blank=True, null=True)
     show_in_our_technologies = models.BooleanField(verbose_name=u'отображать в "Наши технологии"', default=False)
     products = models.ManyToManyField(
         Product,
@@ -658,7 +529,7 @@ class Category(CatalogBase):
         },
         on_delete=models.CASCADE,
         related_name='category_door_samples',
-        verbose_name=u'примеры дверей',
+        verbose_name=u'примеры изделий',
         blank=True,
         null=True
     )
@@ -691,25 +562,6 @@ class Category(CatalogBase):
         """
 
         return self.products.filter(show=True)
-
-    def full_path(self):
-        """
-        Get url path ancestors
-        """
-        path = []
-        for ancestor in self.tree.get().get_ancestors(ascending=False):
-            if ancestor.content_object.slug:
-                path.append(ancestor.content_object.slug)
-        if self.slug:
-            path.append(self.slug)
-        return '/'.join(path)
-
-    def __str__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        super(Category, self).save(*args, **kwargs)
-        object_saved.send(sender=self.__class__, object=self)
 
 
 class FireResistance(models.Model):
@@ -867,14 +719,14 @@ class Property(models.Model):
         verbose_name=u'отображать в списке кратких характеристик',
         default=False,
     )
+    show_on_yml = models.BooleanField(
+        verbose_name=u'отображать в яндекс турбо страницах',
+        default=False,
+    )
     optional = models.BooleanField(
         verbose_name=u'необязательный',
         default=False,
     )
-
-    def save(self, *args, **kwargs):
-        super(Property, self).save(*args, **kwargs)
-        parameter_saved.send(sender=self.__class__, object=self)
 
     def __str__(self, *args, **kwargs):
         return self.name
@@ -916,10 +768,6 @@ class Value(models.Model):
 
     def __str__(self, *args, **kwargs):
         return self.name
-
-    def save(self, *args, **kwargs):
-        super(Value, self).save(*args, **kwargs)
-        value_saved.send(sender=self.__class__, object=self, property=self.property, default=self.default)
 
 
 class Parameter(models.Model):

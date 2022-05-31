@@ -196,7 +196,7 @@ $(function () {
 
     //Product View Change with Color
     let colorTarget;
-    $(document).on('click', '.product-change-color', function() {
+    $(document).on('click mouseover', '.product-change-color', function() {
         colorTarget = $(this).data('product-color');
         let colorTargetTitle = $(this).data('product-color-title');
         if (!$(this).hasClass('active')) {
@@ -311,7 +311,7 @@ $(function () {
     }
 
     //Change background Interior
-    $('.product__interior-option__item').on('click', function(){
+    $('.product__interior-option__item').on('click mouseover', function(){
         let targetBg = $(this).data('target-bg');
         if (!$(this).hasClass('active')) {
             $('.product__interior-option__item').removeClass('active');

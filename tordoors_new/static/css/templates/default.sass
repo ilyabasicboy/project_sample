@@ -65,11 +65,14 @@ img
     overflow: hidden
 
 .page
-	overflow: hidden
+	overflow: clip
+	overflow-y: clip
+	overflow-x: clip
 	&--default
 		padding-top: 80px
 		@media screen and (max-width: $xs-max)
 		    padding-top: 60px
+		    overflow: hidden
 	&--overflow
 	    overflow: initial
 	    @media screen and (max-width: $xs-max)

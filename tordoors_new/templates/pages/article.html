@@ -5,8 +5,7 @@
 {% block title_section %}{% endblock %}
 
 {% block content %}
-
-   {% get_images for current_page as images %}
+    {% get_images for current_page as images %}
     {% with images=images|role:'обложка' %}
         {% placeholder advantages with PageAdvantageSelect label 'Выбрать блок преимущества' as advantages %}
         {% get_advantages advantages as advantages %}
@@ -45,6 +44,8 @@
                     </div>
                 </div>
             {% endif %}
+
+            {% placeholder preview label 'Превью для карточки статьи' with Textarea as preview %}
 
             {% placeholder show_add_menu label 'Показывать доп. меню' with Checkbox as show_add_menu %}
             {% if show_add_menu == 'True' %}

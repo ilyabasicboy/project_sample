@@ -56,6 +56,8 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+
+    will-change: transform;
 }
 .slick-track:before,
 .slick-track:after

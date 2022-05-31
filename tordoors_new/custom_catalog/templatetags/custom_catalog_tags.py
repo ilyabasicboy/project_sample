@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django import template
-from attachment.models import AttachmentImage
 from django.contrib.contenttypes.models import ContentType
 from catalog.utils import get_content_objects, get_sorted_content_objects
 from tordoors_new.custom_catalog.models import Product, Section, Category, Root, TYPE_CHOICES, Facing
@@ -10,6 +9,7 @@ from classytags.core import Options
 from classytags.arguments import Argument
 from itertools import chain
 from pages.models import Page
+from tordoors_new.custom_catalog.utils import get_model_field
 
 
 register = template.Library()
@@ -57,7 +57,7 @@ def show_filter_form(context, ajax=False):
 
 
 @register.inclusion_tag('catalog/parts/short_filter_form.html', takes_context=True)
-def show_short_filter_form(context, fast_filter=False):
+def show_short_filter_form(context):
 
     """ Форма для подбора по цене и сортировки """
 
@@ -68,7 +68,6 @@ def show_short_filter_form(context, fast_filter=False):
     context['object'] = object
     context['c_type'] = c_type
     context['form'] = form
-    context['fast_filter'] = fast_filter
     return context
 
 
@@ -139,7 +138,7 @@ def catalog_main_menu(context):
 @register.simple_tag
 def get_we_produce_sections():
     """ Товары для блока "Мы производим" """
-    return Section.objects.filter(show_in_we_produce=True, show=True)
+    return get_sorted_content_objects(Section.objects.filter(show_in_we_produce=True, show=True))
 
 
 @register.simple_tag
@@ -185,3 +184,14 @@ def get_basic_parameters(object):
 @register.simple_tag
 def get_last_products(num=20):
     return Product.objects.filter(show=True).order_by('-id')[:num]
+
+
+@register.simple_tag
+def get_inherited_field(object, attr):
+    """
+    param object - ModelObject
+    param attr - string field name
+
+    Returns field value inherited by catalog tree
+    """
+    return get_model_field(object, attr)

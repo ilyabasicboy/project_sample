@@ -15,11 +15,13 @@
                 {{ obj.title }}
             </div>
         {% endif %}
-        {% get_content obj 'preview' as preview %}
-        {% if preview %}
-            <div class="article__description">
-                {{ preview|safe }}
-            </div>
+        {% if article_description %}
+            {% get_content obj 'main_content' as preview %}
+            {% if preview %}
+                <div class="article__description">
+                    {{ preview|safe|striptags }}
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 </a>

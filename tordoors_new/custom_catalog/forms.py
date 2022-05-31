@@ -23,11 +23,11 @@ class ProductAdminForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = '__all__'
+        exclude = ['parameters']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'large-input'}),
             'slug': forms.TextInput(attrs={'class': 'large-input'}),
-            'add_options': FilteredSelectMultiple(verbose_name=u'Доп. опции', is_stacked=False)
+            'parameters': FilteredSelectMultiple(verbose_name=u'', is_stacked=False)
         }
 
 
@@ -167,11 +167,16 @@ class FilterForm(forms.Form):
     dir = forms.ChoiceField(
         label="Сортировка",
         choices=(
-            ('new', "Сначала новинки"),
-            ('asc', "Сначала недорогие"),
-            ('desc', "Сначала дорогие"),
+            ('new', "Новинки"),
+            ('asc', "Недорогие"),
+            ('desc', "Дорогие"),
         ),
         initial='new'
+    )
+
+    vendor_code = forms.IntegerField(
+        label='Артикул товара',
+        required=False
     )
     """ Try необходим для инициализации миграций в новую бд """
     try:
@@ -210,11 +215,11 @@ class FilterForm(forms.Form):
         )
 
     def get_dynamic_fields(self):
-        """ Returns fields with data-type attr equal to dynamic"""
+        """ Returns fields with data-type attr equal to dynamic """
         return [field for field in self if 'data-type' in field.field.widget.attrs\
                 and field.field.widget.attrs['data-type'] == 'dynamic']
 
     def get_simple_fields(self):
-        """ Returns fields with data-type attr equal to simple"""
+        """ Returns fields with data-type attr equal to simple """
         return [field for field in self if 'data-type' in field.field.widget.attrs\
                 and field.field.widget.attrs['data-type'] == 'simple']

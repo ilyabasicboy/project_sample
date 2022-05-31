@@ -78,12 +78,14 @@
                                         <span>{{ products.count }} шт</span>
                                     </div>
                                     {% if section.fireproof_types %}
-                                        {% show_block_content section.fireproof_types %}
+                                        <div class="produce__item-option">
+                                            {% show_block_content section.fireproof_types %}
+                                        </div>
                                     {% endif %}
                                 </div>
                                 <div class="produce__item-info__bottom">
                                     <div class="produce__item-price">
-                                        от <span>{{ section.get_min_price }}</span> руб
+                                        от <span>{{ section.get_card_min_price }}</span> руб
                                     </div>
                                     <div class="btn__line produce__item-link">
                                         <div class="btn__line-icon produce__item-link__icon">

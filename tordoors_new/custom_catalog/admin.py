@@ -8,7 +8,6 @@ from tordoors_new.custom_catalog.forms import RootAdminForm, ParameterAdminForm,
     ProductImageForm, ProductAdminForm, SectionAdminForm, CategoryAdminForm, DocAdminForm, FacingPrintAdminForm, \
     FacingColorAdminForm
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
-from django.urls import reverse
 
 
 class CustomCatalogItemBaseAdmin(CatalogItemBaseAdmin):
@@ -36,7 +35,9 @@ class ParameterInline(admin.TabularInline):
     model = Parameter
     form = ParameterAdminForm
     ordering = ['property__order_key']
+    classes = ['collapse']
 
+    # Убрать возможность добавлять инлайн параметра вручную
     def has_add_permission(self, request):
         return False
 
@@ -49,7 +50,9 @@ class AddParameterInline(admin.TabularInline):
     model = AddParameter
     form = AddParameterAdminForm
     ordering = ['property__order_key']
+    classes = ['collapse']
 
+    # Убрать возможность добавлять инлайн доп. параметра вручную
     def has_add_permission(self, request):
         return False
 
@@ -65,6 +68,8 @@ class ProductImageInlines(SortableInlineAdminMixin, admin.TabularInline):
     form = ProductImageForm
     extra = settings.ATTACHMENT_EXTRA_IMAGES
     fields = ['order_key', 'image', 'side', 'color', 'print']
+
+    classes = ['collapse']
 
 
 class SectionImageInlines(admin.TabularInline):
@@ -89,8 +94,13 @@ class ProductAdmin(CustomCatalogItemBaseAdmin):
     ]
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title", 'long_title')
-    list_display = ['title', 'item_type', 'price', 'show']
+    list_display = ['title', 'get_vendor_code', 'item_type', 'price', 'show',]
     list_editable = ['item_type',]
+
+    def get_vendor_code(self, obj):
+        return obj.get_vendor_code()
+
+    get_vendor_code.short_description = 'Артикул'
 
 
 @admin.register(Section)
@@ -157,8 +167,8 @@ admin.site.register(Doc, DocAdmin)
 class PropertyAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Property
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'optional', 'show_on_item_desc')
-    list_editable = ('optional', 'show_on_item_desc')
+    list_display = ('name', 'optional', 'show_on_item_desc', 'show_on_yml')
+    list_editable = ('optional', 'show_on_item_desc', 'show_on_yml')
 
 admin.site.register(Property, PropertyAdmin)
 
@@ -184,8 +194,6 @@ class FacingPrintAdmin(admin.ModelAdmin):
 class FacingColorAdmin(admin.ModelAdmin):
     model = FacingColor
     form = FacingColorAdminForm
-    # list_display = ('name', 'order_key')
-    # list_editable = ('order_key',)
 
 
 admin.site.register(Facing)

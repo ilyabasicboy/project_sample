@@ -69,7 +69,7 @@ $(document).on('submit', '.feedback-form', function(e){
 //Reload form
 function ajaxReset() {
     let form = $('#thank-you');
-    if (form) {
+    if (form.length) {
         let formURL = form.data("url");
         let formKey = form.data('form_key');
             $.ajax({

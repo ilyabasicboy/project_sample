@@ -19,6 +19,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
 	background-color: transparent
 	transition: border 0.7s ease-in-out, color 0.7s ease-in-out
 	font-family: inherit
+	box-shadow: none
+	border-radius: 0
 	@media screen and (max-width: $md-min)
 	    font-size: 20px
 	    line-height: 27px
@@ -175,7 +177,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
 	color: rgba(0, 0, 0, 0.5)
 	font-size: 14px
 	line-height: 19px
-	display: inline-block
+	display: block
 	width: 100%
 	margin-bottom: 4px
 	font-weight: 400
@@ -243,7 +245,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
 		&-white
 			font-size: 18px
 			color: #fff
-			height: 40px
+			height: 42px
 			padding: 0
 			padding-top: 5px
 			padding-bottom: 5px
@@ -444,9 +446,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
 	        overflow: hidden
 	        overflow-y: auto
 	        @media screen and (max-width: $md-min)
-	            max-height: 125px
+	            max-height: 144px
 	        @media screen and (max-width: $xs-max)
-	            max-height: 92px
+	            max-height: 120px
 
 
 .upload

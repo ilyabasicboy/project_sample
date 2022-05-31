@@ -75,8 +75,9 @@
     </section>
     {% endif %}
 
-    {% if object.door_samples %}
-        {% get_page object.door_samples as gallery %}
+    {% get_inherited_field object 'door_samples' as  door_samples %}
+    {% if door_samples %}
+        {% get_page door_samples as gallery %}
         {% get_images for gallery as images %}
         {% if images %}
             <section class="section-default section--grey gallery__slider--margin mfp-gallery">

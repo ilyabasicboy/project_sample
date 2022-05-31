@@ -113,13 +113,13 @@
 
     {% placeholder 'Выбрать примеры дверей' with GallerySelect as gallery_id %}
     {% if gallery_id %}
-    {% get_page gallery_id as gallery %}
-    {% get_images for gallery as images %}
-    {% if images %}
-        <section class="section-default gallery__slider--margin mfp-gallery">
-            {% include 'parts/door_samples.html' %}
-        </section>
-    {% endif %}
+        {% get_page_by_id gallery_id as gallery %}
+        {% get_images for gallery as images %}
+        {% if images %}
+            <section class="section-default gallery__slider--margin mfp-gallery">
+                {% include 'parts/door_samples.html' %}
+            </section>
+        {% endif %}
     {% endif %}
 
     {% placeholder bottom_content with TinyMCE label 'Контент внизу страницы' as bottom_content %}

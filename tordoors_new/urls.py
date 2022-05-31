@@ -7,6 +7,7 @@ from django.contrib import admin
 from pages import views as pages_views
 from filebrowser.sites import site
 from django.views.generic import TemplateView
+from tordoors_new.custom_catalog.xml import yml_export
 
 
 urlpatterns = [
@@ -16,6 +17,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^feedback/', include('feedback.urls')),
+    url(r'^products.yml$', yml_export),
     url(r'^custom_feedback/', include('tordoors_new.custom_feedback.urls')),
     url(r'^sitemap/$', TemplateView.as_view(template_name='sitemap.html')),
     url(r'^news/', include('tordoors_new.custom_news.urls')),

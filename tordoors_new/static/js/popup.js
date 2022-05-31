@@ -92,7 +92,7 @@ $(function () {
     });
 
     //Video Modal
-    $('.video-custom').each(function() {
+    $('.modal-video').each(function() {
         $(this).magnificPopup({
             type: 'iframe',
             removalDelay: 500,

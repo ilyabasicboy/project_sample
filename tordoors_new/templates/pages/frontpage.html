@@ -24,7 +24,7 @@
         </div>
         <div class="intro__container">
             <div class="intro__content {% if not image_groups|key:'main' %}intro__content--full{% endif %}">
-                <h1 class="intro__title">
+                <h1 class="intro__title {% if image_groups|key:'main' %}intro__title--break{% endif %}">
                     {% placeholder main_title label 'Заголовок' %}
                 </h1>
                 <p class="intro__text">
@@ -41,12 +41,6 @@
                             WhatsApp-консультация
                         </span>
                         <img class="intro__qr-code" src="{% static 'img/qr.png' %}" alt="WhatsApp-консультация" title="WhatsApp-консультация">
-                        <span class="intro__qr-icon">
-                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64C49.6731 64 64 49.6731 64 32Z" fill="#56CF83"/>
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M32.0796 50.6649H32.0717C28.9051 50.6638 25.7936 49.8522 23.0301 48.3126L13 51L15.6842 40.9857C14.0285 38.0549 13.1572 34.7303 13.1586 31.3243C13.1628 20.669 21.6505 12 32.0794 12C37.1408 12.0022 41.8914 14.0148 45.4636 17.6677C49.0358 21.3205 51.002 26.1759 51 31.3395C50.9958 41.9924 42.5114 50.6605 32.0796 50.6649ZM23.4948 44.814L24.069 45.1621C26.4835 46.6256 29.2513 47.4 32.0732 47.4011H32.0796C40.7473 47.4011 47.8019 40.1953 47.8054 31.3384C47.807 27.0464 46.1728 23.0108 43.2037 19.9747C40.2346 16.9385 36.2862 15.2656 32.0857 15.2641C23.4113 15.2641 16.3566 22.4692 16.3532 31.3254C16.3519 34.3605 17.1834 37.3163 18.7576 39.8737L19.1315 40.4814L17.5428 46.4088L23.4948 44.814ZM41.6116 35.9351C41.4934 35.7336 41.1783 35.6128 40.7056 35.371C40.2328 35.1293 37.9085 33.9613 37.4751 33.8C37.0418 33.6389 36.7265 33.5584 36.4114 34.0417C36.0963 34.525 35.1903 35.6128 34.9145 35.9351C34.6387 36.2572 34.3629 36.2977 33.8903 36.0559C33.4176 35.8142 31.8942 35.3044 30.0884 33.6592C28.683 32.3787 27.7342 30.7975 27.4584 30.3141C27.1827 29.8307 27.429 29.5694 27.6657 29.3286C27.8784 29.1122 28.1385 28.7645 28.3749 28.4826C28.6112 28.2007 28.69 27.9992 28.8476 27.6771C29.0052 27.3547 28.9264 27.0728 28.8082 26.8311C28.69 26.5894 27.7446 24.2126 27.3506 23.2457C26.9668 22.3041 26.5771 22.4316 26.2869 22.4168C26.0115 22.4026 25.696 22.3997 25.3808 22.3997C25.0657 22.3997 24.5535 22.5205 24.1201 23.004C23.6868 23.4874 22.4655 24.6556 22.4655 27.0323C22.4655 29.4091 24.1595 31.7053 24.3959 32.0275C24.6323 32.3499 27.7295 37.2272 32.472 39.3188C33.6 39.8163 34.4805 40.1135 35.1672 40.336C36.2996 40.7036 37.3303 40.6517 38.1448 40.5273C39.0532 40.3887 40.9419 39.3593 41.336 38.2314C41.7297 37.1032 41.7297 36.1364 41.6116 35.9351Z" fill="white"/>
-                            </svg>
-                        </span>
                     </a>
                 {% endif %}
             </div>
@@ -193,7 +187,7 @@
                                         {% for image in images|slice:"1:" %}
                                         <div class="technologies__gallery-item">
                                             <div class="technologies__gallery-img">
-                                                <img src="{{ image.display.url }}" alt="Img" title="Img">
+                                                <img src="{{ image.display.url }}" alt="{{ image.title }}" title="{{ image.title }}">
                                             </div>
                                         </div>
                                         {% endfor %}
@@ -292,23 +286,23 @@
 
                 {% get_logos coop_id as logos %}
                 {% if logos %}
-                <div class="advantages__grid advantages--slider">
-                    {% for logo in logos %}
-                    <div class="advantages__item">
-                        <div class="advantages__item-icon">
-                            <img src="{{ logo.image.url }}" alt="{{ logo.title }}" title="{{ logo.title }}">
+                    <div class="advantages__grid advantages--slider">
+                        {% for logo in logos %}
+                        <div class="advantages__item">
+                            <div class="advantages__item-icon">
+                                <img src="{{ logo.image.url }}" alt="{{ logo.title }}" title="{{ logo.title }}">
+                            </div>
+                            <div class="advantages__item-content">
+                                <span class="advantages__item-title">
+                                    {{ logo.title|safe }}
+                                </span>
+                                <p class="advantages__item-text">
+                                    {{ logo.description }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="advantages__item-content">
-                            <span class="advantages__item-title">
-                                {{ logo.title|safe }}
-                            </span>
-                            <p class="advantages__item-text">
-                                {{ logo.description }}
-                            </p>
-                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
                 {% endif %}
             </div>
         </section>
@@ -335,29 +329,29 @@
                     {% endif %}
                     {% placeholder about_link label 'Ссылка "Подробнее о нас"' as about_link %}
                     {% if about_link %}
-                    <div class="about__content-link">
-                        <a class="btn__line btn__line--text" href="{% show_block_content about_link %}">
-                            <span class="btn__line-text">
-                                Подробнее о нас
-                            </span>
-                            <div class="btn__line-icon produce__item-link__icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="103px" height="19px" viewBox="0 0 103 19" version="1.1">
-                                    <title>Подробнее о нас</title>
-                                    <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g id="ГЛАВНАЯ-4-Copy" transform="translate(-771.000000, -1432.000000)" fill="#75A600" fill-rule="nonzero">
-                                            <g id="МЫ-ПРОИЗВОДИМ" transform="translate(-271.000000, 700.000000)">
-                                                <g id="Блоки-Каталога" transform="translate(0.000000, 307.000000)">
-                                                    <g id="Блок-Противопожарные-двери" transform="translate(624.000000, 0.000000)">
-                                                        <path id="Line-hover" d="M501.5,425 L520.5,434.5 L501.5,444 L501.5,436 L418.5,436 L418.5,433 L501.5,433 L501.5,425 Z"></path>
+                        <div class="about__content-link">
+                            <a class="btn__line btn__line--text" href="{% show_block_content about_link %}">
+                                <span class="btn__line-text">
+                                    Подробнее о нас
+                                </span>
+                                <div class="btn__line-icon produce__item-link__icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="103px" height="19px" viewBox="0 0 103 19" version="1.1">
+                                        <title>Подробнее о нас</title>
+                                        <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g id="ГЛАВНАЯ-4-Copy" transform="translate(-771.000000, -1432.000000)" fill="#75A600" fill-rule="nonzero">
+                                                <g id="МЫ-ПРОИЗВОДИМ" transform="translate(-271.000000, 700.000000)">
+                                                    <g id="Блоки-Каталога" transform="translate(0.000000, 307.000000)">
+                                                        <g id="Блок-Противопожарные-двери" transform="translate(624.000000, 0.000000)">
+                                                            <path id="Line-hover" d="M501.5,425 L520.5,434.5 L501.5,444 L501.5,436 L418.5,436 L418.5,433 L501.5,433 L501.5,425 Z"></path>
+                                                        </g>
                                                     </g>
                                                 </g>
                                             </g>
                                         </g>
-                                    </g>
-                                </svg>
-                            </div>
-                        </a>
-                    </div>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
                     {% endif %}
                 </div>
                 <div class="about__info about__item-6 about__item-xs-12">
@@ -372,20 +366,20 @@
                     {% placeholder video_link label 'id видео после https://vimeo.com/' as video_link %}
                     {% placeholder video_link_description label 'Название ссылки на видео' as video_link_description %}
                     {% if video_link %}
-                    <div class="about__info-video {% if not image_groups|key:'video' %}about__info-video--noimg{% endif %}">
+                    <a class="about__info-video modal-video {% if not image_groups|key:'video' %}about__info-video--noimg{% endif %}" href="https://vimeo.com/{{ video_link }}">
                         <div class="about__video-container">
-                            <a class="video-custom modal-video" href="https://vimeo.com/{{ video_link }}" data-bg-video="{{ video_link }}">
+                            <div class="video-custom" data-bg-video="{{ video_link }}">
                                 <div class="video-custom__play">
                                     <img src="{% static 'img/svg/video-play.svg' %}" alt="Открыть видео" title="Открыть видео">
                                 </div>
-                            </a>
+                            </div>
                         </div>
                         {% if video_link_description %}
                         <div class="about__info-text">
                             {% show_block_content video_link_description %}
                         </div>
                         {% endif %}
-                    </div>
+                    </a>
                     {% endif %}
                 </div>
             </div>

@@ -2,7 +2,6 @@
 {% load static treemenus_tags pages_tags base_tags feedback_tags custom_catalog_tags attachment_tags %}
 
 {% block header-options %}header--static-xs{% endblock %}
-{% block page-options %}page--overflow{% endblock %}
 {% block left_menu %}{% endblock %}
 
 {% block title_section %}
@@ -12,8 +11,9 @@
             <div class="title title--nodots title--full">
                 <span class="title--full-text">
                     {% block content_title %}
-                        {% if object.get_item_type.fire_resistance.name %}
-                            {{ object.get_item_type.fire_resistance.name }}
+                        {% get_inherited_field object 'item_type' as item_type %}
+                        {% if item_type.fire_resistance.name %}
+                            {{ item_type.fire_resistance.name }}
                         {% endif %}
                     {% endblock %}
                 </span>
@@ -32,21 +32,29 @@
 
 {% block content %}
     {% with side_images=object.images parameters=object.get_parameters add_parameters=object.get_add_parameters %}
+    {% get_inherited_field object 'item_type' as item_type %}
+    {% get_inherited_field object 'show_one_side' as  show_one_side %}
+    {% get_inherited_field object 'show_interior_sample' as  show_interior_sample %}
+    {% get_inherited_field object 'delivery_moscow' as  delivery_moscow %}
+    {% get_inherited_field object 'delivery_russia' as  delivery_russia %}
+    {% get_inherited_field object 'installation' as  installation %}
+    {% get_inherited_field object 'service' as  service %}
+    {% get_inherited_field object 'box_size' as  box_size %}
 
         <div class="container product-sections product-grid">
             <section class="section-default section-default--top product__section product__section-view product-grid-8 product-grid-12--xs">
                 <div class="product__top scroll-custom-x-hidden--xs">
                     {% if side_images %}
                         <div class="product__item product-grid">
-                            {% if object.get_show_one_side != 'inside' %}
+                            {% if show_one_side != 'inside' %}
                                 <div class="product__view product-view-change product-grid-6">
                                     <div class="product__view-dimensions view-dimensions">
-                                        {% if object.get_item_type %}
+                                        {% if item_type %}
                                             <div class="view-dimensions__item view-dimensions__item--top">
-                                                b= {{ object.get_item_type.width|default:'0' }} мм
+                                                b= {{ item_type.width|default:'0' }} мм
                                             </div>
                                             <div class="view-dimensions__item view-dimensions__item--left">
-                                                h= {{ object.get_item_type.height|default:'0' }} мм
+                                                h= {{ item_type.height|default:'0' }} мм
                                             </div>
                                         {% endif %}
                                         <div class="product__view-img mfp-gallery">
@@ -72,7 +80,7 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            {% if object.get_show_one_side != 'outside' %}
+                            {% if show_one_side != 'outside' %}
                                 <div class="product__view product-view-change product-grid-6">
                                     <div class="product__view-img mfp-gallery">
                                         {% for object in side_images %}
@@ -107,16 +115,16 @@
                         <div class="product__sidebar-header">
                             <h1 class="product__sidebar-title">
                                 {{ object.long_title|default:object.title }},
-                                {% if object.get_item_type.fire_resistance %}
-                                    {{ object.get_item_type.fire_resistance }},
+                                {% if item_type.fire_resistance %}
+                                    {{ item_type.fire_resistance }},
                                 {% endif %}
                                 {# Артикул #}
-                                {{ object.get_product_type.0|upper }}{{ object.tree.get.parent.content_object.title.0|lower }}-{{ object.id }}
+                                {{ object.get_vendor_code }}
                             </h1>
 
-                            {% if object.get_item_type.docs.all %}
+                            {% if item_type.docs.all %}
                                 <div class="product__sidebar-info">
-                                    {% for doc in object.get_item_type.docs.all %}
+                                    {% for doc in item_type.docs.all %}
                                     {% if doc.gost_number %}
                                         {{ doc.gost_number }}
                                     {% endif %}
@@ -138,8 +146,8 @@
                                 <ul class="view-color__list product-change-color-list">
                                     {% for object in side_images %}
                                         <li class="view-color__item product-change-color {% if forloop.first %}active{% endif %}" data-product-color="{{ forloop.counter }}" data-product-color-title="{{ object.color.name }}" {% if object.color.color %}style="background: {{ object.color.color }};"{% endif %}>
-                                            {% if object.color.image %}
-                                                <img src="{{ images.color.image.url }}" alt="{{ object.color.name }}">
+                                            {% if object.color.image and not object.color.color %}
+                                                <img src="{{ object.color.image.url }}" alt="{{ object.color.name }}">
                                             {% endif %}
                                         </li>
                                     {% endfor %}
@@ -163,11 +171,11 @@
                                 <li>
                                     Размер коробки:
                                     <span class="product__size">
-                                        {{ object.box_size }} мм
+                                        {{ box_size|default:'950 x 2050' }} мм
                                     </span>
                                 </li>
                                 <li>
-                                    Срок изготовления:
+                                    Изготовление:
                                     <span class="product__term">
                                         {{ object.production_time }} часов
                                     </span>
@@ -271,7 +279,7 @@
                             </li>
                             {% endif %}
 
-                            {% if object.get_delivery_moscow or object.get_delivery_russia or object.get_installation or object.get_service %}
+                            {% if delivery_moscow or delivery_russia or installation or service %}
                             <li class="menu-other__item">
                                 <a class="menu-other__link anchor-link" href="#product-services">
                                     <span>
@@ -281,7 +289,7 @@
                             </li>
                             {% endif %}
 
-                            {% if object.get_item_type.docs %}
+                            {% if item_type.docs %}
                             <li class="menu-other__item">
                                 <a class="menu-other__link anchor-link" href="#product-documents">
                                     <span>
@@ -291,11 +299,22 @@
                             </li>
                             {% endif %}
 
-                            {% if side_images %}
+                            {% if side_images and show_interior_sample %}
                             <li class="menu-other__item">
                                 <a class="menu-other__link anchor-link" href="#product-interior">
                                     <span>
                                         Пример в интерьере
+                                    </span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% get_inherited_field object 'door_samples' as  door_samples %}
+                            {% if door_samples %}
+                            <li class="menu-other__item">
+                                <a class="menu-other__link anchor-link" href="#product-samples">
+                                    <span>
+                                        Фото готовых изделий
                                     </span>
                                 </a>
                             </li>
@@ -306,7 +325,7 @@
                             <li class="menu-other__item">
                                 <a class="menu-other__link anchor-link" href="#product-other">
                                     <span>
-                                        Подобрать другую дверь
+                                        Похожие товары
                                     </span>
                                 </a>
                             </li>
@@ -513,7 +532,7 @@
                 </section>
             {% endif %}
 
-            {% if object.get_delivery_moscow or object.get_delivery_russia or object.get_installation or object.get_service %}
+            {% if delivery_moscow or delivery_russia or installation or service %}
                 <section class="product__section product-grid-8 product-grid-12--xs" id="product-services">
                     <div class="product-services__container">
                     <div class="title-content title-content--top">
@@ -522,7 +541,7 @@
                         </h3>
                     </div>
                         <div class="product-services__list">
-                            {% if object.get_delivery_moscow %}
+                            {% if delivery_moscow %}
                                 <div class="product-services__item">
                                     <a class="product-services__link _slide">
                                         <span class="product-services__count">
@@ -532,12 +551,12 @@
                                     </a>
                                     <div class="product-services__content _slide-target">
                                         <div class="product-services__content-box scroll-custom-y placeholder mfp-gallery">
-                                            {{ object.get_delivery_moscow|safe }}
+                                            {{ delivery_moscow|safe }}
                                         </div>
                                     </div>
                                 </div>
                             {% endif %}
-                            {% if object.get_delivery_russia %}
+                            {% if delivery_russia %}
                                 <div class="product-services__item">
                                     <a class="product-services__link _slide">
                                         <span class="product-services__count">
@@ -547,12 +566,12 @@
                                     </a>
                                     <div class="product-services__content _slide-target">
                                         <div class="product-services__content-box scroll-custom-y placeholder mfp-gallery">
-                                            {{ object.get_delivery_russia|safe }}
+                                            {{ delivery_russia|safe }}
                                         </div>
                                     </div>
                                 </div>
                             {% endif %}
-                            {% if object.get_installation %}
+                            {% if installation %}
                                 <div class="product-services__item">
                                     <a class="product-services__link _slide">
                                         <span class="product-services__count">
@@ -562,12 +581,12 @@
                                     </a>
                                     <div class="product-services__content _slide-target">
                                         <div class="product-services__content-box scroll-custom-y placeholder mfp-gallery">
-                                            {{ object.get_installation|safe }}
+                                            {{ installation|safe }}
                                         </div>
                                     </div>
                                 </div>
                             {% endif %}
-                            {% if object.get_service %}
+                            {% if service %}
                                 <div class="product-services__item">
                                     <a class="product-services__link _slide">
                                         <span class="product-services__count">
@@ -577,7 +596,7 @@
                                     </a>
                                     <div class="product-services__content _slide-target">
                                         <div class="product-services__content-box scroll-custom-y placeholder mfp-gallery">
-                                            {{ object.get_service|safe }}
+                                            {{ service|safe }}
                                         </div>
                                     </div>
                                 </div>
@@ -587,7 +606,7 @@
                 </section>
             {% endif %}
 
-            {% if object.get_item_type.docs.all %}
+            {% if item_type.docs.all %}
                 <section class="section-default section--overflow section-default--top product__section product-grid-8 product-grid-12--xs" id="product-documents">
                     <div class="title-content">
                         <h3 class="title">
@@ -627,7 +646,7 @@
                         </div>
                     </div>
                     <div class="documents__slider documents--slider slider__shadow slider__shadow--active mfp-gallery">
-                        {% for doc in object.get_item_type.docs.all %}
+                        {% for doc in item_type.docs.all %}
                             {% if doc.images.all %}
                                 {% for image in doc.images.all %}
                                     <div class="documents__slider-item documents__item">
@@ -648,7 +667,7 @@
             {% endif %}
         </div>
 
-        {% if side_images %}
+        {% if side_images and show_interior_sample %}
             <section class="product__interior section--overflow" id="product-interior">
                 <div class="product__interior-bg">
                     <div class="product__interior-item active" data-bg="white">
@@ -693,6 +712,17 @@
                     </div>
                 </div>
             </section>
+        {% endif %}
+
+
+        {% if door_samples %}
+            {% get_page door_samples as gallery %}
+            {% get_images for gallery as images %}
+            {% if images %}
+                <section class="section-default section--grey gallery__slider--margin mfp-gallery" id="product-samples">
+                    {% include 'parts/door_samples.html' %}
+                </section>
+            {% endif %}
         {% endif %}
 
         {% if product_list %}

@@ -126,19 +126,37 @@
 		top: 50%
 		transform: translateY(-50%)
 		z-index: 1
+		@media screen and (max-width: $md-min)
+		    width: 44px
+		    height: 44px
+		    min-height: 44px
+		    min-width: 44px
 		svg
 			width: 80px
 			height: 80px
+			@media screen and (max-width: $md-min)
+			    width: 44px
+			    height: 44px
 			g g[fill="#E0E0E0"]
 				fill: #cbcbcb
+		@media screen and (max-width: $lg-max)
+		    &--hidden-pc
+		        display: none!important
+		@media screen and (max-width: $xs-max)
+		    &--hidden-xs
+		        display: none!important
 
 
 
 	&__fullnav-prev
 		left: -160px
+		@media screen and (max-width: $lg-max)
+		    left: 15px
 
 	&__fullnav-next
 		right: -160px
+		@media screen and (max-width: $lg-max)
+		    right: 15px
 
 	&__count
 		width: 400px
