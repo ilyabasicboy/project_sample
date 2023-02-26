@@ -1,0 +1,19 @@
+.goods
+    display: flex
+    flex-direction: column
+    overflow: hidden
+    position: relative
+    @media screen and (max-width: $sm-max)
+        overflow: initial
+    &__slider
+        margin-right: -20px
+        .slider__pagination
+            transform: translateX(calc(-50% - 20px))!important
+    &__item
+        width: calc(25% - 20px)
+        height: auto
+        margin-right: 20px
+        @media screen and (max-width: $md-max)
+            width: calc(33.3% - 20px)
+        @media screen and (max-width: $xs-max)
+            width: calc(50% - 20px)

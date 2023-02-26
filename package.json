@@ -1,0 +1,49 @@
+{
+  "name": "ei60doors",
+  "version": "1.0.0",
+  "description": "ei60doors",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
+    "filemanager-webpack-plugin": "^2.0.5",
+    "html-critical-webpack-plugin": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.6.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "rename-webpack-plugin": "^2.0.0",
+    "replace-hash-in-file-webpack-plugin": "^1.0.8",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "terser-webpack-plugin": "^1.2.3",
+    "remove-files-webpack-plugin": "^1.1.3",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.5.1",
+    "url-loader": "^1.1.2",
+    "gsap": "^3.9.0",
+    "jquery": "^3.3.1",
+    "jquery.maskedinput": "^1.4.1",
+    "swiper": "^6.7.1"
+  }
+}

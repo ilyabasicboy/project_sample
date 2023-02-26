@@ -1,0 +1,33 @@
+.division
+	@media screen and (max-width: $xs-max)
+	    margin-right: -15px
+	&__grid
+		display: grid
+		grid-template-columns: repeat(12, 1fr)
+		grid-gap: 20px
+		@media screen and (max-width: $xs-max)
+		    max-height: 390px
+		    display: flex
+		    flex-direction: column
+		    flex-wrap: wrap
+		    grid-gap: 0px
+		    overflow: hidden
+		    overflow-x: auto
+		    margin-bottom: -20px
+
+	&__item
+		grid-column: 4 span
+		display: flex
+		position: relative
+		width: 100%
+		height: 310px
+		@media screen and (max-width: $md-max)
+		    height: 240px
+		@media screen and (max-width: $sm-max)
+		    height: 175px
+		@media screen and (max-width: $xs-max)
+		    min-width: 250px
+		    width: 250px
+		    min-height: 175px
+		    padding-right: 20px
+		    margin-bottom: 20px

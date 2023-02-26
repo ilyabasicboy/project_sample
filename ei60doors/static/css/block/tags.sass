@@ -1,0 +1,36 @@
+.tags
+    overflow: hidden
+    @media screen and (max-width: $xs-max)
+        margin-right: -15px
+    &--default
+        margin-bottom: 48px
+        @media screen and (max-width: $sm-max)
+            margin-bottom: 24px
+    &__slider
+        display: flex
+        .swiper-wrapper
+            align-items: flex-start
+    &__item
+        margin-right: 30px
+        width: auto
+        @media screen and (max-width: $sm-max)
+            margin-right: 24px
+        @media screen and (max-width: $xs-max)
+            margin-right: 12px
+            &:last-child
+                margin-right: 24px
+        &:last-child
+            padding-right: 30px
+    &__link
+        color: #666666
+        font-size: 16px
+        line-height: 20px
+        display: block
+        text-decoration: underline
+        white-space: nowrap
+        @media screen and (max-width: $sm-max)
+            font-size: 14px
+        @media screen and (max-width: $xs-max)
+            font-size: 12px
+        &:hover
+            text-decoration: none

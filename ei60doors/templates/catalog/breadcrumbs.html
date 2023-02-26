@@ -1,0 +1,10 @@
+{% for obj in breadcrumbs %}
+    <li class="breadcrumbs__item">
+        <a class="breadcrumbs__content" cursor-class="link-hover" href="{{ obj.get_absolute_url }}">
+            {{ obj.title }}
+        </a>
+        <span class="breadcrumbs__content">
+            /
+        </span>
+    </li>
+{% endfor %}

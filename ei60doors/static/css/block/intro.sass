@@ -1,0 +1,138 @@
+.intro
+	height: 820px
+	width: 100%
+	position: relative
+	background-color: #161A1B
+	@media screen and (max-width: $sm-max)
+	    height: 600px
+	&__slider
+		height: 100%
+		width: 100%
+		&-item
+			width: 100%
+			height: 100%
+			display: flex
+			align-items: center
+			padding-top: calc(180px + 32px)
+			padding-bottom: 60px
+			overflow: hidden
+			@media screen and (max-width: $sm-max)
+			    padding-top: calc(80px + 24px)
+			    padding-bottom: 82px
+			@media screen and (max-width: $xs-max)
+			    padding-top: calc(60px + 32px)
+			&--first .intro__content
+				transition-delay: 0s
+
+		&-bg
+			width: 100%
+			height: 100%
+			background-repeat: no-repeat
+			background-size: cover
+			background-position: center
+			position: absolute
+			left: 0px
+			top: 0px
+			&:before
+				content: ''
+				position: absolute
+				top: 0
+				left: 0
+				width: 100%
+				height: 100%
+				background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%)
+				@media screen and (max-width: $xs-max)
+				    background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%)
+
+	&__content
+		width: 100%
+		max-width: 670px
+		will-change: transform
+		opacity: 0
+		transform: translateY(10px)
+		transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out
+		transition-delay: 1s
+		@media screen and (max-width: $sm-max)
+		    max-width: 540px
+		@media screen and (max-width: $xs-max)
+		    max-width: 280px
+		&-title
+			font-size: 50px
+			line-height: 56px
+			color: #fff
+			font-weight: 600
+			@media screen and (max-width: $sm-max)
+			    font-size: 42px
+			    line-height: 46px
+			@media screen and (max-width: $xs-max)
+			    font-size: 26px
+			    line-height: 32px
+
+		&-subtitle
+			font-size: 32px
+			line-height: 40px
+			color: #fff
+			font-weight: 600
+			margin-top: 24px
+			@media screen and (max-width: $sm-max)
+			    font-size: 30px
+			    line-height: 34px
+			    margin-top: 20px
+			@media screen and (max-width: $xs-max)
+			    font-size: 18px
+			    line-height: 24px
+			    margin-top: 16px
+
+		&-info
+			font-size: 20px
+			line-height: 26px
+			color: #fff
+			font-weight: 400
+			margin-top: 20px
+			@media screen and (max-width: $sm-max)
+			    font-size: 18px
+			    line-height: 24px
+			@media screen and (max-width: $xs-max)
+			    font-size: 16px
+			    line-height: 20px
+			    margin-top: 16px
+
+		&-btn
+			margin-top: 48px
+			@media screen and (max-width: $sm-max)
+			    margin-top: 32px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 24px
+
+
+	&--slider .swiper-slide-active .intro__content, &--slider .swiper-slide-duplicate-active .intro__content
+		opacity: 1
+		transform: translateY(0)
+
+	&__pagination
+		position: absolute
+		bottom: 40px
+		left: 50%
+		transform: translateX(-50%)
+		z-index: 1
+		width: 100%
+		padding: 0 15px
+		max-width: 1280px
+		height: 20px
+		display: flex
+		align-items: center
+		.swiper-pagination-bullet
+			height: 18px
+			width: 18px
+			border-radius: 50%
+			border: 2px solid #fff
+			margin: 0px
+			margin-right: 10px
+			opacity: 1
+			transition: background-color 0.5s ease-in-out
+			background-color: transparent
+			&:hover
+				background-color: #AF1A16
+
+			&-active
+				background-color: #AF1A16

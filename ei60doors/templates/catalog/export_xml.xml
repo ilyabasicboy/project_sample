@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+    <channel>
+        <title>Ei60DOORS</title>
+        <description>Компания «Ei60DOORS» — производитель металлических противопожарных дверей. Изготовление по индивидуальным размерам, доставка и установка «под ключ». Все изделия, выпускаемые на Заводе, проходят проверку качества и соответствия стандартам ГОСТ. Наша продукция сертифицирована и сопровождается необходимым пакетом документов.</description>
+        <link>https://www.ei60doors.ru/</link>
+        {% for item in items %}
+            <item>
+                <g:id>{{ item.id|cut:' ' }}</g:id>
+                <g:title>{% if item.google_prefix %}{{ item.google_prefix }} {{ item.name.0|lower }}{{ item.name|slice:'1:' }}{% else %}{{ item.name }}{% endif %}</g:title>
+                {% if item.description %}
+                <g:description>{{ item.description }}</g:description>
+                {% endif %}
+                <link>{{ item.url}}</link>
+                <ads_redirect>{{ item.url }}?utm_source=google-products</ads_redirect>
+                {% if item.google_images %}
+                    <g:image_link>{{ item.domain }}{{ item.google_images.0.productslider.url }}</g:image_link>
+                    {% for image in item.google_images|slice:'1:' %}
+                        <g:additional_image_link>{{ item.domain }}{{ image.productslider.url }}</g:additional_image_link>
+                    {% endfor %}
+                    {% for image in item.images %}
+                        <g:additional_image_link>{{ item.domain }}{{ image.productslider.url }}</g:additional_image_link>
+                    {% endfor %}
+                {% elif item.images %}
+                    <g:image_link>{{ item.domain }}{{ item.images.0.productslider.url }}</g:image_link>
+                    {% for image in item.images|slice:"1:" %}
+                        <g:additional_image_link>{{ item.domain }}{{ image.productslider.url }}</g:additional_image_link>
+                    {% endfor %}
+                {% endif %}
+                <g:availability>in_stock</g:availability>
+                {% if item.old_price %}
+                <g:sale_price>{{ item.price|cut:" " }} RUB</g:sale_price>
+                <g:price>{{ item.old_price|cut:" " }} RUB</g:price>
+                {% else %}
+                <g:price>{{ item.price|cut:" " }} RUB</g:price>
+                {% endif %}
+                <g:google_product_category>4634</g:google_product_category>
+                <g:brand>Ei60DOORS</g:brand>
+                <g:condition>new</g:condition>
+                <g:custom_label_0>{{ item.section }}</g:custom_label_0>
+            </item>
+        {% endfor %}
+    </channel>
+</rss>

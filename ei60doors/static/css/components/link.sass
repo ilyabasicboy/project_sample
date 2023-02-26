@@ -1,0 +1,74 @@
+.link
+	&-line
+		display: flex
+		align-items: center
+		width: max-content
+		&__text
+			font-size: 14px
+			line-height: 20px
+			color: #000
+			white-space: nowrap
+			transition: color 0.5s ease-in-out
+
+		&__icon
+			margin-left: 10px
+			margin-right: -10px
+			display: flex
+			align-items: center
+			justify-content: flex-end
+			overflow: hidden
+			width: 30px
+			will-change: transform
+			transition: transform 0.5s ease-in-out
+			span
+				width: 50px
+				height: 9px
+				display: flex
+				align-items: center
+				justify-content: flex-end
+				will-change: transform
+				transition: transform 0.3s ease-in-out
+				transform: translateX(-10px)
+				svg path
+					transition: fill 0.5s ease-in-out
+
+		&:hover .link-line__icon
+			transform: translateX(5px)
+			span
+				transform: translateX(0px)
+
+		&--dark .link-line__text
+			color: #000
+
+		&--dark .link-line__icon span svg path
+			fill: #000
+
+		&--dark:hover .link-line__text
+			color: #AF1A16
+
+		&--dark:hover .link-line__icon span svg path
+			fill: #AF1A16
+
+		&--white .link-line__text
+			color: #fff
+
+		&--white .link-line__icon span svg path
+			fill: #fff
+
+		&--white:hover .link-line__text
+			color: #AF1A16
+
+		&--white:hover .link-line__icon span svg path
+			fill: #AF1A16
+
+		&--accent .link-line__text
+			color: #AF1A16
+
+		&--accent .link-line__icon span svg path
+			fill: #AF1A16
+
+		&--accent:hover .link-line__text
+			color: #000
+
+		&--accent:hover .link-line__icon span svg path
+			fill: #000

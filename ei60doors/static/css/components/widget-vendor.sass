@@ -1,0 +1,10 @@
+.multi_button
+    transition: opacity 0.5s ease-in-out
+
+body
+    &.noscroll
+        .multi_button
+            opacity: 0!important
+            pointer-events: none!important
+            > div
+                pointer-events: none!important

@@ -1,0 +1,116 @@
+{% load feedback_tags %}
+<form action="{% url 'ajax_feedback' key=form.get_settings_key %}"
+      method="post" id="id_feedback_form_{{ form.get_settings_key }}"
+      class="form feedback-form {{ form.get_settings_key }}" novalidate>
+
+    {% csrf_token %}
+    {{ form.message_ }}
+    {{ form.flag }}
+
+    <div class="form__grid">
+        <div class="form__item form__grid-12">
+            <label class="input__label {% if form.name.errors %}error{% endif %}">
+                <span class="input__info">
+                    {{ form.name.label }}
+                </span>
+                <div class="input__content input">
+                    {{ form.name }}
+                </div>
+            </label>
+        </div>
+        <div class="form__item form__grid-12">
+            <label class="input__label {% if form.phone.errors %}error{% endif %}">
+                <span class="input__info">
+                    {{ form.phone.label }}
+                </span>
+                <div class="input__content input">
+                    {{ form.phone }}
+                </div>
+            </label>
+        </div>
+        <div class="form__item form__grid-12">
+            <label class="input__label {% if form.message.errors %}error{% endif %}">
+                <span class="input__info">
+                    {{ form.message.label }}
+                </span>
+                <div class="input__content textarea textarea--dheight">
+                    {{ form.message }}
+                </div>
+            </label>
+        </div>
+        <div class="form__item form__grid-12">
+            <div class="upload">
+                <label class="upload__load">
+                    <input class="input-file" type="file" name="metering_call-file" id="id_metering_call-file" data-accept-imgfile>
+                    <div class="upload__btn">
+                        <svg width="23" height="26" viewBox="0 0 23 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.97368 2.5H12.5966C13.0571 2.5 13.4987 2.68236 13.8244 3.00679L21.4914 10.6471C21.817 10.9716 22 11.4116 22 11.8705V22.4038C22 23.8377 20.8336 25 19.3947 25H8.10526C6.66642 25 5.5 23.8377 5.5 22.4038V15.4808" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.5 4V9.92105C14.5 10.7931 15.2069 11.5 16.0789 11.5H22" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 3.64706V12.0294C6.00438 12.3818 5.8741 12.7212 5.63872 12.9704C5.40334 13.2196 5.08285 13.3576 4.75 13.3529C4.125 13.3529 3.5 12.8511 3.5 12.0294V4.08824C3.5 2.40129 4.36302 1 6 1C7.63698 1 8.5 2.36765 8.5 4.05404V11.7057C8.5 14.077 7.05104 16 4.75 16C2.44896 16 1 14.0776 1 11.7057V7.17647" stroke="white" stroke-linecap="round"/>
+                        </svg>
+                        <span>
+                            {{ form.file.label }}
+                        </span>
+                    </div>
+                </label>
+                <span class="upload__info">
+                    <b>{{ form.file.help_text }}</b>
+                    <a class="upload__delete">
+                        <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <title>Удалить файл</title>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.13184 0.217529L13.4455 11.5312L12.0313 12.9455L0.717622 1.63174L2.13184 0.217529Z" fill="#E93D38"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0312 0.217529L0.717542 11.5312L2.13176 12.9455L13.4455 1.63174L12.0312 0.217529Z" fill="#E93D38"/>
+                        </svg>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__switcher">
+        {% include 'parts/figures_captcha.html' %}
+    </div>
+
+    {% if chunks.form_politica.content %}
+        <div class="form__privacy">
+            <div class="default-checkbox {% if form.confirm.errors %}error{% endif %}">
+                <label class="default-checkbox__label">
+                    <input class="default-checkbox__input" type="checkbox" name="metering_call-confirm" required="" id="id_metering_call-confirm" {% if form.confirm.data %}checked{% endif %}>
+                    <div class="default-checkbox__content">
+                        <div class="default-checkbox__fake">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="11px" viewBox="0 0 14 11" version="1.1">
+                                <title>Выбрать</title>
+                                <g id="Desktop-1920-px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="КАРТОЧКА-товара-Однопольная---1" transform="translate(-819.000000, -945.000000)" stroke="#303030" stroke-width="2">
+                                        <g id="Вид-внтури" transform="translate(766.000000, 349.000000)">
+                                            <g id="Отделка-внутри" transform="translate(0.000000, 526.000000)">
+                                                <g id="Рисунок-внутри" transform="translate(0.000000, 28.000000)">
+                                                    <g id="Float" transform="translate(50.000000, 36.000000)">
+                                                        <polyline id="Check" points="4.5 11.5 8 15 16 7"/>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="default-checkbox__text form__privacy-text">
+                            {{ chunks.form_politica.content }}
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="form__info">
+        * — Поля, обязательные для заполнения
+    </div>
+
+    <div class="form__bottom">
+        <button class="btn btn--full btn--white" type="submit">
+            Отправить
+        </button>
+    </div>
+</form>

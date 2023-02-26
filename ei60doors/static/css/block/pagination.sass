@@ -1,0 +1,60 @@
+.pagination
+	display: flex
+	align-items: center
+	width: 100%
+	@media screen and (max-width: $sm-max)
+	    flex-wrap: wrap
+	    justify-content: flex-start
+	    margin-bottom: -16px
+	&--default
+		.pagination
+            margin-top: 48px
+            padding-top: 32px
+            border-top: 1px solid rgba(0, 0, 0, 0.4)
+            @media screen and (max-width: $xs-max)
+                margin-top: 32px
+
+	&-container
+		display: flex
+		align-items: center
+
+	&--left
+		justify-content: flex-start
+
+	&--right
+		justify-content: flex-end
+
+	&--center
+		justify-content: center
+
+	&__link
+		width: 40px
+		height: 40px
+		display: flex
+		align-items: center
+		justify-content: center
+		font-size: 18px
+		line-height: 24px
+		color: #6F6F6F
+		text-decoration: none
+		margin-right: 16px
+		background-color: transparent
+		border: 1px solid transparent
+		border-radius: 3px
+		transition: border 0.7s ease-in-out, color 0.7s ease-in-out
+		@media screen and (max-width: $sm-max)
+		    margin-bottom: 16px
+		@media screen and (max-width: $xs-max)
+		    width: 32px
+		    height: 32px
+		    font-size: 14px
+		    line-height: 16px
+		&:hover
+			color: #000
+
+		&.active
+			color: #000
+			border-color: #D2D2D2
+			&:hover
+				color: #000
+				border-color: #D2D2D2

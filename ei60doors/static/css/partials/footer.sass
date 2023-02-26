@@ -1,0 +1,272 @@
+.footer
+	overflow: hidden
+	display: flex
+	flex-direction: column
+	&__top
+		position: relative
+		height: 650px
+		padding: 74px 0
+		padding-bottom: calc(92.5px + 74px)
+		background-color: #161A1B
+		@media screen and (max-width: $sm-max)
+		    height: 480px
+		    padding: 32px 0
+		    padding-bottom: calc(70px + 32px)
+		@media screen and (max-width: $xs-max)
+		    height: 560px
+		    padding-bottom: calc(128px + 32px)
+		&-content
+			position: relative
+			z-index: 1
+			padding: 48px 40px
+			background-color: #fff
+			display: flex
+			flex-direction: column
+			align-items: center
+			justify-content: center
+			width: 100%
+			@media screen and (max-width: $sm-max)
+			    padding: 32px
+			    max-width: 660px
+			    margin: 0 auto
+			@media screen and (max-width: $xs-max)
+			    padding: 32px 10px
+
+	&__contacts
+	    font-size: 22px
+	    line-height: 28px
+	    color: #000
+	    font-weight: 600
+	    text-align: center
+	    @media screen and (max-width: $sm-max)
+	        font-size: 16px
+	        line-height: 20px
+	    @media screen and (max-width: $xs-max)
+	        font-size: 14px
+	        line-height: 20px
+
+	&__map
+		height: 100%
+		width: 100%
+		position: absolute
+		top: 0px
+		left: 0px
+		iframe
+			width: 100% !important
+			height: 100% !important
+
+	&__middle
+		height: 185px
+		margin-top: -92.5px
+		margin-bottom: -92.5px
+		position: relative
+		z-index: 1
+		@media screen and (max-width: $sm-max)
+		    height: 140px
+		    margin-top: -70px
+		    margin-bottom: -70px
+		@media screen and (max-width: $xs-max)
+		    height: 256px
+		    margin-top: -128px
+		    margin-bottom: -128px
+		.container
+			height: 100%
+
+	&__banner
+		width: 100%
+		height: 100%
+		display: flex
+		align-items: center
+		padding: 40px 48px
+		background-color: #AF1A16
+		@media screen and (max-width: $sm-max)
+		    padding: 24px
+		@media screen and (max-width: $xs-max)
+		    padding: 32px 24px
+		    flex-direction: column
+		&-left
+			width: 50%
+			padding-right: 48px
+			text-align: right
+			height: 100%
+			display: flex
+			align-items: center
+			border-right: 4px solid #fff
+			@media screen and (max-width: $sm-max)
+			    padding-right: 30px
+			    width: 45%
+			@media screen and (max-width: $xs-max)
+			    padding-right: 0px
+			    border-right: none
+			    width: 100%
+			    text-align: center
+
+		&-title
+			font-size: 42px
+			line-height: 46px
+			color: #fff
+			font-weight: 600
+			@media screen and (max-width: 1280px)
+			    font-size: 32px
+			    line-height: 36px
+			@media screen and (max-width: $sm-max)
+			    font-size: 22px
+			    line-height: 26px
+
+		&-right
+			width: 50%
+			padding-left: 48px
+			display: flex
+			flex-direction: column
+			align-items: flex-start
+			@media screen and (max-width: $sm-max)
+			    padding-left: 30px
+			    width: 55%
+			@media screen and (max-width: $xs-max)
+			    padding-left: 0px
+			    width: 100%
+			    margin-top: 16px
+			    align-items: center
+
+		&-btn
+		    white-space: nowrap
+		    span
+		        margin-left: 4px
+		    @media screen and (max-width: 1280px)
+		        width: 100%
+		        span
+		            display: none
+
+		&-bottom
+			display: flex
+			align-items: center
+			margin-top: 20px
+			@media screen and (max-width: $sm-max)
+			    margin-top: 16px
+			@media screen and (max-width: $xs-max)
+			    flex-direction: column
+			    justify-content: center
+			    text-align: center
+
+		&-phone
+			font-size: 32px
+			line-height: 36px
+			color: #fff
+			font-weight: 600
+			@media screen and (max-width: 1280px)
+			    font-size: 26px
+			    line-height: 30px
+			@media screen and (max-width: $sm-max)
+			    font-size: 20px
+			    line-height: 24px
+			&:hover
+				text-decoration: underline
+
+		&-link
+			display: inline-block
+			text-decoration: underline
+			font-size: 20px
+			line-height: 26px
+			color: #fff
+			font-weight: 400
+			@media screen and (max-width: 1280px)
+			    font-size: 18px
+			    line-height: 24px
+			&:hover
+				text-decoration: none
+
+		&-phone + &-link
+		    margin-left: 20px
+		    @media screen and (max-width: $sm-max)
+		        margin-left: 12px
+		    @media screen and (max-width: $xs-max)
+		        margin-left: 0px
+		        margin-top: 6px
+
+	&__bottom
+		background-color: #000000
+		padding: 80px 0px
+		padding-top: calc(80px + 92.5px)
+		@media screen and (max-width: $sm-max)
+		    padding-top: calc(80px + 70px)
+		@media screen and (max-width: $xs-max)
+		    padding-top: calc(80px + 128px)
+		&--default
+		    padding-top: 80px
+		.container
+			display: flex
+			flex-direction: column
+			align-items: center
+			justify-content: center
+			text-align: center
+
+	&__copy
+		font-size: 16px
+		line-height: 20px
+		color: #fff
+
+	&__link
+		color: #E93D38
+		font-size: 14px
+		line-height: 20px
+		margin-top: 8px
+		display: inline-block
+		&:hover
+			text-decoration: underline
+
+	&__text
+		color: rgba(255, 255, 255, 0.6)
+		font-size: 14px
+		line-height: 20px
+		margin-top: 8px
+
+	&__phone
+		font-size: 30px
+		line-height: 36px
+		color: #fff
+		font-weight: 600
+		display: inline-block
+		margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    font-size: 26px
+		    line-height: 30px
+		    margin-top: 20px
+		&:hover
+			text-decoration: underline
+
+	&__address
+		display: inline-block
+		margin-top: 20px
+		font-size: 14px
+		line-height: 20px
+		color: #fff
+
+	&__email
+		display: flex
+		align-items: center
+		margin-top: 20px
+		font-size: 14px
+		line-height: 20px
+		color: #fff
+		font-weight: 600
+		text-decoration: underline
+		&:hover
+			text-decoration: none
+
+		svg
+			margin-right: 6px
+
+	&__social
+		margin-top: 32px
+
+	&__developer
+	    margin-top: 32px
+	    display: flex
+	    align-items: center
+	    font-size: 14px
+	    line-height: 20px
+	    color: rgba(255, 255, 255, 0.6)
+	    svg
+	        margin-right: 6px
+	    a
+	        color: #fff

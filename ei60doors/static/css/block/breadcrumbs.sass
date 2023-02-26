@@ -1,0 +1,25 @@
+.section-breadcrumbs
+	margin-top: 48px
+	margin-bottom: 48px
+	position: relative
+	@media screen and (max-width: $sm-max)
+	    margin-top: 24px
+	    margin-bottom: 24px
+
+.breadcrumbs
+	&__item
+		display: inline-block
+		a
+		    text-decoration: underline
+		    &:hover
+		        text-decoration: none
+
+	&__content
+		font-size: 14px
+		color: #888
+		line-height: 20px
+		font-weight: 400
+		margin-right: 4px
+		@media screen and (max-width: $xs-max)
+		    font-size: 13px
+		    line-height: 18px

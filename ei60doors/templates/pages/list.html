@@ -1,0 +1,27 @@
+{% extends 'pages/base.html' %}
+{% load pages_tags custom_pages_tags pagination_tags attachment_tags base_tags %}
+
+{% block content %}
+    {% placeholder top_content with TinyMCE label 'Контент сверху' as top_content %}
+    {% if top_content %}
+        <section class="section-default section-default--top content-anim content-anim--opacity">
+            <div class="container">
+                <div class="placeholder mfp-gallery">
+                    {{ top_content|safe }}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% with children=current_page.get_children_for_frontend %}
+        {% if children %}
+            <section class="section-default section-default--top content-anim content-anim--opacity">
+                <div class="container">
+                    <div class="grid">
+                        {% include 'pages/parts/card_list.html' %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

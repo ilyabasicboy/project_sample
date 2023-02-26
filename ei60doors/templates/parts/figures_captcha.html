@@ -1,0 +1,23 @@
+<div class="switcher {% if form.flag.errors %}error{% endif %}">
+    <div class="switcher__title">Выберите правильный ответ, если вы не робот:*</div>
+
+    <div class="switcher__wrapper">
+        <div class="switcher__subtitle">
+            4+3=
+        </div>
+        <div class="switcher__list">
+            <span class="switcher__item switch fake3{% if form.flag.data == 'fake3' %} active{% endif %}" cursor-class="link-hover">
+                4
+            </span>
+            <span class="switcher__item switch fake1{% if form.flag.data == 'fake1' %} active{% endif %}" cursor-class="link-hover">
+                8
+            </span>
+            <span class="switcher__item switch fake2{% if form.flag.data == 'fake2' %} active{% endif %}" cursor-class="link-hover">
+                5
+            </span>
+            <span class="switcher__item switch on{% if form.flag.data == 'on' %} active{% endif %}" cursor-class="link-hover">
+                7
+            </span>
+        </div>
+    </div>
+</div>

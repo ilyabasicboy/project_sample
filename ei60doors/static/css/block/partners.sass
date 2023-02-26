@@ -1,0 +1,24 @@
+.partners
+	overflow: hidden
+	margin-top: 40px
+	&__item
+		height: 52px
+		width: auto
+		margin-right: 40px
+		display: flex
+		align-items: center
+		justify-content: center
+		@media screen and (max-width: $xs-max)
+		    height: 38px
+		    margin-right: 32px
+		img
+			height: auto
+			max-height: 100%
+			object-fit: contain
+			-webkit-filter: grayscale(1)
+			filter: grayscale(1)
+			transition: filter 0.5s ease-in-out
+
+		&:hover img
+			-webkit-filter: grayscale(0)
+			filter: grayscale(0)

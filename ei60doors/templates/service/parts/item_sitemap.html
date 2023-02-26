@@ -1,0 +1,17 @@
+<li class="sitemap__item">
+    <div class="sitemap__item-link">
+        {% if obj.children %}
+            <span class="sitemap__item-icon"></span>
+        {% endif %}
+        <a cursor-class="link-hover" href="{{ obj.get_absolute_url }}">
+            {{ obj.title }}
+        </a>
+    </div>
+    {% if obj.children %}
+        <ul class="sitemap__submenu">
+            {% for child in obj.children %}
+                {% include 'service/parts/item_sitemap.html' with obj=child %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

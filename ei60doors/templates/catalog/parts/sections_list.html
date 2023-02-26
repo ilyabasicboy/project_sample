@@ -1,0 +1,17 @@
+{% load custom_catalog_tags %}
+{% get_sorted_categories_and_sections as sections %}
+{% if sections %}
+    <div class="tags tags--default scroll-custom-x-shadow">
+        <div class="tags__slider tags--slider swiper-container">
+            <div class="swiper-wrapper">
+                {% for section in sections %}
+                    <div class="tags__item swiper-slide">
+                        <a class="tags__link" cursor-class="link-hover" href="{{ section.get_absolute_url }}">
+                            #{{ section.title }}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}

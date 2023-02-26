@@ -1,0 +1,189 @@
+*, :after, :before
+	box-sizing: border-box
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+
+html
+    height: 100%
+
+body
+	font-family: 'Ubuntu_', sans-serif
+	font-weight: 400
+	line-height: 1.5
+	font-size: 14px
+	overflow-x: hidden
+	min-height: 100%
+	display: flex
+	flex-direction: column
+	@media screen and (max-width: $xs-max)
+	    min-width: 360px
+	&.fix-anim *
+		transition: none
+
+
+h1, h2, h3, h4, h5, h6
+	font-weight: 600
+
+button
+	font-family: inherit
+	padding: 0px
+	border: none
+	background-color: transparent
+	box-shadow: none
+
+a
+	text-decoration: none
+	outline: none
+	&:focus
+		outline: none
+
+img
+	max-width: 100%
+	height: auto
+
+.container
+	max-width: 1280px
+	width: 100%
+	margin: 0 auto
+	padding: 0 15px
+	position: relative
+	&--nopadding
+	    padding: 0px
+
+.section-default
+	padding: 100px 0
+	@media screen and (max-width: $md-max)
+	    padding: 80px 0
+	@media screen and (max-width: $sm-max)
+	    padding: 60px 0
+	@media screen and (max-width: $xs-max)
+	    padding: 48px 0
+	&-md
+		padding: 80px 0
+		@media screen and (max-width: $sm-max)
+		    padding: 60px 0
+		@media screen and (max-width: $xs-max)
+		    padding: 48px 0
+
+	&-sm
+		padding: 60px 0
+		@media screen and (max-width: $xs-max)
+		    padding: 48px 0px
+
+	&--top
+		padding-top: 0
+
+	&--bottom
+		padding-bottom: 0
+
+	&__bottom
+		display: flex
+		align-items: center
+		justify-content: center
+		margin-top: 40px
+		@media screen and (max-width: $sm-max)
+		    margin-top: 32px
+		@media screen and (max-width: $xs-max)
+		    margin-top: 24px
+		.btn + .btn
+		    margin-left: 20px
+
+.section-default-margin
+	margin: 100px 0
+	@media screen and (max-width: $md-max)
+	    margin: 80px 0
+	@media screen and (max-width: $sm-max)
+	    margin: 60px 0
+	@media screen and (max-width: $xs-max)
+	    margin: 48px 0
+	&-md
+		margin: 80px 0
+		@media screen and (max-width: $sm-max)
+		    margin: 60px 0
+		@media screen and (max-width: $xs-max)
+		    margin: 48px 0
+
+	&-sm
+		margin: 60px 0
+		@media screen and (max-width: $xs-max)
+		    margin: 48px 0
+
+	&--top
+		margin-top: 0
+
+	&--bottom
+		margin-bottom: 0
+
+.section-background
+	background-size: cover
+	background-position: center
+	background-repeat: no-repeat
+
+.section-relative
+	position: relative!important
+
+.section-grey
+	background-color: #F3F3F3
+
+.section-dark
+	background-color: #000
+
+.page
+	overflow: clip
+	overflow-y: clip
+	overflow-x: clip
+	padding-top: 180px
+	@media screen and (max-width: $sm-max)
+	    padding-top: 80px
+	@media screen and (max-width: $xs-max)
+	    padding-top: 60px
+	    overflow: hidden
+	&--nopadding
+	    padding-top: 0px
+
+.noscroll
+	overflow: hidden
+
+.img-anim
+    position: relative
+    overflow: hidden
+    img
+        height: 100%
+        width: 100%
+        object-fit: cover
+        transform-origin: left
+
+.content-anim
+    position: relative
+    overflow: hidden
+    transition: 0.6s ease-in-out!important
+    &--opacity
+        opacity: 0
+        overflow: initial
+        position: initial
+        &.is-inview
+            opacity: 1
+    &--top
+        transform: translate3d(0, -10px, 0)
+        &.is-inview
+            transform: translate3d(0, 0, 0)
+    &--bottom
+        transform: translate3d(0, 10px, 0)
+        overflow: initial
+        opacity: 0
+        &.is-inview
+            transform: translate3d(0, 0, 0)
+            opacity: 1
+    &--zoom
+        transform: translate3d(0, 0, 0) scale(1.1)
+        transition-duration: 5s
+        &.is-inview
+            transform: translate3d(0, 0, 0) scale(1)
+    &--scale
+        opacity: 0
+        transform: translateY(20px) scale(1.2)
+        transition: 1.2s cubic-bezier(0.19,1,0.22,1)
+        &.is-inview
+            opacity: 1
+            transform: translateY(0) scale(1)
+
+

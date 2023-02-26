@@ -1,0 +1,352 @@
+input[type=number]
+	-moz-appearance: textfield
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
+	-webkit-appearance: none
+	margin: 0
+
+.input input
+	color: #fff
+	width: 100%
+	font-size: 16px
+	line-height: 22px
+	font-weight: 400
+	height: 40px
+	padding: 8px 20px
+	border: 1px solid #fff
+	background-color: transparent
+	transition: border 0.7s ease-in-out, color 0.7s ease-in-out
+	font-family: inherit
+	box-shadow: none
+	border-radius: 0
+	@media screen and (max-width: $sm-max)
+	    height: 40px
+	    font-size: 14px
+	    line-height: 20px
+
+	&::-webkit-input-placeholder
+		color: rbga(255, 255, 255, 0.5)
+
+	&:-moz-placeholder
+		color: rbga(255, 255, 255, 0.5)
+		opacity: 1
+
+	&::-moz-placeholder
+		color: rbga(255, 255, 255, 0.5)
+		opacity: 1
+
+	&:-ms-input-placeholder
+		color: rbga(255, 255, 255, 0.5)
+
+	&::-ms-input-placeholder
+		color: rbga(255, 255, 255, 0.5)
+
+	&::placeholder
+		color: rbga(255, 255, 255, 0.5)
+
+.input-file
+    display: none
+
+.textarea textarea
+	color: #fff
+	width: 100%
+	font-size: 16px
+	line-height: 22px
+	font-weight: 400
+	height: 40px
+	padding: 8px 20px
+	border: 1px solid #fff
+	background-color: transparent
+	transition: border 0.7s ease-in-out, color 0.7s ease-in-out
+	font-family: inherit
+	resize: none
+	@media screen and (max-width: $sm-max)
+	    height: 40px
+	    font-size: 14px
+	    line-height: 20px
+
+	&::-webkit-input-placeholder
+		color: rbga(255, 255, 255, 0.5)
+
+	&:-moz-placeholder
+		color: rbga(255, 255, 255, 0.5)
+		opacity: 1
+
+	&::-moz-placeholder
+		color: rbga(255, 255, 255, 0.5)
+		opacity: 1
+
+	&:-ms-input-placeholder
+		color: rbga(255, 255, 255, 0.5)
+
+	&::-ms-input-placeholder
+		color: rbga(255, 255, 255, 0.5)
+
+	&::placeholder
+		color: rbga(255, 255, 255, 0.5)
+
+.textarea--dheight textarea
+    height: 90px
+    @media screen and (max-width: $sm-max)
+        height: 90px
+
+.input__label
+	width: 100%
+	&.error
+	    input
+	        border-color: #E93D38
+	        &::-webkit-input-placeholder
+	            color: #E93D38
+	        &:-moz-placeholder
+	            color: #E93D38
+	        &::-moz-placeholder
+	            color: #E93D38
+	        &:-ms-input-placeholder
+	            color: #E93D38
+	        &::-ms-input-placeholder
+	            color: #E93D38
+	        &::placeholder
+	            color: #E93D38
+	    textarea
+	        border-color: #E93D38
+	        &::-webkit-input-placeholder
+	            color: #E93D38
+	        &:-moz-placeholder
+	            color: #E93D38
+	        &::-moz-placeholder
+	            color: #E93D38
+	        &:-ms-input-placeholder
+	            color: #E93D38
+	        &::-ms-input-placeholder
+	            color: #E93D38
+	        &::placeholder
+	            color: #E93D38
+	    .input__info
+	        color: #E93D38
+
+.input__content
+	width: 100%
+	display: flex
+
+.input__info
+	color: #fff
+	font-size: 16px
+	line-height: 20px
+	display: flex
+	align-items: center
+	width: 100%
+	font-weight: 400
+	white-space: nowrap
+	text-overflow: ellipsis
+	overflow: hidden
+	padding-bottom: 20px
+	transition: color 0.7s ease-in-out
+	@media screen and (max-width: $sm-max)
+	    padding-bottom: 12px
+	    font-size: 15px
+	@media screen and (max-width: $xs-max)
+	    font-size: 14px
+	    padding-bottom: 10px
+
+.upload
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    position: relative
+    @media screen and (max-width: $xs-max)
+        flex-direction: column
+    &__load
+        transition: opacity ease-in-out 0.7s
+        @media screen and (max-width: $xs-max)
+            width: 100%
+        &.hidden
+            opacity: 0.5
+            pointer-events: none
+    &__btn
+        color: #EFE5E5
+        font-size: 16px
+        line-height: 22px
+        font-weight: 600
+        padding: 10px 36px
+        background-color: rgba(255, 255, 255, 0.3)
+        transition: background-color ease-in-out 0.7s
+        border: 1px solid #FFFFFF
+        width: 295px
+        height: 40px
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-right: 20px
+        cursor: pointer
+        overflow: hidden
+        position: relative
+        @media screen and (max-width: $sm-max)
+            font-size: 15px
+            line-height: 21px
+        @media screen and (max-width: $xs-max)
+            width: 100%
+            font-size: 14px
+            line-height: 20px
+            margin-right: 0px
+            margin-bottom: 12px
+        svg
+            margin-right: 5px
+            min-width: 23px
+            width: 23px
+            height: auto
+            object-fit: contain
+            @media screen and (max-width: $xs-max)
+                width: 20px
+        span
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            position: relative
+        &:hover
+            background-color: transparent
+
+    &__delete
+        display: none
+        cursor: pointer
+        width: 14px
+        height: 14px
+        position: absolute
+        right: 0
+        top: 0px
+        &.active
+            display: block
+
+    &__info
+        font-size: 16px
+        line-height: 20px
+        color: rgba(255, 255, 255, 0.5)
+        position: relative
+        display: inline-block
+        @media screen and (max-width: $sm-max)
+            font-size: 15px
+        @media screen and (max-width: $xs-max)
+            font-size: 12px
+            line-height: 14px
+        &.error
+            color: #E93D38
+            padding-right: 18px
+
+.default-checkbox
+	display: flex
+	width: 100%
+	&__label
+		display: flex
+		width: 100%
+		cursor: pointer
+
+	&__input
+		display: none
+
+	&__content
+		display: flex
+		align-items: flex-start
+
+	&__fake
+		width: 20px
+		height: 20px
+		min-height: 20px
+		min-width: 20px
+		display: flex
+		align-items: center
+		justify-content: center
+		border: solid 1px #000
+		margin-right: 10px
+		background-color: #fff
+		transition: border 0.5s ease-in-out
+		svg
+			width: 14px
+			height: 11px
+			object-fit: contain
+			height: auto
+			opacity: 0
+			transition: opacity 0.3s ease-in-out
+
+	.default-checkbox__input:checked + .default-checkbox__content .default-checkbox__fake svg
+		opacity: 1
+
+	&__text
+	    transition: color 0.5s ease-in-out
+
+	&.error
+	    .default-checkbox__text
+	        color: #E93D38
+	        a
+	            color: #E93D38
+	    .default-checkbox__fake
+	        border-color: #E93D38
+
+.select select
+    color: #50626F
+    font-size: 14px
+    line-height: 20px
+    font-weight: 400
+    height: 36px
+    border: none
+    border: 1px solid #E4E9EF
+    border-radius: 3px
+    background-color: #fff
+    cursor: pointer
+    width: 100%
+    padding: 4px 10px
+    padding-right: 24px
+    font-family: inherit
+    box-shadow: none
+    -moz-appearance: none
+    appearance: none
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    background-image: url('../img/select-arrow.svg')
+    background-repeat: no-repeat
+    background-position-x: calc(100% - 12px)
+    background-position-y: 50%
+    transition: border .7s ease-in-out, color .7s ease-in-out, opacity .7s ease-in-out
+    &:disabled
+        opacity: 0.4
+    &:active
+        border-color: #af1a16
+
+.scroll-custom-y
+	padding-right: 10px
+	overflow: hidden
+	overflow-y: auto
+	scrollbar-color: #EFE5E5 #fff
+	scrollbar-width: thin
+	&::-webkit-scrollbar
+		width: 3px
+		border-radius: 2px
+		&-track
+			background-color: #fff
+			border-radius: 2px
+
+		&-thumb
+			background-color: #EFE5E5
+			border-radius: 2px
+
+@media screen and (max-width: $xs-max)
+    .scroll-custom-x-hidden--xs
+        overflow: hidden
+        overflow-x: auto
+        scrollbar-color: transparent transparent
+        scrollbar-width: none
+        &::-webkit-scrollbar
+            display: none
+
+.scroll-custom-x-shadow
+    position: relative
+    &:before
+        content: ''
+        position: absolute
+        top: 0
+        right: -1px
+        height: 100%
+        width: 24px
+        background: linear-gradient(270deg, #FFFFFF 0%, rgba(255,255,255,0) 100%)
+        z-index: 3
+        pointer-events: none

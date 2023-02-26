@@ -1,0 +1,36 @@
+{% load attachment_tags %}
+<div class="facing">
+    <div class="facing__list">
+        {% for finish in finish_list %}
+            {% get_images for finish as images %}
+            {% if images %}
+                <div class="facing__item">
+                    <div class="facing__title">
+                        {{ finish.title }}
+                    </div>
+                    <div class="facing__slider mfp-gallery" cursor-class="slider-hover">
+                        <div class="facing--slider swiper-container">
+                            <div class="swiper-wrapper">
+                                {% for image in images %}
+                                    <div class="facing__slide swiper-slide">
+                                        <a class="facing-mincard" href="{{ image.watermarkpicture.url }}">
+                                            <div class="facing-mincard__img">
+                                                <img src="{{ image.facingmin.url }}" alt="{{ image.title|default:finish.title }}" title="{{ image.title|default:finish.title }}">
+                                            </div>
+                                            {% if image.title %}
+                                                <span class="facing-mincard__title">
+                                                    {{ image.title }}
+                                                </span>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-scrollbar slider__scrollbar"></div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

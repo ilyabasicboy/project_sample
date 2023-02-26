@@ -1,0 +1,34 @@
+{% extends 'catalog/base.html' %}
+{% load base_tags custom_catalog_tags pages_tags feedback_tags %}
+
+{% block content %}
+    <section class="section-default section-default--top content-anim content-anim--opacity">
+        <div class="container">
+            {% with product_list=object.get_products %}
+                {% include 'catalog/parts/sections_list.html' %}
+
+                <div class="catalog__panel">
+                    {% include 'catalog/parts/filter_form.html' %}
+                </div>
+
+                <div class="catalog__grid product_list_ajax ajax-update">
+                    {% include 'catalog/parts/product_list.html' %}
+                </div>
+            {% endwith %}
+        </div>
+    </section>
+
+    <div class="modal mfp-hide mfp-anim" id="consult-modal">
+        <div class="modal__body">
+            <div class="modal__header">
+                <div class="modal__title">
+                    Получить консультацию
+                </div>
+            </div>
+
+            <!--noindex-->
+                {% show_feedback 'consult' %}
+            <!--/noindex-->
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,69 @@
+.switcher
+    display: flex
+    align-items: center
+    width: 100%
+    @media screen and (max-width: $xs-max)
+        flex-direction: column
+        align-items: flex-start
+    &__title
+        line-height: 20px
+        font-size: 16px
+        color: #EFE5E5
+        font-weight: 400
+        margin-right: 10px
+        transition: color 0.5s ease-in-out
+        @media screen and (max-width: $sm-max)
+            font-size: 15px
+        @media screen and (max-width: $xs-max)
+            margin-right: 0px
+            margin-bottom: 10px
+    &__subtitle
+        line-height: 34px
+        font-size: 28px
+        color: #fff
+        font-weight: 600
+        margin-right: 12px
+        transition: color 0.5s ease-in-out
+        @media screen and (max-width: $sm-max)
+            font-size: 24px
+            line-height: 28px
+            margin-right: 10px
+    &__wrapper
+        display: flex
+        align-items: center
+    &__list
+        display: flex
+        align-items: center
+    &__item
+        width: 28px
+        height: 28px
+        min-width: 28px
+        min-height: 28px
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        position: relative
+        opacity: 0.5
+        border: 1px solid #fff
+        color: #fff
+        font-size: 24px
+        line-height: 28px
+        font-weight: 600
+        transition: opacity 0.5s ease-in-out, border 0.5s ease-in-out, color 0.5s ease-in-out
+        &:hover
+            opacity: 1
+        &.active
+            opacity: 1
+    &__item + &__item
+        margin-left: 12px
+        @media screen and (max-width: $sm-max)
+            margin-left: 10px
+    &.error
+        .switcher__title
+            color: #E93D38
+        .switcher__subtitle
+            color: #E93D38
+        .switcher__item
+            color: #E93D38
+            border-color: #E93D38

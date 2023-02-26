@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{% load tz %}
+<yml_catalog date="{{ time|timezone:'Europe/Moscow'|date:'Y-m-d\TH:i' }}">
+    <shop>
+        <name>EI60DOORS</name>
+        <company>EI60DOORS</company>
+        <url>https://www.ei60doors.ru/</url>
+        <currencies>
+        <currency id="RUR" rate="1"/>
+        </currencies>
+        <categories>
+            {% for category in categories %}
+                <category id="{{ category.id }}">{{ category.long_title|default:category.title }}</category>
+            {% endfor %}
+        </categories>
+        <offers>
+            {% for item in items %}
+                <offer id="{{ item.id|cut:' ' }}" available="true">
+                    <url>{{ item.url }}</url>
+                    {% for picture in item.pictures %}
+                        <picture>{{ item.domain }}{{ picture.productslider.url }}</picture>
+                    {% endfor %}
+                    <name>{{ item.name }}</name>
+                    <categoryId>{{ item.categoryId }}</categoryId>
+                    {% if item.specs %}
+                    <description><![CDATA[{{ item.specs|safe|stringformat:'s' }}]]></description>
+                    {% else %}
+                    <description>{{ item.description }}</description>
+                    {% endif %}
+                    <price>{{ item.price|cut:" "}}</price>
+                    {% if item.old_price %}
+                    <oldprice>{{ item.old_price|cut:" "}}</oldprice>
+                    {% endif %}
+                    <currencyId>RUR</currencyId>
+                    <delivery>true</delivery>
+                    <vendor>EI60DOORS</vendor>
+                    <country_of_origin>Россия</country_of_origin>
+                    <vendorCode>{{ item.id }}</vendorCode>
+                    {% if item.construction %}
+                    <param name="Конструкция">{{ item.construction }}</param>
+                    {% endif %}{% if item.fireproof %}
+                    <param name="Огнестойкость">{{ item.fireproof }}</param>
+                    {% endif %}{% if item.readiness %}
+                    <param name="Готовность">{{ item.readiness }}</param>
+                    {% endif %}{% if item.delivery %}
+                    <param name="Доставка">{{ item.delivery }}</param>
+                    {% endif %}{% if item.mounting %}
+                    <param name="Монтаж">{{ item.mounting }}</param>
+                    {% endif %}{% if item.habarytes %}
+                    <param name="Габариты">{{ item.habarytes }}</param>
+                    {% endif %}
+                    <manufacturer_warranty>true</manufacturer_warranty>
+                    {% if item.production_time %}
+                        <param name="Срок изготовления:">{{ item.production_time }}</param>
+                    {% endif %}
+                </offer>
+            {% endfor %}
+        </offers>
+    </shop>
+</yml_catalog>

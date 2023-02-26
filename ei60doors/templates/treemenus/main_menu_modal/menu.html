@@ -1,0 +1,87 @@
+{% load treemenus_tags base_tags custom_catalog_tags %}
+<ul class="header__menu">
+    <li class="header__menu-item">
+        <div class="header__menu-content">
+            <a class="header__menu-link" cursor-class="link-hover" href="{% url 'catalog-root' %}">
+                Каталог продукции
+            </a>
+            <div class="header__menu-icon active">
+                <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.5 0L5.25 3.75L9 0L10.5 0.75L5.25 6L0 0.75L1.5 0Z" fill="white"/>
+                </svg>
+            </div>
+        </div>
+
+        {% get_grouped_catalog_items as catalog_items %}
+        {% if catalog_items %}
+            <ul class="header__submenu active">
+                {% for group, items in catalog_items.items %}
+                    <li class="header__submenu-content">
+                        <ul class="header__submenu-list">
+                            <li class="header__submenu-title {% if forloop.first %}active{% endif %}">
+                                {{ group }}
+                                <div class="header__submenu-icon">
+                                    <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.5 0L5.25 3.75L9 0L10.5 0.75L5.25 6L0 0.75L1.5 0Z" fill="white"/>
+                                    </svg>
+                                </div>
+                            </li>
+                            <ul class="header__submenu-children {% if forloop.first %}active{% endif %}">
+                                {% for item in items %}
+                                    {% if item.get_products_count %}
+                                        <li class="header__submenu-item">
+                                            <a class="header__submenu-link {% if item.get_absolute_url in request.path_info %}active{% endif %}" cursor-class="link-hover" href="{{ item.get_absolute_url }}">
+                                                {{ item.title }}
+                                            </a>
+                                            <span class="header__submenu-count">
+                                                ({{ item.get_products_count }})
+                                            </span>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </ul>
+                    </li>
+                {% endfor %}
+                {% get_items_by_model_name 'section' group=None show=True as ungrouped_sections %}
+                {% get_items_by_model_name 'category' group=None show=True as ungrouped_categories %}
+                {% if ungrouped_sections or ungrouped_categories %}
+                    {% for item in ungrouped_sections %}
+                        <li class="header__submenu-content">
+                            {% if item.get_products_count %}
+                                <div class="header__submenu-title">
+                                    <a class="header__submenu-link {% if item.get_absolute_url in request.path_info %}active{% endif %}" cursor-class="link-hover" href="{{ item.get_absolute_url }}">
+                                        {{ item.title }}
+                                    </a>
+                                    <span class="header__submenu-count">
+                                        ({{ item.get_products_count }})
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    {% for item in ungrouped_categories %}
+                        <li class="header__submenu-content">
+                            {% if item.get_products_count %}
+                                <div class="header__submenu-title">
+                                    <a class="header__submenu-link {% if item.get_absolute_url in request.path_info %}active{% endif %}" cursor-class="link-hover" href="{{ item.get_absolute_url }}">
+                                        {{ item.title }}
+                                    </a>
+                                    <span class="header__submenu-count">
+                                        ({{ item.get_products_count }})
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        {% endif %}
+    </li>
+
+    {% for item in menu.root_item.children %}
+        {% if item.show %}
+            {% show_menu_item item %}
+        {% endif %}
+    {% endfor %}
+</ul>

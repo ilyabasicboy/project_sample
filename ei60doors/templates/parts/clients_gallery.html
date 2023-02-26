@@ -1,0 +1,39 @@
+{% load attachment_tags custom_attachment_tags %}
+{% get_images for clients_gallery as images %}
+{% with images=images|role:'галерея' %}
+{% if images %}
+    <div class="title-content">
+        <div class="title-link">
+            <div class="title">
+                Клиенты и партнеры компании
+            </div>
+            <a class="link-line link-line--dark" cursor-class="link-hover" href="{{ clients_gallery.get_absolute_url }}">
+                <span class="link-line__text">
+                    Смотреть все
+                </span>
+                <div class="link-line__icon">
+                    <span>
+                        <svg width="50" height="9" viewBox="0 0 50 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M45.53 0.21934L49.28 3.96934C49.5725 4.26216 49.5725 4.73652 49.28 5.02934L45.53 8.77934C45.343 8.97999 45.0614 9.06259 44.7957 8.99473C44.53 8.92686 44.3225 8.71936 44.2546 8.45363C44.1867 8.1879 44.2693 7.90631 44.47 7.71934L46.94 5.24934H0.75C0.335786 5.24934 0 4.91355 0 4.49934C0 4.08513 0.335786 3.74934 0.75 3.74934H46.94L44.47 1.27934C44.1775 0.986522 44.1775 0.512158 44.47 0.21934C44.7628 -0.0731133 45.2372 -0.0731133 45.53 0.21934Z" fill="black"></path>
+                        </svg>
+                    </span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="partners mfp-gallery">
+        <div class="partners__slider">
+            <div class="partners--slider swiper-container">
+                <div class="swiper-wrapper">
+                    {% for image in images %}
+                        <a class="partners__item swiper-slide" cursor-class="img-hover" href="{{ image.watermarkpicture.url }}">
+                            <img src="{{ image.partners.url }}" alt="{{ image.title|default:clients_gallery.title }}" title="{{ image.title|default:clients_gallery.title }}">
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endwith %}

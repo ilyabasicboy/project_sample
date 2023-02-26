@@ -1,0 +1,80 @@
+{% extends 'pages/base.html' %}
+{% load custom_pages_tags pages_tags custom_attachment_tags treemenus_tags attachment_tags  base_tags %}
+
+{% placeholder description with Textarea label 'Описание в карточке страницы' as description %}
+
+{% block content %}
+    {% get_items_by_model_name 'menu' name='add_menu' as menu %}
+    {% placeholder top_content with TinyMCE label 'Контент сверху' as top_content %}
+    {% if menu or top_content %}
+        <section class="section-default section-default--top content-anim content-anim--opacity">
+            <div class="container placeholder mfp-gallery">
+                {% show_menu 'add_menu' %}
+
+                {{ top_content|safe }}
+            </div>
+        </section>
+    {% endif %}
+
+    {% get_images for current_page as images %}
+    {% with images=images|role:'галерея' %}
+        {% get_image_groups for images as image_groups %}
+        {% if images %}
+            <section class="section-default section-default--top content-anim content-anim--opacity">
+                <div class="container">
+                    <div class="gallery">
+                        <div class="gallery__default">
+                            {% if image_groups %}
+                                {% for group, images in image_groups.items %}
+                                    <div class="gallery__default-item mfp-gallery">
+                                        <div class="h2 title--nomargintop">
+                                            {{ group }}
+                                        </div>
+                                        <div class="gallery__default-slider gallery__default--slider swiper-container">
+                                            <div class="swiper-wrapper">
+                                                {% for image in images %}
+                                                    <div class="gallery__default-slide swiper-slide">
+                                                        <a class="gallery__default-img" cursor-class="img-hover" href="{{ image.watermarkpicture.url }}">
+                                                            <img src="{{ image.gallerydefault.url }}" alt="{{ image.title|default:group }}" title="{{ image.title|default:group }}">
+                                                        </a>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if images|ungrouped %}
+                                <div class="gallery__default-item mfp-gallery">
+                                    <div class="gallery__default-slider gallery__default--slider swiper-container">
+                                        <div class="swiper-wrapper">
+                                            {% for image in images|ungrouped %}
+                                                <div class="gallery__default-slide swiper-slide">
+                                                    <a class="gallery__default-img" cursor-class="img-hover" href="{{ image.watermarkpicture.url }}">
+                                                        <img src="{{ image.gallerydefault.url }}" alt="{{ image.title|default:current_page.title }}" title="{{ image.title|default:current_page.title }}">
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% endwith %}
+
+    {% placeholder bottom_content with TinyMCE label 'Контент снизу' as bottom_content %}
+    {% if bottom_content %}
+        <section class="section-default section-default--top content-anim content-anim--opacity">
+            <div class="container">
+                <div class="placeholder mfp-gallery">
+                    {{ bottom_content|safe }}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,85 @@
+.sitemap
+    &__item
+        display: block
+        + .sitemap__item
+            margin-top: 24px
+            @media screen and (max-width: $xs-max)
+                margin-top: 20px
+
+        &-link
+            color: #000
+            font-size: 20px
+            line-height: 26px
+            font-weight: 400
+            position: relative
+            padding-left: 32px
+            display: block
+            text-transform: uppercase
+            @media screen and (max-width: $xs-max)
+                font-size: 14px
+                line-height: 20px
+                padding-right: 28px
+            a
+                color: #000
+                text-decoration: underline
+                &:hover
+                    text-decoration: none
+            &.active .sitemap__item-icon:before
+                transform: translate(-50%, -50%) rotate(90deg)
+                opacity: 0
+            &.active .sitemap__item-icon:after
+                transform: translate(-50%, -50%) rotate(90deg)
+
+        &-icon
+            position: absolute
+            left: 0
+            top: 4px
+            width: 20px
+            height: 20px
+            cursor: pointer
+            border-radius: 50%
+            border: 2px solid #000
+            @media screen and (max-width: $xs-max)
+                top: 1px
+            &:before
+                content: ''
+                position: absolute
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%)
+                width: 12px
+                height: 2px
+                background-color: #000
+                border-radius: 1px
+                transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out
+            &:after
+                content: ''
+                position: absolute
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%)
+                height: 12px
+                width: 2px
+                background-color: #000
+                border-radius: 1px
+                transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out
+
+    &__submenu
+        display: none
+        padding-left: 32px
+        @media screen and (max-width: $xs-max)
+            padding-left: 28px
+        li:first-child
+            margin-top: 16px
+        .sitemap__item + .sitemap__item
+            margin-top: 16px
+        .sitemap__item-link
+            font-size: 16px
+            text-transform: none
+            line-height: 20px
+            @media screen and (max-width: $xs-max)
+                font-size: 14px
+        .sitemap__item-icon
+            top: 0px
+            @media screen and (max-width: $xs-max)
+                top: 2px

@@ -1,0 +1,33 @@
+.banner
+    background-color: rgba(124, 80, 41, 1)
+    background: linear-gradient(270deg, rgba(43, 141, 166, 1) 0%, rgba(124, 80, 41, 1) 100%)
+    width: 100%
+    padding: 32px
+    display: flex
+    @media screen and (max-width: $sm-max)
+        padding: 24px 16px
+    @media screen and (max-width: $xs-max)
+        padding: 20px 16px
+    &__content
+        width: 100%;
+        display: flex
+        align-items: center
+        justify-content: center
+        text-align: center
+    &__title
+        color: #fff
+        font-size: 42px
+        line-height: 48px
+        font-weight: 600
+        @media screen and (max-width: $md-max)
+            font-size: 38px
+            line-height: 44px
+        @media screen and (max-width: $sm-max)
+            font-size: 32px
+            line-height: 36px
+        @media screen and (max-width: $xs-max)
+            font-size: 16px
+            line-height: 22px
+        span
+            text-transform: uppercase
+            display: block

@@ -1,0 +1,63 @@
+.modal
+    width: calc(100% - 30px)
+    max-width: 920px
+    margin: auto
+    padding: 100px 150px
+    background-color: #000
+    margin-top: 40px
+    margin-bottom: 40px
+    position: relative
+    @media screen and (max-width: $sm-max)
+        padding: 78px 60px
+        max-width: 700px
+    @media screen and (max-width: $xs-max)
+        padding: 45px 15px
+        margin: 0
+        min-height: 100%
+        display: flex
+        flex-direction: column
+        width: 100%
+        max-width: 100%
+        button.mfp-close
+            display: none!important
+    &__header
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        text-align: center
+        margin-bottom: 80px
+        @media screen and (max-width: $sm-max)
+            margin-bottom: 48px
+        @media screen and (max-width: $xs-max)
+            margin-bottom: 32px
+    &__title
+        font-size: 40px
+        line-height: 46px
+        color: #fff
+        font-weight: 600
+        a
+            color: #fff
+            text-decoration: underline
+            &:hover
+                text-decoration: none
+        @media screen and (max-width: $xs-max)
+            font-size: 26px
+            line-height: 31px
+    &__subtitle
+        color: #fff
+        font-size: 16px
+        line-height: 22px
+        margin-top: 20px
+        a
+            color: #fff
+            text-decoration: underline
+            word-break: break-all
+            &:hover
+                text-decoration: none
+        @media screen and (max-width: $xs-max)
+            font-size: 15px
+            line-height: 21px
+            margin-top: 16px
+
+

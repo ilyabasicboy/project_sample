@@ -1,0 +1,43 @@
+<form class="filter__form filter-form" action="{% url 'filter_products' %}" novalidate>
+    <input type="hidden" name="ct" value="{{ object.tree.get.content_type.id }}">
+    <input type="hidden" name="obj" value="{{ object.id }}">
+
+    <div class="filter">
+        <div class="filter__left">
+            <div class="filter__select select" cursor-class="link-hover">
+                <select name="dir" id="id_dir">
+                    <option value="asc" {% if object.sort == 'asc' %}selected{% endif %}>Сначала дешевые</option>
+                    <option value="desc" {% if object.sort == 'desc' %}selected{% endif %}>Сначала дорогие</option>
+                    <option value="new" {% if object.sort == 'new' or not object.sort %}selected{% endif %}>Сначала новинки</option>
+                </select>
+            </div>
+
+            <div class="filter__count products_count">
+                Всего: <span>{{ product_list.count }}</span>
+            </div>
+        </div>
+
+        <div class="filter__right">
+            <button class="filter__btn filter__btn--hidden-lg filter__btn--mobile filter-open" cursor-class="link-hover" type="button">
+                По цене
+            </button>
+            <div class="filter__option">
+                <button class="filter__option-close filter-close" cursor-class="link-hover" type="button">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.9208 1.77817L9.55679 8.14214L15.9208 14.5061L14.5065 15.9203L8.14258 9.55635L1.77862 15.9203L0.364404 14.5061L6.72836 8.14214L0.364404 1.77817L1.77862 0.363961L8.14258 6.72792L14.5065 0.363961L15.9208 1.77817Z" fill="black"/>
+                    </svg>
+                </button>
+                <div class="filter__option-title">
+                    Цена, руб:
+                </div>
+                <div class="filter__option-list">
+                    <input class="filter__option-input filter__option-input--min" id="min_price" name="min_price" type="number" placeholder="от {{ object.get_min_price|default:0 }}" step="500" min="{{ object.get_min_price|default:0 }}" max="{{ object.get_max_price|default:0 }}" value="{{ object.get_min_price|default:0 }}">
+                    <input class="filter__option-input filter__option-input--max" id="max_price" name="max_price" type="number" step="500" placeholder="до {{ object.get_max_price|default:0 }}" min="{{ object.get_min_price|default:0 }}" max="{{ object.get_max_price|default:0 }}" value="{{ object.get_max_price|default:0 }}">
+                </div>
+                <button class="filter__btn filter__option-btn" cursor-class="link-hover" type="submit">
+                    Найти
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

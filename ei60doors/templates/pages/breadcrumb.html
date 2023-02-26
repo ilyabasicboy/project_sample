@@ -1,0 +1,11 @@
+{% load pages_tags %}
+{% for page in pages_navigation %}
+    <li class="breadcrumbs__item">
+        <a class="breadcrumbs__content" cursor-class="link-hover" href="{{ page.get_absolute_url }}">
+            {{ page.title }}
+        </a>
+        <span class="breadcrumbs__content">
+            /
+        </span>
+    </li>
+{% endfor %}

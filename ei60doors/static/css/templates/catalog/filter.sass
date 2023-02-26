@@ -1,0 +1,177 @@
+.filter
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: space-between
+    &__form
+        width: 100%
+        display: flex
+    &__left
+        display: flex
+        align-items: center
+    &__select
+        width: 205px
+        margin-right: 20px
+        @media screen and (max-width: $sm-max)
+            width: 180px
+            margin-right: 12px
+        @media screen and (max-width: $xs-max)
+            width: 150px
+            margin-right: 8px
+            select
+                font-size: 13px
+    &__count
+        color: #50626F
+        font-size: 14px
+        line-height: 20px
+        @media screen and (max-width: $xs-max)
+            font-size: 13px
+            line-height: 15px
+    &__right
+        display: flex
+        align-items: center
+        position: relative
+    &__btn
+        background-color: #F7F7F7
+        border-radius: 3px
+        border: 1px solid #DEDEDE
+        box-shadow: none
+        font-size: 14px
+        line-height: 20px
+        font-weight: 400
+        color: #50626F
+        font-family: inherit
+        text-decoration: none
+        cursor: pointer
+        padding: 4px 24px
+        height: 36px
+        width: max-content
+        display: flex
+        align-items: center
+        justify-content: center
+        text-align: center
+        position: relative
+        transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out
+        @media screen and (max-width: $xs-max)
+            font-size: 13px
+            line-height: 15px
+            &:before
+                content: ''
+                position: absolute
+                top: -4px
+                left: -4px
+                width: 12px
+                height: 12px
+                background-color: #E93D38
+                border-radius: 50%
+                border: 2px solid #fff
+                opacity: 0
+                pointer-events: none
+                transition: opacity 0.5s ease-in-out
+            &.active
+                &:before
+                    opacity: 1
+        &--hidden-lg
+            display: none
+            @media screen and (max-width: $xs-max)
+                display: flex
+        &:hover
+            background-color: #dedede
+    &__option
+        display: flex
+        align-items: center
+        @media screen and (max-width: $xs-max)
+            position: absolute
+            top: 0
+            right: 0
+            width: 330px
+            padding: 44px 20px
+            box-shadow: 0px 2px 10px rgba(0,0,0, 0.1)
+            background-color: #fff
+            border-radius: 4px
+            z-index: 1
+            flex-wrap: wrap
+            pointer-events: none
+            opacity: 0
+            transform: translateY(10px)
+            will-change: transform
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out
+            &.open
+                pointer-events: auto
+                opacity: 1
+                transform: translateY(0px)
+        &-close
+            display: none
+            @media screen and (max-width: $xs-max)
+                display: flex
+                align-items: center
+                justify-content: center
+                width: 20px
+                height: 20px
+                position: absolute
+                top: 10px
+                right: 10px
+        &-title
+            color: #50626F
+            font-size: 14px
+            line-height: 20px
+            display: inline-block
+            margin-right: 8px
+            @media screen and (max-width: $sm-max)
+                margin-right: 6px
+            @media screen and (max-width: $xs-max)
+                width: 100%
+                margin-right: 0px
+                margin-bottom: 10px
+                font-size: 13px
+                line-height: 15px
+        &-list
+            display: flex
+            align-items: center
+        &-input
+            color: #000
+            width: 110px
+            font-size: 14px
+            line-height: 20px
+            font-weight: 400
+            height: 36px
+            padding: 4px 10px
+            border: none
+            border: 1px solid #DEDEDE
+            background-color: #fff
+            transition: border 0.7s ease-in-out, color 0.7s ease-in-out
+            font-family: inherit
+            box-shadow: none
+            border-radius: 3px
+            @media screen and (max-width: $sm-max)
+                width: 90px
+                padding: 4px 9px
+
+            &::-webkit-input-placeholder
+                color: #B5BDC7
+
+            &:-moz-placeholder
+                color: #B5BDC7
+                opacity: 1
+
+            &::-moz-placeholder
+                color: #B5BDC7
+                opacity: 1
+
+            &:-ms-input-placeholder
+                color: #B5BDC7
+
+            &::-ms-input-placeholder
+                color: #B5BDC7
+
+            &::placeholder
+                color: #B5BDC7
+
+            &:focus
+                border-color: #AF1A16
+        &-input + &-input
+            margin-left: 6px
+        &-btn
+            margin-left: 16px
+            @media screen and (max-width: $sm-max)
+                margin-left: 12px

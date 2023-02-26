@@ -1,0 +1,46 @@
+{% load attachment_tags custom_attachment_tags feedback_tags %}
+{% get_images for gallery as images %}
+{% with images=images|role:'галерея' %}
+    {% if images %}
+        <div class="title-content">
+            <div class="title">
+                {{ gallery.title }}
+            </div>
+        </div>
+
+        <div class="gallery">
+            <div class="gallery__grid">
+                <div class="gallery__grid-overflow">
+                    <div class="gallery__grid-list mfp-gallery">
+                        {% for image in images|slice:20 %}
+                            <div class="gallery__grid-item">
+                                <a class="gallery__grid-link" cursor-class="img-hover" href="{{ image.watermarkpicture.url }}">
+                                    <div class="gallery__grid-img">
+                                        <img src="{{ image.gallerygrid.url }}" alt="{{ image.title|default:gallery.title }}" title="{{ image.title|default:gallery.title }}">
+                                    </div>
+                                    <div class="gallery__grid-content">
+                                        <span>
+                                            {{ image.title }}
+                                        </span>
+                                    </div>
+                                </a>
+                                <a class="btn btn--red gallery__grid-btn modal-open" cursor-class="link-hover" onclick="ym(91755778,'reachGoal','click_want_door');" href="#wantsimilar-modal">
+                                    Хочу такую
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="section-default__bottom">
+                    <a class="btn btn--line-red gallery__grid-more" cursor-class="link-hover">
+                        Смотреть ещё
+                    </a>
+                    <a class="btn btn--red" cursor-class="link-hover" href="{{ gallery.get_absolute_url }}">
+                        В галерею
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load base_tags service_tags %}
+
+{% block content_title %}500{% endblock %}
+
+{% block content %}
+    <section class="section-default section-default--top content-anim content-anim--opacity">
+        <div class="container">
+            <div class="page-error">
+                <div class="page-error__title">
+                    Внутренняя ошибка сервера
+                </div>
+
+                <div class="page-error__text">
+                    Пожалуйста, перейдите на <a cursor-class="link-hover" href="/">главную страницу</a> или воспользуйтесь картой сайта ниже, чтобы найти нужную Вам информацию.
+                </div>
+            </div>
+
+            <div class="page-error__sitemap">
+                {% show_block_sitemap %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'pages/base.html' %}
+{% load pages_tags base_tags %}
+
+{% block content %}
+    <section class="section-default section-default--top section-relative content-anim content-anim--opacity">
+        <div class="container">
+            <div class="contacts">
+                <div class="contacts__content">
+                    {% placeholder top_content with TinyMCE label 'Текст сверху' as top_content %}
+                    {% if top_content %}
+                        <div class="contacts__text contacts__text--top placeholder">
+                            {{ top_content|safe }}
+                        </div>
+                    {% endif %}
+
+                    {% if chunks.phone.content %}
+                        <a class="contacts__phone" cursor-class="link-hover" href="tel:{{ chunks.phone.content }}">
+                            {{ chunks.phone.content }}
+                        </a>
+                    {% endif %}
+
+                    {% if chunks.address.content %}
+                        <div class="contacts__address">
+                            <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 0C2.24318 0 5.06167e-05 2.1534 5.06167e-05 4.797C-0.0180231 8.664 4.81001 11.8704 5 12C5 12 10.018 8.664 9.99995 4.8C9.99995 2.1534 7.75682 0 5 0ZM5 7.2C3.61878 7.2 2.50005 6.126 2.50005 4.8C2.50005 3.474 3.61878 2.4 5 2.4C6.38122 2.4 7.49995 3.474 7.49995 4.8C7.49995 6.126 6.38122 7.2 5 7.2Z" fill="black"/>
+                            </svg>
+                            {{ chunks.address.content }}
+                        </div>
+                    {% endif %}
+
+                    {% if chunks.email.content %}
+                        <a class="contacts__email" cursor-class="link-hover" href="mailto:{{ chunks.email.content }}">
+                            <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.5 3L7.5 6.75L1.5 3V1.5L7.5 5.25L13.5 1.5M13.5 0H1.5C0.6675 0 0 0.6675 0 1.5V10.5C0 11.3284 0.671573 12 1.5 12H13.5C14.3284 12 15 11.3284 15 10.5V1.5C15 0.671573 14.3284 0 13.5 0Z" fill="black"/>
+                            </svg>
+                            {{ chunks.email.content }}
+                        </a>
+                    {% endif %}
+
+                    {% if chunks.vk.content or chunks.telegram.content or chunks.youtube.content or chunks.whatsapp.content %}
+                        <ul class="contacts__social social social--left">
+                            {% if chunks.vk.content %}
+                                <li class="social__item">
+                                    <a class="social__link" cursor-class="link-hover" href="{{ chunks.vk.content }}" target="_blank">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18.6667 0C21.6122 0 24 2.38781 24 5.33333V18.6667C24 21.6122 21.6122 24 18.6667 24H5.33333C2.38781 24 0 21.6122 0 18.6667V5.33333C0 2.38781 2.38781 0 5.33333 0H18.6667ZM16.8907 7.92667C16.4187 8.55333 15.924 9.15333 15.3453 9.68667C14.6747 10.3053 13.996 10.7693 13.3347 11.044L13.324 8.51067C13.2449 7.83934 12.676 7.33342 12 7.33333C11.2773 7.37467 10.6667 7.908 10.6667 8.66667V14.4973C8.06933 13.7773 6.66667 11.2573 6.66667 8.66667C6.66667 7.93029 6.06971 7.33333 5.33333 7.33333C4.59695 7.33333 4 7.93029 4 8.66667C4 13.5093 7.34667 17.3333 12 17.3333C12.7364 17.3333 13.3333 16.7364 13.3333 16V13.916C15.1093 14.0573 16.832 15.312 17.4747 16.596C17.6786 17.0374 18.1065 17.3328 18.5915 17.3669C19.0765 17.401 19.5416 17.1685 19.8053 16.76C20.069 16.3515 20.0894 15.8319 19.8587 15.404C19.2213 14.128 18.032 12.9347 16.568 12.156C16.7653 11.9947 16.9613 11.824 17.1547 11.6467C17.8893 10.9767 18.5451 10.2252 19.1093 9.40667C19.518 8.794 19.3527 7.96602 18.74 7.55733C18.1273 7.14864 17.2994 7.314 16.8907 7.92667Z" fill="#666666"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if chunks.telegram.content %}
+                                <li class="social__item">
+                                    <a class="social__link" cursor-class="link-hover" href="{{ chunks.telegram.content }}" target="_blank">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.894 8.221L15.924 17.501C15.779 18.159 15.387 18.319 14.84 18.009L11.84 15.799L10.394 17.193C10.2504 17.3789 10.0289 17.4878 9.794 17.488H9.789L10.002 14.434L15.562 9.412C15.802 9.199 15.508 9.078 15.189 9.291L8.32 13.617L5.36 12.693C4.72 12.49 4.702 12.053 5.495 11.739L17.061 7.281C17.599 7.085 18.067 7.409 17.893 8.222L17.894 8.221Z" fill="#666666"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if chunks.youtube.content %}
+                                <li class="social__item">
+                                    <a class="social__link" cursor-class="link-hover" href="{{ chunks.youtube.content }}" target="_blank">
+                                        <svg width="35" height="24" viewBox="0 0 35 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M33.5274 3.74904C33.1307 2.27161 31.9776 1.11703 30.5006 0.718471C27.8293 0 17.121 0 17.121 0C17.121 0 6.41274 0 3.7414 0.71465C2.26374 1.11194 1.11008 2.26706 0.71465 3.74522C0 6.42038 0 12 0 12C0 12 0 17.5796 0.71465 20.251C1.10828 21.7261 2.27006 22.8879 3.7414 23.2815C6.41274 24 17.121 24 17.121 24C17.121 24 27.8293 24 30.5006 23.2815C31.9758 22.8879 33.1338 21.7261 33.5274 20.251C34.242 17.5796 34.242 12 34.242 12C34.242 12 34.242 6.42038 33.5274 3.74904ZM13.7197 17.121V6.87898L22.586 11.9618L13.7197 17.121Z" fill="#666666"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if chunks.whatsapp.content %}
+                                <li class="social__item">
+                                    <a class="social__link" cursor-class="link-hover" href="{{ chunks.whatsapp.content }}" target="_blank">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0.00483208 24L1.62723 18.0384C0.558197 16.2058 -0.00345278 14.1216 1.59704e-05 12C1.59704e-05 5.37239 5.37243 0 12 0C18.6276 0 24 5.37239 24 12C24 18.6276 18.6276 24 12 24C9.87935 24.0034 7.79601 23.4422 5.96402 22.374L0.00483208 24ZM7.66922 6.36959C7.51426 6.37921 7.36283 6.42003 7.22402 6.48959C7.09385 6.56331 6.97502 6.65546 6.87122 6.76319C6.72722 6.89879 6.64562 7.01639 6.55802 7.13039C6.11452 7.70758 5.87596 8.41609 5.87997 9.14399C5.88242 9.73199 6.03602 10.3044 6.27602 10.8396C6.76682 11.922 7.57442 13.068 8.64122 14.13C8.89802 14.3856 9.14882 14.6424 9.41882 14.8812C10.7429 16.0469 12.3207 16.8876 14.0268 17.3364L14.7096 17.4408C14.9316 17.4528 15.1536 17.436 15.3768 17.4252C15.7263 17.4071 16.0675 17.3125 16.3764 17.148C16.5336 17.067 16.6869 16.9789 16.836 16.884C16.836 16.884 16.8876 16.8504 16.986 16.776C17.148 16.656 17.2476 16.5708 17.382 16.4304C17.4816 16.3272 17.568 16.206 17.634 16.068C17.7276 15.8724 17.8212 15.4992 17.8596 15.1884C17.8884 14.9508 17.88 14.8212 17.8764 14.7408C17.8716 14.6124 17.7648 14.4792 17.6484 14.4228L16.95 14.1096C16.95 14.1096 15.906 13.6548 15.2688 13.3644C15.2016 13.3351 15.1296 13.3184 15.0564 13.3152C14.8903 13.2981 14.7249 13.3537 14.6028 13.4676V13.4652C14.5968 13.4652 14.5164 13.5336 13.6488 14.5848C13.547 14.7216 13.3724 14.7833 13.2072 14.7408C13.129 14.7199 13.0524 14.6934 12.978 14.6616C12.8292 14.5992 12.7776 14.5752 12.6756 14.5308L12.6696 14.5284C11.9831 14.2287 11.3475 13.8238 10.7856 13.3284C10.6344 13.1964 10.494 13.0524 10.35 12.9132C9.87791 12.4611 9.46648 11.9496 9.12602 11.3916L9.05522 11.2776C9.00437 11.201 8.96325 11.1183 8.93282 11.0316C8.88722 10.8552 9.00602 10.7136 9.00602 10.7136C9.00602 10.7136 9.29762 10.3944 9.43322 10.2216C9.54613 10.078 9.65147 9.92857 9.74882 9.77399C9.89042 9.54599 9.93482 9.31199 9.86042 9.13079C9.52442 8.30999 9.17642 7.49279 8.81882 6.68159C8.74802 6.52079 8.53802 6.40559 8.34722 6.38279C8.28242 6.37559 8.21762 6.36839 8.15282 6.36359C7.99167 6.35559 7.83018 6.35719 7.66922 6.36839V6.36959Z" fill="#666666"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+
+                    {% placeholder bottom_content with TinyMCE label 'Текст снизу' as bottom_content %}
+                    {% if bottom_content %}
+                        <div class="contacts__text contacts__text--bottom placeholder">
+                            {{ bottom_content|safe }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if chunks.map_script.content %}
+            <div class="contacts__map">
+                {{ chunks.map_script.content }}
+            </div>
+        {% endif %}
+    </section>
+
+    {# Блок выбирается на главной странице #}
+    {% get_items_by_model_name 'page' status=1 template='pages/frontpage.html' as fp %}
+    {% if fp %}
+        {% get_content fp.0 'clients' as clients %}
+        {% if clients %}
+            {% get_page clients as clients_gallery %}
+            {% if clients_gallery %}
+                <section class="section-default content-anim content-anim--opacity">
+                    <div class="container">
+                        {% include 'parts/clients_gallery.html' %}
+                    </div>
+                </section>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

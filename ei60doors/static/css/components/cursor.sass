@@ -1,0 +1,78 @@
+.cursor-custom
+	position: fixed
+	z-index: 1044
+	left: 0
+	top: 0
+	pointer-events: none
+	will-change: transform
+	mix-blend-mode: multiply
+	@media screen and (max-width: $md-min)
+	    display: none
+	&__circle
+		width: 64px
+		height: 64px
+		margin-top: -50%
+		margin-left: -50%
+		border-radius: 50%
+		border: solid 1px rgba(175,26,22,.7)
+		transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), background-color 1s cubic-bezier(0.25, 1, 0.5, 1), border-color 1s cubic-bezier(0.25, 1, 0.5, 1), width 1s cubic-bezier(0.25, 1, 0.5, 1), height 1s cubic-bezier(0.25, 1, 0.5, 1)
+
+	&__content
+		position: absolute
+		top: 0
+		left: 0
+		width: 64px
+		height: 64px
+		transform: translate(-50%, -50%)
+		border-radius: 50%
+		overflow: hidden
+		transition: width 0.4s ease-in-out, height 0.4s ease-in-out
+		.action
+			width: 100%
+			height: 100%
+			position: absolute
+			top: 0
+			left: 0
+			display: flex
+			align-items: center
+			justify-content: center
+			transform: scale(0.8)
+			opacity: 0
+			transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out
+			span
+				color: #fff
+				display: flex
+				align-items: center
+				justify-content: center
+
+			svg
+				width: 45px
+				height: 45px
+
+			img
+				width: 100%
+				height: 100%
+				object-fit: cover
+				display: block
+				border-radius: 50%
+
+
+.link-hover .cursor-custom__circle
+	width: 48px
+	height: 48px
+	background-color: rgba(175,26,22,.5)
+	border-color: transparent
+
+.img-hover .cursor-custom__circle, .slider-hover .cursor-custom__circle
+	width: 150px
+	height: 150px
+	background-color: rgba(175,26,22,.5)
+	border-color: rgba(175,26,22,.5)
+
+.img-hover .cursor-custom__content, .slider-hover .cursor-custom__content
+	width: 150px
+	height: 150px
+
+.img-hover .cursor-custom__content .img-hover, .slider-hover .cursor-custom__content .slider-hover
+	opacity: 1
+	transform: scale(1)

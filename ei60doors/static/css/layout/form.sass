@@ -1,0 +1,76 @@
+.form__grid
+	display: grid
+	grid-template-columns: repeat(12, 1fr)
+	grid-gap: 40px 20px
+	@media screen and (max-width: $sm-max)
+	    grid-gap: 32px 0
+	&-5
+	    grid-column: 5 span
+	&-6
+	    grid-column: 6 span
+	&-7
+	    grid-column: 7 span
+	&-12
+	    grid-column: 12 span
+	@media screen and (max-width: $md-min)
+	    &-md-6
+	        grid-column: 6 span
+	@media screen and (max-width: $sm-max)
+	    &-sm-12
+	        grid-column: 12 span
+	@media screen and (max-width: $xs-max)
+	    &-xs-12
+	        grid-column: 12 span
+
+.form
+    &__item
+        width: 100%
+
+    &__switcher
+        width: 100%
+        margin-top: 40px
+        @media screen and (max-width: $sm-max)
+            margin-top: 32px
+
+    &__privacy
+        margin-top: 40px
+        font-size: 16px
+        line-height: 22px
+        color: #fff
+        @media screen and (max-width: $sm-max)
+            margin-top: 32px
+            font-size: 15px
+            line-height: 21px
+        @media screen and (max-width: $xs-max)
+            font-size: 14px
+            line-height: 20px
+        .default-checkbox__fake
+            margin-top: 3px
+        a
+            text-decoration: underline
+            color: #fff
+            &:hover
+                text-decoration: none
+
+    &__info
+        font-size: 16px
+        line-height: 22px
+        color: #fff
+        margin-top: 40px
+        @media screen and (max-width: $sm-max)
+            margin-top: 32px
+            font-size: 15px
+            line-height: 21px
+        @media screen and (max-width: $xs-max)
+            font-size: 14px
+            line-height: 20px
+
+    &__bottom
+        margin-top: 40px
+        display: flex
+        align-items: center
+        @media screen and (max-width: $sm-max)
+            margin-top: 32px
+            width: 100%
+        .btn
+            min-width: 200px

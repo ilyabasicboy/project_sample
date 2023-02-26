@@ -1,0 +1,18 @@
+{% load pagination_tags %}
+
+{% if children %}
+    {% autopaginate children 12 %}
+
+    {% for child in children %}
+        <div class="grid__item-12">
+            {% include 'pages/parts/child_card.html' %}
+        </div>
+    {% endfor %}
+
+    <div class="grid__item-12 loader__show-more show-more-pages" data-url="{% url 'pages_list' obj_id=current_page.id %}">
+        <div class="loader__content loader-js">
+            <div class="loader"></div>
+        </div>
+        {% paginate using 'pagination/show_more_pages.html' %}
+    </div>
+{% endif %}

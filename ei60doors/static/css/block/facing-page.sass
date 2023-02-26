@@ -1,0 +1,31 @@
+.facing-page
+	&__default
+	    display: flex
+	    flex-direction: column
+	    .swiper-wrapper
+	        flex-wrap: wrap
+	        margin-right: -20px
+	        margin-bottom: -20px
+	        width: initial
+	        @media screen and (max-width: $xs-max)
+	            margin-right: -16px
+	            margin-bottom: -16px
+	    &-item + &-item
+	        margin-top: 48px
+	        @media screen and (max-width: $sm-max)
+	            margin-top: 32px
+	        @media screen and (max-width: $xs-max)
+	            margin-top: 24px
+	    &-slider
+	        width: 100%
+	    &-slide
+	        height: auto
+	        margin-right: 20px
+	        margin-bottom: 20px
+	        width: 160px
+	        @media screen and (max-width: $sm-max)
+	            width: 110px
+	        @media screen and (max-width: $xs-max)
+	            width: 70px
+	            margin-right: 16px
+	            margin-bottom: 16px

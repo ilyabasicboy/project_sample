@@ -1,0 +1,303 @@
+{% extends 'catalog/base.html' %}
+{% load base_tags attachment_tags custom_catalog_tags pages_tags feedback_tags static %}
+
+{% block content %}
+    {% get_inherited_field object 'habarytes' as habarytes %}
+    {% get_inherited_field object 'get_construciton_display' display=True as construciton %}
+    {% get_inherited_field object 'readiness' as readiness %}
+    {% get_inherited_field object 'delivery' as delivery %}
+    {% get_inherited_field object 'mounting' as mounting %}
+    {% get_inherited_field object 'specs' as specs %}
+    {% get_inherited_field object 'finish' many_to_many=True as finish %}
+    {% get_inherited_field object 'services' as services %}
+    {% get_inherited_field object 'gallery' as gallery %}
+
+    <section class="section-default section-default--top section-default--bottom content-anim content-anim--opacity">
+        <div class="container">
+            <div class="product">
+                {% get_items_by_model_name 'category' products=object show=True as categories %}
+                {% if categories %}
+                    <div class="tags product__tags scroll-custom-x-shadow">
+                        <div class="tags__slider tags--slider swiper-container">
+                            <div class="swiper-wrapper">
+                                {% for category in categories %}
+                                    <div class="tags__item swiper-slide">
+                                        <a class="tags__link" cursor-class="link-hover" href="{{ category.get_absolute_url }}">
+                                            #{{ category.title }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="product__top">
+                    <div class="product__left">
+                        {% get_images for object as images %}
+                        {% get_add_images object as add_images %}
+                        {% if images or add_images %}
+                            <div class="product__gallery">
+                                <div class="product__slider product--slider swiper-container mfp-gallery">
+                                    <div class="swiper-wrapper">
+                                        {% for image in images %}
+                                            <div class="product__slider-item swiper-slide">
+                                                <a class="product__slider-img" cursor-class="img-hover" href="{{ image.watermarkpicture.url }}" title="{{ image.title|default:object.title }}">
+                                                    <img src="{{ image.productslider.url }}" alt="{{ image.title|default:object.title }}" title="{{ image.title|default:object.title }}">
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                        {% for image in add_images %}
+                                            <div class="product__slider-item swiper-slide">
+                                                <a class="product__slider-img" cursor-class="img-hover" href="{{ image.watermarkpicture.url }}" title="{{ image.title|default:object.title }}">
+                                                    <img src="{{ image.productslider.url }}" alt="{{ image.title|default:object.title }}" title="{{ image.title|default:object.title }}">
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="product__thumb product--thumb swiper-container">
+                                    <div class="swiper-wrapper">
+                                        {% for image in images %}
+                                            <div class="product__thumb-item swiper-slide">
+                                                <a class="product__slider-img" cursor-class="link-hover">
+                                                    <img src="{{ image.productthumb.url }}" alt="{{ image.title|default:object.title }}" title="{{ image.title|default:object.title }}">
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                        {% for image in add_images %}
+                                            <div class="product__thumb-item swiper-slide">
+                                                <a class="product__slider-img" cursor-class="link-hover">
+                                                    <img src="{{ image.productthumb.url }}" alt="{{ image.title|default:object.title }}" title="{{ image.title|default:object.title }}">
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="product__right">
+                        <div class="product__header">
+                            <div class="product__wrapper">
+                                {% if object.price %}
+                                    <div class="product__price">
+                                        <span>{{ object.price|price_format }}</span> руб.
+                                    </div>
+
+                                    {% if object.old_price %}
+                                        <div class="product__oldprice">
+                                            {{ object.old_price|price_format }} руб.
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="product__price">
+                                        <span>Цена по запросу</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <a class="btn btn--dark product__btn modal-open" cursor-class="link-hover" href="#order-modal" onclick="ym(91755778,'reachGoal','click_predzakaz');" >
+                                Оформить предзаказ
+                            </a>
+                        </div>
+
+                        {% if habarytes %}
+                            <div class="product__warning">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.66699 14.6666C8.95033 14.6666 9.18799 14.5546 9.37999 14.3306C9.57133 14.1074 9.66699 13.8305 9.66699 13.5V8.80413C9.66699 8.47357 9.57133 8.20135 9.37999 7.98746C9.18799 7.77357 8.95033 7.66663 8.66699 7.66663C8.38366 7.66663 8.14633 7.77824 7.95499 8.00146C7.76299 8.22546 7.66699 8.50274 7.66699 8.83329V13.5291C7.66699 13.8597 7.76299 14.1319 7.95499 14.3458C8.14633 14.5597 8.38366 14.6666 8.66699 14.6666ZM8.66699 5.66663C8.95033 5.66663 9.18799 5.57063 9.37999 5.37863C9.57133 5.18729 9.66699 4.94996 9.66699 4.66663C9.66699 4.38329 9.57133 4.14563 9.37999 3.95363C9.18799 3.76229 8.95033 3.66663 8.66699 3.66663C8.38366 3.66663 8.14633 3.76229 7.95499 3.95363C7.76299 4.14563 7.66699 4.38329 7.66699 4.66663C7.66699 4.94996 7.76299 5.18729 7.95499 5.37863C8.14633 5.57063 8.38366 5.66663 8.66699 5.66663ZM9.00033 17.3333C7.84755 17.3333 6.76421 17.1144 5.75033 16.6766C4.73644 16.2394 3.85449 15.6458 3.10449 14.8958C2.35449 14.1458 1.76088 13.2638 1.32366 12.25C0.885881 11.2361 0.666992 10.1527 0.666992 8.99996C0.666992 7.84718 0.885881 6.76385 1.32366 5.74996C1.76088 4.73607 2.35449 3.85413 3.10449 3.10413C3.85449 2.35413 4.73644 1.76024 5.75033 1.32246C6.76421 0.885237 7.84755 0.666626 9.00033 0.666626C10.1531 0.666626 11.2364 0.885237 12.2503 1.32246C13.2642 1.76024 14.1462 2.35413 14.8962 3.10413C15.6462 3.85413 16.2398 4.73607 16.677 5.74996C17.1148 6.76385 17.3337 7.84718 17.3337 8.99996C17.3337 10.1527 17.1148 11.2361 16.677 12.25C16.2398 13.2638 15.6462 14.1458 14.8962 14.8958C14.1462 15.6458 13.2642 16.2394 12.2503 16.6766C11.2364 17.1144 10.1531 17.3333 9.00033 17.3333Z" fill="#0083D4"/>
+                                </svg>
+                                {{ habarytes }}
+                            </div>
+                        {% endif %}
+
+                        <div class="product__content">
+                            <div class="product__certified">
+                                <img src="{% static 'img/certified.png' %}" alt="Товар сертифицирован">
+                            </div>
+                            <div class="product__garant">
+                                <img src="{% static 'img/garant.png' %}" alt="1 год гарантии">
+                            </div>
+                            <ul class="product__list">
+                                <li>
+                                   Артикул: <span>{{ object.id }}</span>
+                                </li>
+
+                                {% if construction %}
+                                    <li>
+                                       Конструкция: <span>{{ construction }}</span>
+                                    </li>
+                                {% endif %}
+
+                                {% if readiness %}
+                                    <li>
+                                       Готовность: <span>{{ readiness }}</span>
+                                    </li>
+                                {% endif %}
+
+                                {% if delivery %}
+                                    <li>
+                                       Доставка: <span>{{ delivery }}</span>
+                                    </li>
+                                {% endif %}
+
+                                {% if mounting %}
+                                    <li>
+                                       Монтаж: <span>{{ mounting }}</span>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                        <a class="btn btn--line-red btn--full product__rackman modal-open" onclick="ym(91755778,'reachGoal','click_zamer');" cursor-class="link-hover" href="#callrackman-modal">
+                            Вызвать замерщика
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product__services tabs">
+                    <div class="tabs__header">
+                        <div class="tabs__list scroll-custom-x-hidden--xs">
+                            {% if specs %}
+                                <a class="tabs__link" cursor-class="link-hover" data-tabs-link="tab-1">
+                                    <span>
+                                        Характеристики
+                                    </span>
+                                </a>
+                            {% endif %}
+
+                            {% if finish %}
+                                <a class="tabs__link" cursor-class="link-hover" data-tabs-link="tab-2">
+                                    <span>
+                                        Отделка
+                                    </span>
+                                </a>
+                            {% endif %}
+
+                            {% if services %}
+                                <a class="tabs__link" cursor-class="link-hover" data-tabs-link="tab-4">
+                                    <span>
+                                        Услуги
+                                    </span>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="tabs__body">
+                        {% if specs %}
+                            <div class="tabs__item slidable-tabs" data-tabs-item="tab-1">
+                                <div class="tabs__content tall">
+                                    <div class="placeholder mfp-gallery">
+                                        {{ specs|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if finish %}
+                            <div class="tabs__item slidable-tabs" data-tabs-item="tab-2">
+                                <div class="tabs__content tall">
+                                    {% include 'catalog/parts/finish_list.html' with finish_list=finish %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if services %}
+                            <div class="tabs__item slidable-tabs" data-tabs-item="tab-4">
+                                <div class="tabs__content tall">
+                                    <div class="placeholder mfp-gallery">
+                                        {{ services|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% get_items_by_model_name 'product' tree__parent=object.tree.get.parent show=True as products %}
+    {% exclude_query products id=object.id num=20 as similar_products %}
+    {% if similar_products %}
+        <section class="section-default section-default--bottom content-anim content-anim--bottom">
+            <div class="container">
+                <div class="title-content">
+                    <div class="title-link">
+                        <div class="title">
+                            Похожие товары
+                        </div>
+                        <a class="link-line link-line--dark" cursor-class="link-hover" href="{{ object.tree.get.parent.content_object.get_absolute_url }}">
+                            <span class="link-line__text">
+                                Смотреть все
+                            </span>
+                            <div class="link-line__icon">
+                                <span>
+                                    <svg width="50" height="9" viewBox="0 0 50 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M45.53 0.21934L49.28 3.96934C49.5725 4.26216 49.5725 4.73652 49.28 5.02934L45.53 8.77934C45.343 8.97999 45.0614 9.06259 44.7957 8.99473C44.53 8.92686 44.3225 8.71936 44.2546 8.45363C44.1867 8.1879 44.2693 7.90631 44.47 7.71934L46.94 5.24934H0.75C0.335786 5.24934 0 4.91355 0 4.49934C0 4.08513 0.335786 3.74934 0.75 3.74934H46.94L44.47 1.27934C44.1775 0.986522 44.1775 0.512158 44.47 0.21934C44.7628 -0.0731133 45.2372 -0.0731133 45.53 0.21934Z" fill="black"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                {% include 'catalog/parts/product_list_slider.html' with products=similar_products %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if gallery %}
+        <section class="section-default section-default-margin section-default-margin--bottom section-grey content-anim content-anim--opacity">
+            <div class="container">
+                {% include 'parts/work_samples_gallery.html' %}
+            </div>
+        </section>
+    {% endif %}
+
+    {# Блок выбирается на главной странице #}
+    {% get_items_by_model_name 'page' status=1 template='pages/frontpage.html' as fp %}
+    {% if fp %}
+        {% get_content fp.0 'clients' as clients %}
+        {% if clients %}
+            {% get_page clients as clients_gallery %}
+            {% if clients_gallery %}
+                <section class="section-default content-anim content-anim--opacity">
+                    <div class="container">
+                        {% include 'parts/clients_gallery.html' %}
+                    </div>
+                </section>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    <div class="modal mfp-hide mfp-anim" id="order-modal">
+        <div class="modal__body">
+            <div class="modal__header">
+                <div class="modal__title">
+                    Оформить предзаказ
+                </div>
+            </div>
+
+            <!--noindex-->
+                {% show_feedback 'order' %}
+            <!--/noindex-->
+        </div>
+    </div>
+
+    <div class="modal mfp-hide mfp-anim" id="callrackman-modal">
+        <div class="modal__body">
+            <div class="modal__header">
+                <div class="modal__title">
+                    Вызвать замерщика
+                </div>
+            </div>
+
+            <!--noindex-->
+                {% show_feedback 'call_rackman' %}
+            <!--/noindex-->
+        </div>
+    </div>
+{% endblock %}

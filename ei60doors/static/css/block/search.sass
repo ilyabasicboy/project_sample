@@ -1,0 +1,338 @@
+.search-input
+	border: 1px solid #DCDCDC
+	padding: 0 10px
+	padding-right: 0
+	transition: border 0.5s ease-in-out, opacity 0.5s ease-in-out
+	min-height: 42px
+	background-color: transparent
+	width: 100%
+	&--hidden
+	    opacity: 0
+	table
+		margin: 0
+		border: none
+		line-height: 0
+
+		tr, td
+			border: none
+			padding: 0 !important
+			border: none !important
+
+		input
+			border: none !important
+			background: none !important
+			height: 42px !important
+			font-family: inherit!important
+			@media screen and (max-width: $sm-max)
+			    height: 40px !important
+
+		input[type="button"]
+			width: 42px !important
+			height: 42px !important
+			cursor: pointer
+			background-image: url('../img/search-white.svg') !important
+			background-repeat: no-repeat !important
+			background-position: center !important
+			background-size: 16px !important
+			margin: 0 !important
+			font-size: 0px !important
+			text-indent: -9999px
+			color: rgba(0, 0, 0, 0)
+			@media screen and (max-width: $sm-max)
+			    width: 40px !important
+			    height: 40px !important
+
+	#ya-site-form0, #ya-site-form1
+		.ya-site-form__form
+			.ya-site-form__input
+				.ya-site-form__input-text
+					background-color: transparent !important
+					padding: 0 !important
+					font-size: 16px !important
+					line-height: 21px !important
+					font-weight: 400 !important
+					color: #fff !important
+					border-radius: 0 !important
+					-webkit-appearance: none !important
+					font-family: inherit !important
+					@media screen and (max-width: $sm-max)
+					    font-size: 14px !important
+					    line-height: 20px !important
+					&::-webkit-input-placeholder
+						opacity: 1
+						color: rgba(255, 255, 255, 0.6)
+					&::-moz-placeholder
+						opacity: 1
+						color: rgba(255, 255, 255, 0.6)
+					&:-moz-placeholder
+						opacity: 1
+						color: rgba(255, 255, 255, 0.6)
+					&::placeholder
+						opacity: 1
+						color: rgba(255, 255, 255, 0.6)
+					&::-webkit-search-decoration,
+					&::-webkit-search-cancel-button,
+					&::-webkit-search-results-button,
+					&::-webkit-search-results-decoration
+						-webkit-appearance: none
+		.ya-site-suggest
+			display: none
+
+
+.search-form
+	min-height: 42px
+	position: relative
+	@media screen and (max-width: $sm-max)
+	    min-height: 40px
+	&:before
+	    content: ''
+	    position: absolute
+	    left: 12px
+	    top: 12px
+	    height: 18px
+	    width: 18px
+	    background-image: url('../img/search-grey.svg')
+	    background-repeat: no-repeat
+	    background-position: center
+	    background-size: contain
+	    @media screen and (max-width: $sm-max)
+	        background-size: 18px 18px
+	table
+		margin: 0
+		border: none
+		line-height: 0
+
+		tr, td
+			border: none
+			padding: 0 !important
+			border: none !important
+
+		input
+			border: none !important
+			background: none !important
+			height: 42px !important
+			box-shadow: none !important
+			border-radius: 0 !important
+			@media screen and (max-width: $sm-max)
+			    height: 40px!important
+
+		input[type="button"]
+            background-color: #000000 !important
+            border: 2px solid #000000 !important
+            border-radius: 0px !important
+            box-shadow: none !important
+            font-size: 16px !important
+            font-weight: 600 !important
+            color: #fff !important
+            font-family: inherit !important
+            text-decoration: none !important
+            cursor: pointer !important
+            padding: 10px 26px !important
+            height: 42px !important
+            width: 160px !important
+            min-width: 160px !important
+            display: flex !important
+            align-items: center !important
+            justify-content: center !important
+            text-align: center !important
+            position: relative !important
+            overflow: hidden !important
+            margin: 0px !important
+            margin-left: 16px !important
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out !important
+            @media screen and (max-width: $sm-max)
+                height: 40px!important
+                padding: 8px 15px!important
+                font-size: 14px!important
+            @media screen and (max-width: $xs-max)
+                width: 125px!important
+                min-width: 125px!important
+            &:hover
+                background-color: #fff !important
+                color: #000000 !important
+
+	#ya-site-form0, #ya-site-form1, #ya-site-form2
+		.ya-site-form__form
+			.ya-site-form__submit
+			    font-size: 16px !important
+			    color: #fff !important
+			    margin: 0px !important
+			    margin-left: 16px !important
+			    @media screen and (max-width: $sm-max)
+			        font-size: 14px!important
+			    @media screen and (max-width: $xs-max)
+			        margin-left: auto!important
+			        margin-top: 16px!important
+			    &:hover
+			        background-color: #fff !important
+			        color: #000000 !important
+			.ya-site-form__input
+				.ya-site-form__input-text
+					background-color: #fff !important
+					padding: 8px 12px !important
+					padding-left: 50px !important
+					font-size: 16px !important
+					line-height: 22px !important
+					font-weight: 400 !important
+					color: #000 !important
+					border-radius: 0 !important
+					-webkit-appearance: none !important
+					font-family: inherit !important
+					border: 1px solid #979797 !important
+					box-shadow: none !important
+					@media screen and (max-width: $sm-max)
+					    font-size: 14px!important
+					&::-webkit-input-placeholder
+						opacity: 1
+						color: #979797
+					&::-moz-placeholder
+						opacity: 1
+						color: #979797
+					&:-moz-placeholder
+						opacity: 1
+						color: #979797
+					&::placeholder
+						opacity: 1
+						color: #979797
+					&::-webkit-search-decoration,
+					&::-webkit-search-cancel-button,
+					&::-webkit-search-results-button,
+					&::-webkit-search-results-decoration
+						-webkit-appearance: none
+		.ya-site-suggest
+			display: none
+		@media screen and (max-width: $xs-max)
+		    .ya-site-form__search-input-layout
+		        tr
+		            display: flex
+		            flex-direction: column
+
+.search-results
+    margin-top: 60px
+    @media screen and (max-width: $sm-max)
+        margin-top: 40px
+    @media screen and (max-width: $xs-max)
+        margin-top: 32px
+    #ya-site-results
+        font-family: 'Arial', sans-serif !important
+        .l-page__left
+            padding: 0
+        .b-head
+            margin-bottom: 40px
+            @media screen and (max-width: $xs-max)
+                margin-bottom: 27px
+            &__l
+                display: none
+            &__r
+                padding: 0
+            &__found
+                font-size: 18px
+                line-height: 24px
+                color: #6F6F6F
+                @media screen and (max-width: $sm-max)
+                    font-size: 16px
+                    line-height: 20px
+                @media screen and (max-width: $xs-max)
+                    font-size: 14px
+                    line-height: 20px
+
+        .b-top-wizard
+            display: none
+        .b-body-items
+            padding-left: 80px
+            @media screen and (max-width: $sm-max)
+                padding-left: 60px
+            @media screen and (max-width: $xs-max)
+                padding-left: 40px
+        .b-serp
+            &-list
+                max-width: 100%
+            &-item
+                margin: 0 0 32px
+                &__number
+                    width: 70px
+                    left: 0
+                    text-align: right
+                    padding-right: 15px
+                    font-size: 16px
+                    line-height: 24px
+                    margin: 0
+                    font-weight: 300
+                    @media screen and (max-width: $sm-max)
+                        width: 46px
+                    @media screen and (max-width: $xs-max)
+                        font-size: 14px
+                        line-height: 20px
+                        width: 36px
+                &__title
+                    font-size: 18px
+                    line-height: 24px
+                    color: #000
+                    display: block
+                    margin-bottom: 8px
+                    @media screen and (max-width: $sm-max)
+                        font-size: 16px
+                        line-height: 22px
+                    @media screen and (max-width: $xs-max)
+                        font-size: 14px
+                        line-height: 20px
+                        margin-bottom: 6px
+                    &-link
+                        color: inherit !important
+                        font-size: inherit !important
+                        line-height: inherit !important
+                        text-decoration: underline
+                        &:hover
+                            text-decoration: none
+                            color: inherit !important
+                &__text
+                    font-size: 16px
+                    line-height: 24px
+                    @media screen and (max-width: $sm-max)
+                        font-size: 14px
+                        line-height: 20px
+                &__links
+                    display: none
+        .b-bottom-wizard
+            .b-pager
+                margin: 0
+                &__title,
+                &__arrow,
+                &__sorted
+                    display: none
+                &__pages
+                    margin: 32px 0 -5px 0
+                    padding: 30px 0 0
+                    border-top: 1px solid rgba(0, 0, 0, 0.4)
+                    display: flex
+                    align-items: center
+                    justify-content: flex-start
+                    flex-wrap: wrap
+                    width: 100%
+                    @media screen and (max-width: $xs-max)
+                        padding-top: 24px
+                        margin-top: 24px
+                    a, b
+                        width: 40px
+                        height: 40px
+                        margin: 0 16px 5px 0
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        font-size: 18px
+                        line-height: 24px
+                        color: #6F6F6F!important
+                        flex-shrink: 0
+                        @media screen and (max-width: $xs-max)
+                            width: 32px
+                            height: 32px
+                            font-size: 14px
+                            line-height: 20px
+                            margin: 0 12px 5px 0
+                    a
+                        cursor: pointer
+                    b
+                        border-radius: 3px
+                        border: 1px solid #D2D2D2
+                        color: #000!important
+                        background: none

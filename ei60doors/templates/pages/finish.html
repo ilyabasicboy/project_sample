@@ -1,0 +1,95 @@
+{% extends 'pages/base.html' %}
+{% load custom_pages_tags pages_tags custom_attachment_tags treemenus_tags attachment_tags  base_tags %}
+
+{% placeholder description with Textarea label 'Описание в карточке страницы' as description %}
+
+{% block content %}
+    {% placeholder top_content with TinyMCE label 'Контент сверху' as top_content %}
+    {% if top_content %}
+        <section class="section-default section-default--top content-anim content-anim--opacity">
+            <div class="container placeholder mfp-gallery">
+                {{ top_content|safe }}
+            </div>
+        </section>
+    {% endif %}
+
+    {% get_images for current_page as images %}
+    {% with images=images|role:'галерея' %}
+        {% get_image_groups for images as image_groups %}
+        {% if images %}
+            <section class="section-default section-default--top content-anim content-anim--opacity">
+                <div class="container">
+                    <div class="facing-page">
+                        <div class="facing-page__default">
+                            {% if image_groups %}
+                                {% for group, images in image_groups.items %}
+                                    <div class="facing-page__default-item mfp-gallery">
+                                        <div class="h2 title--nomargintop">
+                                            {{ group }}
+                                        </div>
+                                        <div class="facing-page__default-slider facing-page__default--slider swiper-container">
+                                            <div class="swiper-wrapper">
+                                                {% for image in images %}
+                                                    <div class="facing-page__default-slide swiper-slide">
+                                                        <a class="facing-bigcard" cursor-class="img-hover" href="{{ image.watermarkpicture.url }}">
+                                                            <div class="facing-bigcard__img">
+                                                                <img src="{{ image.facingbig.url }}" alt="{{ image.title|default:group }}" title="{{ image.title|default:group }}">
+                                                            </div>
+                                                            {% if image.title %}
+                                                                <div class="facing-bigcard__content">
+                                                                    <div class="facing-bigcard__title">
+                                                                        {{ image.title }}
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        </a>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if images|ungrouped %}
+                                <div class="facing-page__default-item mfp-gallery">
+                                    <div class="facing-page__default-slider facing-page__default--slider swiper-container">
+                                        <div class="swiper-wrapper">
+                                            {% for image in images|ungrouped %}
+                                                <div class="facing-page__default-slide swiper-slide">
+                                                    <a class="facing-bigcard" cursor-class="img-hover" href="{{ image.watermarkpicture.url }}">
+                                                        <div class="facing-bigcard__img">
+                                                            <img src="{{ image.facingbig.url }}" alt="{{ image.title|default:current_page.title }}" title="{{ image.title|default:current_page.title }}">
+                                                        </div>
+                                                        {% if image.title %}
+                                                            <div class="facing-bigcard__content">
+                                                                <div class="facing-bigcard__title">
+                                                                    {{ image.title }}
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% endwith %}
+
+    {% placeholder bottom_content with TinyMCE label 'Контент снизу' as bottom_content %}
+    {% if bottom_content %}
+        <section class="section-default section-default--top content-anim content-anim--opacity">
+            <div class="container">
+                <div class="placeholder mfp-gallery">
+                    {{ bottom_content|safe }}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

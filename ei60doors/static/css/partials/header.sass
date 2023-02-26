@@ -1,0 +1,544 @@
+.header
+	height: 180px
+	width: 100%
+	position: fixed
+	top: 0px
+	left: 0px
+	z-index: 102
+	display: flex
+	flex-direction: column
+	background-color: #000
+	background-repeat: no-repeat
+	background-size: cover
+	background-position: center
+	@media screen and (max-width: $sm-max)
+	    height: 80px
+	@media screen and (max-width: $xs-max)
+	    height: 60px
+	&:before
+		content: ''
+		position: absolute
+		top: 0
+		left: 0px
+		height: 100%
+		width: 100%
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%)
+
+	&--dark
+		background-color: transparent
+		transition: background-color 0.5s ease-in-out
+		&:before
+		    display: none
+		&.active
+			background-color: #000
+
+	&__top
+		height: 120px
+		min-height: 120px
+		width: 100%
+		display: flex
+		align-items: center
+		@media screen and (max-width: $sm-max)
+		    height: 80px
+		    min-height: 80px
+		@media screen and (max-width: $xs-max)
+		    height: 60px
+		    min-height: 60px
+		.header__container
+			height: 100%
+			width: 100%
+			display: flex
+			align-items: center
+			justify-content: space-between
+
+	&__container
+		max-width: 2560px
+		width: 100%
+		margin: 0 auto
+		padding: 0 80px
+		position: relative
+		@media screen and (max-width: 1410px)
+		    max-width: 1280px
+		    padding: 0 15px
+
+	&__logo
+		display: flex
+		align-items: center
+		width: 330px
+		min-width: 330px
+		margin-right: 24px
+		@media screen and (max-width: $md-max)
+		    width: 280px
+		    min-width: 280px
+		@media screen and (max-width: $sm-max)
+		    width: 260px
+		    min-width: 260px
+		    margin-right: 20px
+		@media screen and (max-width: $xs-max)
+		    width: 160px
+		    min-width: 160px
+		    margin-right: auto
+		svg
+			width: 100%
+			height: auto
+
+	&__search
+		width: 280px
+		min-width: 280px
+		max-width: 280px
+		margin-right: 24px
+		@media screen and (max-width: 1600px)
+		    display: none
+
+	&__contacts
+		display: flex
+		flex-direction: column
+		margin-right: 24px
+		@media screen and (max-width: $sm-max)
+		    margin-right: 20px
+		@media screen and (max-width: $xs-max)
+		    margin-right: 12px
+		&--left
+			align-items: flex-start
+			@media screen and (max-width: $xs-max)
+			    display: none
+		&--right
+			align-items: flex-end
+
+	&__address
+		display: flex
+		align-items: center
+		font-size: 16px
+		line-height: 20px
+		color: rgba(255, 255, 255, 0.6)
+		@media screen and (max-width: $sm-max)
+		    font-size: 14px
+		svg
+			margin-right: 6px
+		span
+			color: rgba(255, 255, 255, 1)
+		+ .header__email
+			margin-top: 8px
+			@media screen and (max-width: $sm-max)
+			    margin-top: 4px
+
+	&__email
+		display: flex
+		align-items: center
+		font-size: 16px
+		line-height: 20px
+		color: #E93D38
+		&--hidden
+		    display: none
+		@media screen and (max-width: $sm-max)
+		    font-size: 14px
+		@media screen and (max-width: $xs-max)
+		    font-size: 13px
+		    line-height: 15px
+		    &--hidden
+		        display: flex
+		&:hover
+			text-decoration: underline
+		svg
+			margin-right: 6px
+			@media screen and (max-width: $xs-max)
+			    display: none
+
+		+ .header__phone
+			margin-top: 4px
+
+	&__time
+		display: flex
+		align-items: center
+		font-size: 16px
+		line-height: 20px
+		color: rgba(255, 255, 255, 0.6)
+		@media screen and (max-width: $sm-max)
+		    font-size: 14px
+		@media screen and (max-width: $xs-max)
+		    display: none
+		svg
+			margin-right: 6px
+
+		+ .header__phone
+			margin-top: 4px
+
+	&__phone
+		display: flex
+		align-items: center
+		font-size: 18px
+		line-height: 22px
+		color: #fff
+		font-weight: 600
+		text-decoration: underline
+		transition: color 0.5s ease-in-out
+		@media screen and (max-width: $sm-max)
+		    font-size: 14px
+		    line-height: 20px
+		@media screen and (max-width: $xs-max)
+		    font-size: 13px
+		    line-height: 15px
+		&:hover
+			color: #E93D38
+
+	&__btn
+		margin-right: 24px
+		@media screen and (max-width: $md-max)
+		    display: none
+
+	&__burger
+		z-index: 105
+
+	&__bottom
+		height: 60px
+		display: flex
+		background-color: #000
+		@media screen and (max-width: $sm-max)
+		    display: none
+		.header__container
+			height: 100%
+
+	&__nav
+		display: flex
+		align-items: center
+		justify-content: space-between
+		width: 100%
+		height: 100%
+		&-item
+			height: 100%
+			margin-right: 24px
+			&:last-child
+				margin-right: 0px
+
+		&-link
+			display: flex
+			align-items: center
+			height: 100%
+			font-size: 16px
+			line-height: 20px
+			color: #fff
+			font-weight: 500
+			text-transform: uppercase
+			transition: color 0.4s ease-in-out
+			@media screen and (max-width: $md-max)
+			    font-size: 15px
+			&:hover
+				color: #E93D38
+
+	&__list
+		background-color: #000
+		position: fixed
+		top: 0
+		right: 0
+		width: 920px
+		height: 100%
+		will-change: transform
+		transform: translateX(100%)
+		opacity: 0
+		display: flex
+		flex-direction: column
+		z-index: 104
+		@media screen and (max-width: $sm-max)
+		    width: 100%
+		&.open
+			transform: matrix(1,0,0,1,0,0)
+			opacity: 1
+
+		&.anim--active
+			transition: transform 0.5s ease-in-out, opacity 0.5s linear
+
+		&-header
+			display: flex
+			flex-direction: column
+			padding-left: 170px
+			padding-right: 170px
+			padding-top: 32px
+			padding-bottom: 32px
+			opacity: 0
+			transform: translateY(-10px)
+			transition: opacity 0.3s, transform 0.5s
+			will-change: transform
+			@media screen and (max-width: $sm-max)
+			    padding-left: 100px
+			    padding-right: 100px
+			    padding-top: 16px
+			@media screen and (max-width: $xs-max)
+			    padding-left: 15px
+			    padding-right: 15px
+			    padding-top: 14px
+			&.open
+				opacity: 1
+				transform: translateY(0)
+
+		&-wrapper
+			display: flex
+			align-items: center
+			justify-content: space-between
+
+		&-logo
+			display: flex
+			align-items: center
+			width: 330px
+			min-width: 330px
+			margin-right: 24px
+			@media screen and (max-width: $md-max)
+			    min-width: 280px
+			    width: 280px
+			@media screen and (max-width: $sm-max)
+			    min-width: 260px
+			    width: 260px
+			    margin-right: 20px
+			@media screen and (max-width: $xs-max)
+			    min-width: 160px
+			    width: 160px
+			    margin-right: auto
+			svg
+				width: 100%
+				height: auto
+
+		&-contacts
+			display: flex
+			flex-direction: column
+			align-items: flex-end
+			@media screen and (max-width: $xs-max)
+			    padding-right: 38px
+
+		&-time
+			display: flex
+			align-items: center
+			font-size: 16px
+			line-height: 20px
+			color: rgba(255, 255, 255, 0.6)
+			@media screen and (max-width: $sm-max)
+			    font-size: 14px
+			@media screen and (max-width: $xs-max)
+			    font-size: 12px
+			    line-height: 15px
+			svg
+				margin-right: 6px
+
+			+ .header__list-phone
+				margin-top: 4px
+
+		&-phone
+			display: flex
+			align-items: center
+			font-size: 18px
+			line-height: 22px
+			color: #fff
+			font-weight: 600
+			text-decoration: underline
+			transition: color 0.5s ease-in-out
+			@media screen and (max-width: $sm-max)
+			    font-size: 14px
+			    line-height: 20px
+			@media screen and (max-width: $xs-max)
+			    font-size: 13px
+			    line-height: 15px
+			&:hover
+				color: #E93D38
+
+		&-btn
+			margin-top: 24px
+			@media screen and (max-width: $sm-max)
+			    margin-top: 20px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 16px
+
+		&-body
+			display: flex
+			flex-direction: column
+			overflow: hidden
+			overflow-y: auto
+			padding-left: 170px
+			padding-right: 170px
+			padding-bottom: 170px
+			opacity: 0
+			transform: translateY(-10px)
+			transition: opacity 0.3s, transform 0.5s
+			will-change: transform
+			@media screen and (max-width: $sm-max)
+			    padding-left: 100px
+			    padding-right: 100px
+			    padding-bottom: 100px
+			@media screen and (max-width: $xs-max)
+			    padding-left: 15px
+			    padding-right: 15px
+			    padding-bottom: 68px
+			&.open
+				opacity: 1
+				transform: translateY(0)
+
+		&-footer
+			margin-top: 80px
+			display: flex
+			flex-direction: column
+			align-items: flex-start
+			@media screen and (max-width: $xs-max)
+			    margin-top: 48px
+
+		&-email
+			display: flex
+			align-items: center
+			font-size: 16px
+			line-height: 20px
+			color: #E93D38
+			@media screen and (max-width: $xs-max)
+			    font-size: 14px
+			&:hover
+				text-decoration: underline
+
+			svg
+				margin-right: 6px
+
+		&-social
+			margin-top: 20px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 16px
+
+		&-search
+			width: 100%
+			margin-top: 32px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 24px
+
+	&__menu
+		width: 100%
+		display: flex
+		flex-direction: column
+		position: relative
+		&-item
+			width: 100%
+			+ .header__menu-item
+				margin-top: 30px
+				@media screen and (max-width: $xs-max)
+				    margin-top: 24px
+
+		&-content
+			display: flex
+			align-items: center
+			width: 100%
+
+		&-link
+			color: #fff
+			font-size: 26px
+			line-height: 32px
+			text-transform: uppercase
+			transition: color 0.5s ease-in-out
+			@media screen and (max-width: $xs-max)
+			    font-size: 22px
+			    line-height: 26px
+			&:hover
+				color: #E93D38
+
+		&-icon
+			margin-left: 10px
+			display: flex
+			align-items: center
+			justify-content: center
+			width: 32px
+			height: 32px
+			cursor: pointer
+			will-change: transform
+			transition: transform 0.5s ease-in-out
+			&.active
+				transform: rotate(-180deg)
+
+	&__submenu
+		display: none
+		width: 100%
+		padding-left: 30px
+		@media screen and (max-width: $xs-max)
+		    padding-left: 20px
+		&.active
+			display: block
+
+		&-content
+			width: 100%
+			&:first-child
+				margin-top: 20px
+
+			+ .header__submenu-content
+				margin-top: 24px
+
+		&-list
+			width: 100%
+
+		&-title
+			display: flex
+			align-items: center
+			width: 100%
+			font-size: 14px
+			line-height: 20px
+			color: #fff
+			text-transform: uppercase
+			font-weight: 600
+			cursor: pointer
+			&.active .header__submenu-icon
+				transform: rotate(-180deg)
+
+		&-icon
+			width: 20px
+			height: 20px
+			margin-left: 10px
+			display: flex
+			align-items: center
+			justify-content: center
+			will-change: transform
+			transition: transform 0.5s ease-in-out
+			cursor: pointer
+
+		&-children
+			padding-left: 10px
+			display: none
+			&.active
+				display: block
+
+			.header__submenu-item:first-child
+				margin-top: 20px
+				@media screen and (max-width: $xs-max)
+				    margin-top: 14px
+
+		&-item+.header__submenu-item
+			margin-top: 16px
+			@media screen and (max-width: $xs-max)
+			    margin-top: 12px
+
+		&-link
+			font-size: 14px
+			line-height: 20px
+			color: #fff
+			display: inline
+			margin-right: 6px
+			transition: color .5s ease-in-out
+			@media screen and (max-width: $xs-max)
+			    font-size: 13px
+			    margin-right: 4px
+			&:hover
+				color: #E93D38
+
+		&-count
+			font-size: 14px
+			line-height: 20px
+			color: #EFE5E5
+			font-weight: 400
+			@media screen and (max-width: $xs-max)
+			    font-size: 13px
+
+	&__overlay
+		position: fixed
+		top: 0
+		left: 0
+		z-index: 103
+		width: 100%
+		height: 100%
+		background-color: rgba(0, 0, 0, 0.8)
+		opacity: 0
+		will-change: transform
+		transition: opacity 0.5s linear
+		pointer-events: none
+		@media screen and (max-width: $sm-max)
+		    display: none
+		&.active
+			opacity: 1
+			pointer-events: auto

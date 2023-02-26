@@ -1,0 +1,44 @@
+{% load attachment_tags base_tags custom_catalog_tags %}
+<a class="product-card" cursor-class="link-hover" href="{{ product.get_absolute_url }}">
+    {% get_images for product as images %}
+    {% if images %}
+        <div class="product-card__preview">
+            <img src="{{ images.0.productcard.url }}" alt="{{ image.title|default:product.title }}" title="{{ image.title|default:product.title }}">
+        </div>
+    {% endif %}
+
+    <div class="product-card__content">
+        <div class="product-card__title">
+            {{ product.title }}
+        </div>
+        <ul class="product-card__info">
+            <li>
+                <span>Арт:</span> {{ product.id }}
+            </li>
+            {% get_inherited_field product 'get_fireproof_display' display=True as fireproof %}
+            {% if fireproof %}
+                <li>
+                    <span>Огнестойкость:</span> {{ fireproof }}
+                </li>
+            {% endif %}
+        </ul>
+        <div class="product-card__bottom {% if product.old_price %}product-card__bottom--margin{% endif %}">
+            {% if product.price %}
+                <div class="product-card__price">
+                    <span>{{ product.price|price_format }}</span> руб.
+                </div>
+                {% if product.old_price %}
+                    <div class="product-card__oldprice">
+                        {{ product.old_price|price_format }} руб.
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="product-card__price">
+                    <span>
+                        Цена по запросу
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</a>

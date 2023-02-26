@@ -1,0 +1,31 @@
+.grid
+	display: grid
+	grid-template-columns: repeat(12, 1fr)
+	grid-gap: 40px 20px
+	@media screen and (max-width: $xs-max)
+	    grid-gap: 32px 0
+	&__item-3
+		grid-column: 3 span
+
+	&__item-4
+		grid-column: 4 span
+
+	&__item-6
+		grid-column: 6 span
+
+	&__item-12
+		grid-column: 12 span
+
+	@media screen and (max-width: $md-max)
+	    &__item-4--md
+	        grid-column: 4 span
+	    &__item-6--md
+	        grid-column: 6 span
+
+	@media screen and (max-width: $sm-max)
+	    &__item-6--sm
+	        grid-column: 6 span
+
+	@media screen and (max-width: $xs-max)
+	    &__item-12--xs
+	        grid-column: 12 span

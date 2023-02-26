@@ -1,0 +1,254 @@
+.product
+	display: flex
+	flex-direction: column
+
+	&__tags
+	    margin-bottom: 48px
+	    @media screen and (max-width: $sm-max)
+	        margin-bottom: 24px
+
+	&__top
+	    display: flex
+	    @media screen and (max-width: $xs-max)
+	        flex-direction: column
+
+	&__left
+	    width: 560px
+	    @media screen and (max-width: $md-max)
+	        width: 500px
+	    @media screen and (max-width: $sm-max)
+	        width: 420px
+	    @media screen and (max-width: $xs-max)
+	        width: 100%
+
+	&__gallery
+		width: 100%
+		position: sticky
+		top: 212px
+		@media screen and (max-width: $sm-max)
+		    top: 102px
+		@media screen and (max-width: $xs-max)
+		    position: relative
+		    top: auto
+
+	&__slider
+		min-height: 380px
+		width: 100%
+		position: relative
+		@media screen and (max-width: $md-max)
+		    min-height: 350px
+		@media screen and (max-width: $sm-max)
+		    min-height: 300px
+		@media screen and (max-width: $xs-max)
+		    min-height: 260px
+		&-item
+			height: 380px
+			width: auto
+			background-color: #fff
+			margin-right: 24px
+			@media screen and (max-width: $md-max)
+			    height: 350px
+			@media screen and (max-width: $sm-max)
+			    height: 300px
+			@media screen and (max-width: $xs-max)
+			    height: 260px
+			    margin-right: 20px
+		&-img
+			width: auto
+			height: 100%
+			display: flex
+			justify-content: center
+			cursor: pointer
+			img
+				height: 100%
+				width: auto
+				max-width: 100%
+				max-height: 100%
+				object-fit: contain
+
+	&__thumb
+		margin-top: 20px
+		height: 50px
+		width: 100%
+		min-height: 50px
+		&-item
+			height: 50px
+			width: 50px
+			min-width: 50px
+			background-color: #fff
+			border: 1px solid #DEDEDE
+			margin-right: 12px
+			transition: border 0.7s ease-in-out
+			&:hover
+			    border-color: #af1a16
+
+	&__right
+	    width: calc(100% - 580px)
+	    margin-left: 20px
+	    display: flex
+	    flex-direction: column
+	    align-items: flex-end
+	    @media screen and (max-width: $md-max)
+	        width: calc(100% - 580px)
+	    @media screen and (max-width: $sm-max)
+	        width: calc(100% - 440px)
+	    @media screen and (max-width: $xs-max)
+	        width: 100%
+	        margin-left: 0px
+	        margin-top: 24px
+	&__header
+	    display: flex
+	    align-items: center
+	    justify-content: space-between
+	    width: 100%
+	    max-width: 620px
+	    @media screen and (max-width: $md-max)
+	        flex-direction: column
+	        align-items: flex-start
+	    @media screen and (max-width: $xs-max)
+	        max-width: 100%
+	        align-items: center
+	&__wrapper
+	    display: flex
+	    align-items: center
+	    white-space: nowrap
+	    @media screen and (max-width: $sm-max)
+	        max-width: 269px
+	    @media screen and (max-width: $xs-max)
+	        max-width: 100%
+	        justify-content: center
+	&__price
+	    font-size: 20px
+	    line-height: 24px
+	    color: #1D1A1A
+	    font-weight: 400
+	    display: flex
+	    align-items: center
+	    @media screen and (max-width: $sm-max)
+	        font-size: 15px
+	        line-height: 20px
+	    @media screen and (max-width: $xs-max)
+	        font-size: 16px
+	    span
+	        font-size: 32px
+	        font-weight: 600
+	        display: inline-block
+	        margin-right: 6px
+	        @media screen and (max-width: $sm-max)
+	            font-size: 26px
+	            line-height: 30px
+	        @media screen and (max-width: $xs-max)
+	            font-size: 28px
+	            line-height: 32px
+	&__oldprice
+	    font-size: 20px
+	    line-height: 24px
+	    color: #1D1A1A
+	    font-weight: 400
+	    margin-left: 14px
+	    text-decoration: line-through
+	    @media screen and (max-width: $sm-max)
+	        font-size: 15px
+	        line-height: 20px
+	        margin-left: 8px
+	    @media screen and (max-width: $xs-max)
+	        font-size: 16px
+	&__btn
+	    margin-left: 24px
+	    @media screen and (max-width: $md-max)
+	        margin-left: 0px
+	        margin-top: 20px
+	        width: 100%
+	    @media screen and (max-width: $sm-max)
+	        margin-top: 16px
+	&__warning
+	    margin-top: 20px
+	    width: 100%
+	    max-width: 620px
+	    padding: 10px 15px
+	    background-color: #F5F5F5
+	    color: #888888
+	    font-size: 14px
+	    line-height: 20px
+	    display: flex
+	    align-items: flex-start
+	    @media screen and (max-width: $sm-max)
+	        font-size: 13px
+	        line-height: 18px
+	    @media screen and (max-width: $xs-max)
+	        max-width: 100%
+	    svg
+	        margin-right: 6px
+	        margin-top: 2px
+	        min-width: 18px
+	&__content
+	    max-width: 620px
+	    width: 100%
+	    min-height: 230px
+	    margin-top: 32px
+	    padding: 50px
+	    background-color: #fff
+	    box-shadow: 0px 0px 20px rgba(0,0,0, 0.05)
+	    position: relative
+	    @media screen and (max-width: $sm-max)
+	        padding: 24px 16px
+	        min-height: 160px
+	    @media screen and (max-width: $xs-max)
+	        margin-top: 20px
+	&__certified
+	    max-width: 180px
+	    position: absolute
+	    top: -10px
+	    right: -10px
+	    z-index: 1
+	    @media screen and (max-width: $sm-max)
+	        max-width: 130px
+	&__garant
+	    max-width: 100px
+	    position: absolute
+	    top: 80px
+	    right: 25px
+	    z-index: 1
+	    @media screen and (max-width: $sm-max)
+	        max-width: 60px
+	        top: auto
+	        bottom: -10px
+	        right: -10px
+	&__list
+	    width: 100%
+	    display: flex
+	    flex-direction: column
+	    color: #888
+	    font-size: 14px
+	    line-height: 20px
+	    padding-right: 130px
+	    @media screen and (max-width: $sm-max)
+	        font-size: 13px
+	        line-height: 18px
+	        padding-right: 0px
+	        padding-top: 16px
+	        padding-bottom: 34px
+	    @media screen and (max-width: $xs-max)
+	        flex-direction: row
+	        flex-wrap: wrap
+	    span
+	        color: #000
+	        margin-left: 4px
+	    li + li
+	        margin-top: 8px
+	        @media screen and (max-width: $xs-max)
+	            margin-top: 0px
+	    li
+	        display: flex
+	        align-items: flex-start
+	        @media screen and (max-width: $xs-max)
+	            margin-bottom: 12px
+	            margin-right: 12px
+	            display: block
+	&__rackman
+	    max-width: 620px
+	    margin-top: 32px
+	&__services
+	    margin-top: 40px
+	    @media screen and (max-width: $sm-max)
+	        margin-top: 32px

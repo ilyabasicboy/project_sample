@@ -1,0 +1,8 @@
+{% load static %}
+{% with item.children as children %}
+    <div class="page-menu__item">
+        <a class="page-menu__link" cursor-class="link-hover" href="{{ item.url }}">
+            {{ item.caption }}
+        </a>
+    </div>
+{% endwith %}

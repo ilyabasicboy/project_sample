@@ -1,0 +1,20 @@
+{% load pagination_tags feedback_tags %}
+{% if novelties %}
+    {% autopaginate novelties 12 %}
+
+    {% for product in novelties %}
+        <div class="catalog__grid-3 catalog__grid-4--md catalog__grid-6--xs">
+            {% include 'catalog/parts/product_card.html' %}
+        </div>
+    {% endfor %}
+
+    <div class="catalog__grid-12 loader__show-more show-more-novelties">
+        <div class="loader__content loader-js">
+            <div class="loader"></div>
+        </div>
+        {% paginate using 'pagination/show_more_novelties.html' %}
+        <a class="btn btn--red" cursor-class="link-hover" href="{% url 'catalog-root' %}">
+            В каталог
+        </a>
+    </div>
+{% endif %}

@@ -1,0 +1,9 @@
+{% load base_tags %}
+{% if pages|length > 1 %}
+    {% get_custom_pagination page_obj.number pages as nav %}
+    {% if nav.next %}
+        <a class="btn btn--line-red show-more-pages__btn" cursor-class="link-hover" href="?page={{ nav.next }}">
+            Смотреть ещё
+        </a>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,16 @@
+{% if products %}
+    <div class="goods">
+        <div class="goods__slider">
+            <div class="slider goods--slider swiper-container" cursor-class="slider-hover">
+                <div class="swiper-wrapper">
+                    {% for product in products %}
+                        <div class="goods__item swiper-slide">
+                            {% include 'catalog/parts/product_card.html' %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="slider__pagination swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+{% endif %}

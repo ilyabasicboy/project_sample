@@ -1,0 +1,215 @@
+{% extends 'pages/base.html' %}
+{% load custom_pages_tags attachment_tags pages_tags base_tags %}
+
+{% block header-options %}header--dark{% endblock %}
+{% block header_bg %}{% endblock %}
+{% block breadcrumbs_section %}{% endblock %}
+{% block title_section %}{% endblock %}
+{% block page-options %}page--nopadding{% endblock %}
+
+{% block content %}
+    {% if current_page.get_children %}
+        <section class="intro">
+            <div class="intro__slider intro--slider swiper-container">
+                <div class="swiper-wrapper">
+                    {% for slide in current_page.get_children %}
+                        <div class="intro__slider-item swiper-slide {% if forloop.first %}intro__slider-item--first{% endif %}">
+                            {% get_images for slide as images %}
+                            {% if images %}
+                                <div class="intro__slider-bg" data-swiper-parallax="50%" style="background-image: url('{{ images.0.image.url }}');"></div>
+                            {% endif %}
+                            <div class="container">
+                                <div class="intro__content">
+                                    <div class="intro__content-title">
+                                        {{ slide.title }}
+                                    </div>
+                                    {% get_content slide 'subtitle' as subtitle %}
+                                    {% if subtitle %}
+                                        <div class="intro__content-subtitle">
+                                            {{ subtitle }}
+                                        </div>
+                                    {% endif %}
+                                    {% get_content slide 'text' as text %}
+                                    {% if text %}
+                                        <div class="intro__content-info">
+                                            {{ text }}
+                                        </div>
+                                    {% endif %}
+
+                                    {% get_content slide 'link' as link %}
+                                    {% if link %}
+                                        <a class="btn btn--red intro__content-btn" cursor-class="link-hover" href="{{ link }}">
+                                            Подробнее
+                                        </a>
+                                     {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="intro__pagination"></div>
+        </section>
+    {% endif %}
+
+    {% get_items_by_model_name 'advantage' ordering='order_key' num=4 as advantages %}
+    {% if advantages %}
+        <section class="section-default-md section-default--bottom content-anim content-anim--opacity">
+            <div class="container">
+                <div class="advantages">
+                    {% for advantage in advantages %}
+                        <div class="advantages__item">
+                            {% if advantage.icon %}
+                                <div class="advantages__item-icon">
+                                    <img src="{{ advantage.icon.url }}" alt="{{ advantage.title }}">
+                                </div>
+                            {% endif %}
+                            <span class="advantages__item-title">
+                                {{ advantage.title }}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if current_page.catalogitem_set.all %}
+        <section class="section-default-md section-default--bottom content-anim content-anim--bottom">
+            <div class="container">
+                <div class="division">
+                    <div class="division__grid scroll-custom-x-hidden--xs">
+                        {% for item in current_page.catalogitem_set.all %}
+                            <div class="division__item">
+                                <a class="division-card" cursor-class="link-hover" href="{{ item.get_item.get_absolute_url }}">
+                                    <div class="division-card__content">
+                                        <div class="division-card__title">
+                                            {{ item.get_item.title }}
+                                        </div>
+                                    </div>
+                                    {% get_images for item.get_item as images %}
+                                    {% if images %}
+                                        <div class="division-card-img">
+                                            <img src="{{ images.0.divisioncard.url }}" alt="{{ images.0.title|default:item.get_item.title }}" title="{{ images.0.title|default:item.get_item.title }}">
+                                        </div>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        {% endfor %}
+                        <div class="division__item">
+                            <a class="division-card" href="{% url 'catalog-root' %}">
+                                <div class="division-card__content">
+                                    <div class="division-card__title">
+                                        СМОТРЕТЬ ВЕСЬ КАТАЛОГ
+                                    </div>
+                                    <div class="link-line link-line--white division-card__link">
+                                        <span class="link-line__text">
+                                            Смотреть все
+                                        </span>
+                                        <div class="link-line__icon">
+                                            <span>
+                                                <svg width="50" height="9" viewBox="0 0 50 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M45.53 0.21934L49.28 3.96934C49.5725 4.26216 49.5725 4.73652 49.28 5.02934L45.53 8.77934C45.343 8.97999 45.0614 9.06259 44.7957 8.99473C44.53 8.92686 44.3225 8.71936 44.2546 8.45363C44.1867 8.1879 44.2693 7.90631 44.47 7.71934L46.94 5.24934H0.75C0.335786 5.24934 0 4.91355 0 4.49934C0 4.08513 0.335786 3.74934 0.75 3.74934H46.94L44.47 1.27934C44.1775 0.986522 44.1775 0.512158 44.47 0.21934C44.7628 -0.0731133 45.2372 -0.0731133 45.53 0.21934Z" fill="black"/>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% get_items_by_model_name 'product' ordering='-id' show=True as novelties %}
+    {% if novelties.exists %}
+        <section class="section-default section-default--bottom content-anim content-anim--opacity">
+            <div class="container">
+                <div class="title-content">
+                    <div class="title">
+                        Новинки каталога
+                    </div>
+                </div>
+
+                <div class="catalog__grid ajax-update">
+                    {% include 'catalog/parts/novelties_list.html' %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% placeholder work_samples with GallerySelect label 'Галерея "Примеры готовых изделий"' as work_samples %}
+    {% if work_samples %}
+        {% get_page work_samples as work_samples_gallery %}
+        {% if work_samples_gallery %}
+            <section class="section-default section-default-margin section-default-margin--bottom section-grey content-anim content-anim--opacity">
+                <div class="container">
+                    {% include 'parts/work_samples_gallery.html' with gallery=work_samples_gallery %}
+                </div>
+            </section>
+        {% endif %}
+    {% endif %}
+
+    {% placeholder factory_content label 'блок "Завод конструкций"' with TinyMCE as factory_content %}
+    {% placeholder factory_content_link label 'ссылка "Завод конструкций"' as factory_content_link %}
+    {% get_images for current_page as images %}
+    {% get_image_groups for images as image_groups %}
+    {% if factory_content %}
+        <section class="section-default section-dark section-relative section-about">
+            <div class="container">
+                <div class="about">
+                    <div class="about__content">
+                        <div class="placeholder placeholder--white">
+                            {{ factory_content|safe }}
+                        </div>
+                        {% if factory_content_link %}
+                            <a class="link-line link-line--white about__link" cursor-class="link-hover" href="{{ factory_content_link }}">
+                                <span class="link-line__text">
+                                    Узнать больше
+                                </span>
+                                <div class="link-line__icon">
+                                    <span>
+                                        <svg width="50" height="9" viewBox="0 0 50 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M45.53 0.21934L49.28 3.96934C49.5725 4.26216 49.5725 4.73652 49.28 5.02934L45.53 8.77934C45.343 8.97999 45.0614 9.06259 44.7957 8.99473C44.53 8.92686 44.3225 8.71936 44.2546 8.45363C44.1867 8.1879 44.2693 7.90631 44.47 7.71934L46.94 5.24934H0.75C0.335786 5.24934 0 4.91355 0 4.49934C0 4.08513 0.335786 3.74934 0.75 3.74934H46.94L44.47 1.27934C44.1775 0.986522 44.1775 0.512158 44.47 0.21934C44.7628 -0.0731133 45.2372 -0.0731133 45.53 0.21934Z" fill="black"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    {% with factory_bg=image_groups|key:'завод' %}
+                        {% if factory_bg %}
+                            <div class="about__preview">
+                                <div class="about__preview-big">
+                                    <div class="img-anim">
+                                        <img src="{{ factory_bg.0.image.url }}" alt="Завод противопожарных конструкций">
+                                    </div>
+                                </div>
+                                <div class="about__preview-min">
+                                    <div class="img-anim">
+                                        <img src="{{ factory_bg.1.image.url }}" alt="Завод противопожарных конструкций">
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% placeholder clients with GallerySelect label 'Клиенты и партнеры' as clients %}
+    {% if clients %}
+        {% get_page clients as clients_gallery %}
+        {% if clients_gallery %}
+            <section class="section-default content-anim content-anim--opacity">
+                <div class="container">
+                    {% include 'parts/clients_gallery.html' %}
+                </div>
+            </section>
+        {% endif %}
+    {% endif %}
+{% endblock %}

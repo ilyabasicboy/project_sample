@@ -1,0 +1,22 @@
+{% load attachment_tags pages_tags %}
+<a class="page-card" cursor-class="link-hover" href="{{ child.get_absolute_url }}">
+    {% get_images for child as images %}
+    {% if images %}
+        <div class="page-card__preview">
+            <img src="{{ images.0.pagecard.url }}" alt="{{ images.0.title|default:child.title }}" title="{{ images.0.title|default:child.title }}">
+        </div>
+    {% endif %}
+
+    <div class="page-card__content">
+        <div class="page-card__title">
+            {{ child.title }}
+        </div>
+
+        {% get_content child 'description' as description %}
+        {% if description %}
+            <div class="page-card__description">
+                {{ description }}
+            </div>
+        {% endif %}
+    </div>
+</a>
